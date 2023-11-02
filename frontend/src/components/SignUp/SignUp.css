@@ -1,0 +1,60 @@
+body {
+    margin: 0;
+}
+
+.signup {
+    height: 100vh;
+    width: 100vw;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #E0E0E0;
+    padding: 70px 0;
+}
+
+.sign-form {
+    position: relative;
+    width: 640px;
+    height: 887px;
+    border-radius: 10px;
+    background: #FFF;
+    background: color(display-p3 1 1 1);
+    padding: 60px 76px 60px 50px;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+}
+
+.form-title {
+    color: #000;
+    color: color(display-p3 0 0 0);
+    font-family: Roboto Flex;
+    font-size: 30px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: normal;
+}
+
+.reg-btn {
+    width: 203px;
+    height: 64px;
+    display: flex;
+    padding: 24px 32px;
+    justify-content: center;
+    align-items: center;
+    gap: 4px;
+    border-radius: 10px;
+    background: #99826B;
+    background: color(display-p3 0.5843 0.5137 0.4314);
+    cursor: pointer;
+    margin-top: 10px;
+    color: #FFF;
+    color: color(display-p3 1 1 1);
+    font-family: Roboto Flex;
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+    text-decoration: none;
+    box-sizing: border-box;
+}

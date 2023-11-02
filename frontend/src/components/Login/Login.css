@@ -1,0 +1,107 @@
+body {
+    margin: 0;
+}
+
+.login {
+    height: 100vh;
+    width: 100vw;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #E0E0E0;
+}
+
+.form {
+    position: relative;
+    width: 640px;
+    height: 463px;
+    border-radius: 10px;
+    background: red;
+    background: color(display-p3 1 1 1);
+    display: flex;
+    flex-direction: column;
+    padding: 60px 76px 60px 50px;
+    box-sizing: border-box;
+}
+
+.form-title {
+    color: #000;
+    color: color(display-p3 0 0 0);
+    font-family: Roboto Flex;
+    font-size: 30px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: normal;
+    margin-bottom: 15px;
+}
+
+.form-description, .form-description a {
+    color: #000;
+    color: color(display-p3 0 0 0);
+    font-family: Roboto Flex;
+    font-size: 18px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: normal;
+    text-decoration: none;
+    margin-bottom: 30px;
+}
+
+.form-description a {
+    color: color(display-p3 0.5843 0.5137 0.4314);
+}
+
+.input {
+    width: 514px;
+    height: 64px;
+    border-radius: 10px;
+    border: 1px solid #E0E0E0;
+    border: 1px solid color(display-p3 0.8792 0.8792 0.8792);
+    background: #FFF;
+    background: color(display-p3 1 1 1);
+    font-family: Roboto Flex;
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: normal;
+    padding: 22px 25px 23px 25px;
+    box-sizing: border-box;
+    margin-bottom: 20px;
+    outline: none;
+}
+
+.input:focus {
+    border: 1px solid #99826B;
+    border: 1px solid color(display-p3 0.5843 0.5137 0.4314);
+    background: #FFF;
+    background: color(display-p3 1 1 1);
+}
+
+.auth-btn {
+    width: 190px;
+    height: 64px;
+    display: flex;
+    padding: 24px 32px;
+    justify-content: center;
+    align-items: center;
+    gap: 4px;
+    border-radius: 10px;
+    background: #99826B;
+    background: color(display-p3 0.5843 0.5137 0.4314);
+    cursor: pointer;
+    color: #FFF;
+    color: color(display-p3 1 1 1);
+    font-family: Roboto Flex;
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+    text-decoration: none;
+    box-sizing: border-box;
+}
+
+.close {
+    position: absolute;
+    right: 30px;
+    top: 30px;
+}

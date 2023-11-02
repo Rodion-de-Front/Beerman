@@ -1,0 +1,54 @@
+.input-name {
+    color: #000;
+    color: color(display-p3 0 0 0);
+    font-family: Roboto Flex;
+    font-size: 18px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: normal;
+    margin-bottom: 7px;
+}
+
+.input {
+    width: 514px;
+    height: 64px;
+    border-radius: 10px;
+    border: 1px solid #E0E0E0;
+    border: 1px solid color(display-p3 0.8792 0.8792 0.8792);
+    background: #FFF;
+    background: color(display-p3 1 1 1);
+    padding: 22px 25px 23px 25px;
+    box-sizing: border-box;
+}
+
+.input:focus {
+    border: 1px solid #99826B;
+    border: 1px solid color(display-p3 0.5843 0.5137 0.4314);
+    background: #FFF;
+    background: color(display-p3 1 1 1);
+}
+
+.row {
+    display: flex;
+    gap: 20px;
+}
+
+#password {
+    width: 247px;
+    height: 64px;
+}
+
+#repeated_password {
+    width: 247px;
+    height: 64px;
+}
+
+#street {
+    width: 377px;
+    height: 64px;
+}
+
+#house {
+    width: 129px;
+    height: 64px;
+}

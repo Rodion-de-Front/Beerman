@@ -1,0 +1,116 @@
+.beer-block {
+    position: relative;
+    border-radius: 40px;
+    background: #F1F1F1;
+    background: color(display-p3 0.9451 0.9451 0.9451);
+}
+
+.beer-header {
+    position: relative;
+    display: flex;
+    padding: 52px 70px 33px;
+}
+
+.position {
+    position: absolute;
+    width: 92vw;
+    top: -22%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.title-sort {
+    display: flex;
+    gap: 59px;
+}
+
+.beer-title {
+    color: #000;
+    color: color(display-p3 0 0 0);
+    line-height: 1.2;
+    text-align: center;
+    font-family: Roboto Flex;
+    font-size: 35px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: normal;
+    text-transform: uppercase;
+}
+
+.btns {
+    display: flex;
+    gap: 8px;
+    align-items: center;
+}
+
+.all-btn {
+    display: flex;
+    padding: 12px 16px;
+    justify-content: center;
+    align-items: center;
+    gap: 4px;
+    border-radius: 10px;
+    background: #000;
+    background: color(display-p3 0 0 0);
+    color: #FFF;
+    color: color(display-p3 1 1 1);
+    font-family: Roboto Flex;
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+    cursor: pointer;
+}
+
+.type-btn {
+    display: flex;
+    padding: 12px 16px;
+    justify-content: center;
+    align-items: center;
+    gap: 4px;
+    border-radius: 10px;
+    border: 1px solid #F1F1F1;
+    border: 1px solid color(display-p3 0.9451 0.9451 0.9451);
+    background: #FFF;
+    background: color(display-p3 1 1 1);
+    color: #000;
+    color: color(display-p3 0 0 0);
+    font-family: Roboto Flex;
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+    cursor: pointer;
+}
+
+.filltes {
+    display: flex;
+    gap: 8px;
+}
+
+.fillter-btn {
+    display: flex;
+    padding: 12px 16px;
+    justify-content: center;
+    align-items: center;
+    gap: 4px;
+    border-radius: 10px;
+    background: #000;
+    background: color(display-p3 0 0 0);
+    color: #FFF;
+    color: color(display-p3 1 1 1);
+    font-family: Roboto Flex;
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+    cursor: pointer;
+}
+
+.card-container {
+    padding: 0 50px 35px 70px;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(310px, 1fr));
+    gap: 20px;
+}

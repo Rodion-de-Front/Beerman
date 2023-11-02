@@ -1,0 +1,53 @@
+.navbar {
+    display: flex;
+    height: 100px;
+    padding: 42px 70px 33px 70px;
+    justify-content: space-between;
+    align-items: center;
+    flex-shrink: 0;
+    background: #FFF;
+    background: color(display-p3 1 1 1);
+}
+
+.navbat-title {
+    color: #000;
+    color: color(display-p3 0 0 0);
+    line-height: 1.2;
+    text-align: center;
+    font-family: 'Roboto Flex', sans-serif;
+    font-size: 35px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: normal;
+    text-transform: uppercase;
+}
+
+.menu-items {
+    display: flex;
+    height: 20px;
+    justify-content: flex-end;
+    align-items: center;
+    gap: 50px;
+}
+
+.menu-item, .menu-item a {
+    color: #000;
+    color: color(display-p3 0 0 0);
+    line-height: 1.2;
+    text-align: center;
+    font-family: Roboto Flex;
+    font-size: 20px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: normal;
+    cursor: pointer;
+    text-decoration: none;
+}
+
+#active {
+    display: block;
+}
+
+#nonactive {
+    display: none;
+}
