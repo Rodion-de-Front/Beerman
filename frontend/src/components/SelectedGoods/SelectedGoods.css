@@ -1,0 +1,97 @@
+.selected-goods {
+    width: 940px;
+    height: 195px;
+    border-top: 1px solid #E0E0E0;
+    border-top: 1px solid color(display-p3 0.8792 0.8792 0.8792);
+    border-bottom: 1px solid #E0E0E0;
+    border-bottom: 1px solid color(display-p3 0.8792 0.8792 0.8792);
+    background: #FFF;
+    background: color(display-p3 1 1 1);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15.5px 22px;
+    box-sizing: border-box;
+}
+
+.goods-info {
+    display: flex;
+    align-items: center;
+    gap: 64.5px;
+}
+
+.goods-photo {
+    width: 163.5px;
+    height: 147.25px;
+    background: url('img/image_20.png'), lightgray 50% / cover no-repeat;
+    border-radius: 5px;
+}
+
+.goods-name {
+    width: 182px;
+    height: 51px;
+    color: #000;
+    color: color(display-p3 0 0 0);
+    font-family: Roboto Flex;
+    font-size: 30px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: 30px;
+}
+
+.goods-charact {
+    color: #000;
+    color: color(display-p3 0 0 0);
+    font-family: Roboto Flex;
+    font-size: 20px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 20px;
+    margin-top: 30px;
+}
+
+.goods-price {
+    color: #000;
+    color: color(display-p3 0 0 0);
+    font-family: Roboto Flex;
+    font-size: 30px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: 30px;
+    margin-bottom: 42px;
+}
+
+.goods-quantity {
+    display: flex;
+    gap: 8px;
+}
+
+.quantity-btn {
+    display: flex;
+    width: 30px;
+    height: 30px;
+    padding: 3px 8px;
+    justify-content: center;
+    align-items: center;
+    gap: 4px;
+    border-radius: 5px;
+    background: #E0E0E0;
+    background: color(display-p3 0.8792 0.8792 0.8792);
+    cursor: pointer;
+    box-sizing: border-box;
+}
+
+.quantity-number {
+    display: flex;
+    padding: 8px;
+    justify-content: center;
+    align-items: center;
+    gap: 4px;
+    color: #99826B;
+    color: color(display-p3 0.5843 0.5137 0.4314);
+    font-family: Roboto Flex;
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: normal;
+}

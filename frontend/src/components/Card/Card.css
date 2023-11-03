@@ -6,20 +6,19 @@
     background: #FFF;
     background: color(display-p3 1 1 1);
     box-sizing: border-box;
+    cursor: pointer;
 }
 
 .card-text {
     padding: 0 20px;
 }
 
-.card img {
-    border-radius: 7px 7px 0 0;
-    height: 48%;
-    width: 100%;
-    box-sizing: border-box;
+.card-photo {
+    border-radius: 5px 5px 0 0;
+    background: url("img/image_20.png"), lightgray 50%;
     background-size: cover;
-    background-repeat: no-repeat;
-    lighting-color: lightgray 50%;
+    width: 310px;
+    height: 205px;
 }
 
 .price {
@@ -58,7 +57,7 @@
     margin-bottom: 30px;
 }
 
-.btn {
+.card-btn {
     display: flex;
     padding: 12px 16px;
     justify-content: center;
