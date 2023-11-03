@@ -1,6 +1,6 @@
 import './Card.css';
 
-function Card() {
+function Card( {onShowProduct} ) {
     return (
         <div className="card">
             <div className="card-photo"></div>
@@ -8,7 +8,7 @@ function Card() {
                 <div className="price">450 ₽</div>
                 <div className="name">Delirium Red Huyghe</div>
                 <div className="description">Бельгия, 0.33 л</div>
-                <button className="card-btn">В корзину</button>
+                <button className="card-btn" onClick={onShowProduct}>В корзину</button>
             </div>
         </div>
     );

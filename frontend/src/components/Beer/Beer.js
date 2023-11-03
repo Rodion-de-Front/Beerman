@@ -5,8 +5,9 @@ import FilterBlock from '../FilterBlock/FilterBlock';
 import './Beer.css';
 import expand_more from './img/expand_more.png';
 import expand_more_2 from './img/expand_more_2.png';
+import Product from '../Product/Product';
 
-function Beer( {currentItem, showSortBlock, onShowSorts}  ) {
+function Beer( {currentItem, showSortBlock, onShowSorts, showProductBlock, onShowProduct}  ) {
     return (
         <div>
             <Navbar currentItem={currentItem} />
@@ -35,7 +36,7 @@ function Beer( {currentItem, showSortBlock, onShowSorts}  ) {
                         </div>
                     </div>
                 </div>
-                <div className="card-container"><Card /><Card /><Card /><Card /><Card /><Card /></div>
+                <div className="card-container"><Card onShowProduct= {onShowProduct} /><Card onShowProduct= {onShowProduct} /><Card onShowProduct= {onShowProduct} /><Card onShowProduct= {onShowProduct} /><Card /><Card /></div>
             </div>
 
 
@@ -57,15 +58,17 @@ function Beer( {currentItem, showSortBlock, onShowSorts}  ) {
                             ) : (
                                 <button className="togled-fillter-btn" onClick={onShowSorts}>Сорт<img src={expand_more_2}/></button>
                             )}
-                            {showSortBlock &&
+                        {showSortBlock &&
                                 <FilterBlock onShowSorts={onShowSorts}/>
                         }
                         <button className="fillter-btn">Страна<img src={expand_more}/></button>
                         </div>
                     </div>
                 </div>
-                <div className="card-container"><Card /><Card /><Card /><Card /><Card /><Card /></div>
+                <div className="card-container"><Card /><Card /><Card /><Card /><Card /><Card onShowProduct = {onShowProduct} /></div>
             </div>
+
+
         </div>
     );
 }
