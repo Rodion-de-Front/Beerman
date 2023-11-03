@@ -86,6 +86,7 @@
 
 .filltes {
     display: flex;
+    position: relative;
     gap: 8px;
 }
 
@@ -98,6 +99,25 @@
     border-radius: 10px;
     background: #000;
     background: color(display-p3 0 0 0);
+    color: #FFF;
+    color: color(display-p3 1 1 1);
+    font-family: Roboto Flex;
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+    cursor: pointer;
+}
+
+.togled-fillter-btn {
+    display: flex;
+    padding: 12px 16px;
+    justify-content: center;
+    align-items: center;
+    gap: 4px;
+    border-radius: 10px;
+    background: #99826B;
+    background: color(display-p3 0.5843 0.5137 0.4314);
     color: #FFF;
     color: color(display-p3 1 1 1);
     font-family: Roboto Flex;

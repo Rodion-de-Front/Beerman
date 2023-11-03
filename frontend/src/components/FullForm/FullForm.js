@@ -10,7 +10,7 @@ function FullForm() {
             <div className="row">
                 <div>
                     <div className="input-name">Пароль</div>
-                    <input className="input" id="password" type="password" />
+                    <input className="input" id="created_password" type="password" />
                 </div>
                 <div>
                     <div className="input-name">Повторите пароль</div>
