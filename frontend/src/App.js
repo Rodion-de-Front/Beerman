@@ -21,6 +21,9 @@ function App() {
     const [showSortBlock, setShowSortBlock] = useState(false);
 
     const toggleSortBlock = () => {
+        if (showCountryBlock) {
+            setShowCountryBlock(!showCountryBlock);
+        }
         setShowSortBlock(!showSortBlock);
     };
 
@@ -28,6 +31,9 @@ function App() {
     const [showCountryBlock, setShowCountryBlock] = useState(false);
 
     const toggleCountryBlock = () => {
+        if (showSortBlock) {
+            setShowSortBlock(!showSortBlock);
+        }
         setShowCountryBlock(!showCountryBlock);
     };
 
@@ -43,12 +49,20 @@ function App() {
           }
     };
 
+    // показ кнопок для добавления товаров
+    const [addProduct, setAddProduct] = useState(false);
+
+    const toggleAddButtons = (e) => {
+        e.stopPropagation();
+        setAddProduct(!addProduct);
+    };
+
 
     return (
         <div>
             <HashRouter>
                 <Routes>
-                    <Route path="/" element={<Beer showProductBlock={showProductBlock} onShowProduct = {toggleProductBlock} onShowCountry = {toggleCountryBlock} onShowSorts={toggleSortBlock} showSortBlock={showSortBlock} currentItem={menuItem} />} />
+                    <Route path="/" element={<Beer showAddButtons={addProduct} onShowAddButtons={toggleAddButtons} onShowProduct = {toggleProductBlock} onShowCountry = {toggleCountryBlock} showCountryBlock = {showCountryBlock} onShowSorts={toggleSortBlock} showSortBlock={showSortBlock} currentItem={menuItem} />} />
                     <Route path="/login" element={<Login onLogin={handleLogin} />} />
                     <Route path="/signup" element={<SignUp onLogin={handleLogin} />} />
                     <Route path="/profile" element={<Profile currentItem={menuItem} />} />

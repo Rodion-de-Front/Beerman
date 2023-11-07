@@ -1,11 +1,10 @@
-import './FilterBlock.css';
+import './FilterSortBlock.css';
 
-function FilterBlock( {onShowSorts} ) {
+function FilterBlock() {
     return (
-        <div className="filter-block">
+        <div className="filter-sort-block">
             <div className="filter-type">
-                <input className="checkbox" id="" type="checkbox" />
-                <span></span>
+                <input id="" className="checkbox" type="checkbox" />
                 <div class="filter-name">Светлое</div>
             </div>
             <div className="filter-type">
@@ -20,7 +19,6 @@ function FilterBlock( {onShowSorts} ) {
                 <input id="" type="checkbox" />
                 <div class="filter-name">Сидр</div>
             </div>
-            <div className="apply-btn" onClick={onShowSorts}>Применить</div>
         </div>
     );
 }

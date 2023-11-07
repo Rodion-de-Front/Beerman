@@ -1,11 +1,10 @@
 import './Product.css';
-import close from './img/Vector.png';
 
 function Product( {onShowProduct} ) {
     return (
         <div className="product">
             <div className="product-card">
-                <div className="close-product-card" onClick={onShowProduct}><img src={close} /></div>
+                <div className="close-product-card" onClick={onShowProduct}></div>
                 <div className="product-card-photo"></div>
                 <div className="product-card-text">
                     <div className="product-card-name">Delirium Red Huyghe</div>

@@ -6,8 +6,7 @@ function Navbar({ currentItem }) {
         <div className="navbar">
             <div className="navbat-title">ХМЕЛЬНАЯ ДОСТАВКА</div>
             <div className="menu-items">
-                <div className="menu-item"><NavLink exact to="/">Пиво и сидры</NavLink></div>
-                <div className="menu-item"><NavLink exact to="/">Закуски</NavLink></div>
+                <div className="menu-item"><NavLink exact to="/">Меню</NavLink></div>
                 <div className="menu-item">О доставке</div>
                 <div className="menu-item"><NavLink exact to="/cart">Корзина</NavLink></div>
                 <div id={currentItem === 'Главная' ? 'active' : 'nonactive'} className="menu-item">

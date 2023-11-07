@@ -1,13 +1,13 @@
 import Card from '../Card/Card';
 import Carusel from '../Carusel/Carusel';
 import Navbar from '../Navbar/Navbar';
-import FilterBlock from '../FilterBlock/FilterBlock';
+import FilterSortBlock from '../FilterSortBlock/FilterSortBlock';
+import FilterCountryBlock from '../FilterCountryBlock/FilterCountryBlock';
 import './Beer.css';
 import expand_more from './img/expand_more.png';
 import expand_more_2 from './img/expand_more_2.png';
-import Product from '../Product/Product';
 
-function Beer( {currentItem, showSortBlock, onShowSorts, showProductBlock, onShowProduct}  ) {
+function Beer( {currentItem, showSortBlock, onShowSorts, onShowCountry,showCountryBlock,  onShowProduct, onShowAddButtons, showAddButtons}  ) {
     return (
         <div>
             <Navbar currentItem={currentItem} />
@@ -25,18 +25,25 @@ function Beer( {currentItem, showSortBlock, onShowSorts, showProductBlock, onSho
                         </div>
                         <div className="filltes">
                         {!showSortBlock ? (
-                                <button className="fillter-btn" onClick={onShowSorts}>Сорт<img src={expand_more}/></button>
+                                <button className="fillter-btn" onClick={onShowSorts}>Сорт<img alt="" src={expand_more}/></button>
                             ) : (
-                                <button className="togled-fillter-btn" onClick={onShowSorts}>Сорт<img src={expand_more_2}/></button>
+                                <button className="togled-fillter-btn" onClick={onShowSorts}>Сорт<img alt="" src={expand_more_2}/></button>
                             )}
-                            {showSortBlock &&
-                                <FilterBlock onShowSorts={onShowSorts}/>
+                        {showSortBlock &&
+                                <FilterSortBlock/>
                         }
-                        <button className="fillter-btn">Страна<img src={expand_more}/></button>
+                        {!showCountryBlock ? (
+                                <button className="fillter-btn" onClick={onShowCountry}>Страна<img alt="" src={expand_more}/></button>
+                            ) : (
+                                <button className="togled-fillter-btn" onClick={onShowCountry}>Страна<img alt="" src={expand_more_2}/></button>
+                            )}
+                        {showCountryBlock &&
+                            <FilterCountryBlock/>
+                        }
                         </div>
                     </div>
                 </div>
-                <div className="card-container"><Card onShowProduct= {onShowProduct} /><Card onShowProduct= {onShowProduct} /><Card onShowProduct= {onShowProduct} /><Card onShowProduct= {onShowProduct} /><Card /><Card /></div>
+                <div className="card-container"><Card showAddButtons={showAddButtons} onShowAddButtons={onShowAddButtons} onShowProduct={onShowProduct} /><Card onShowProduct= {onShowProduct} /><Card onShowProduct= {onShowProduct} /><Card onShowProduct= {onShowProduct} /><Card /><Card /></div>
             </div>
 
 
@@ -52,17 +59,17 @@ function Beer( {currentItem, showSortBlock, onShowSorts, showProductBlock, onSho
                                 <button className="type-btn">Разливное</button>
                             </div>
                         </div>
-                        <div className="filltes">
+                        {/* <div className="filltes">
                         {!showSortBlock ? (
-                                <button className="fillter-btn" onClick={onShowSorts}>Сорт<img src={expand_more}/></button>
+                                <button className="fillter-btn" onClick={onShowSorts}>Сорт<img alt="" src={expand_more}/></button>
                             ) : (
-                                <button className="togled-fillter-btn" onClick={onShowSorts}>Сорт<img src={expand_more_2}/></button>
+                                <button className="togled-fillter-btn" onClick={onShowSorts}>Сорт<img alt="" src={expand_more_2}/></button>
                             )}
                         {showSortBlock &&
                                 <FilterBlock onShowSorts={onShowSorts}/>
                         }
-                        <button className="fillter-btn">Страна<img src={expand_more}/></button>
-                        </div>
+                        <button className="fillter-btn">Страна<img alt="" src={expand_more}/></button>
+                        </div> */}
                     </div>
                 </div>
                 <div className="card-container"><Card /><Card /><Card /><Card /><Card /><Card onShowProduct = {onShowProduct} /></div>
