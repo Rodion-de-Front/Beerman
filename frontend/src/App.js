@@ -57,12 +57,25 @@ function App() {
         setAddProduct(!addProduct);
     };
 
+    // параметр для открытия ссылки в без карточки
+    const handleClickLink = (e) => {
+        e.stopPropagation();
+    }
+
+  const [selectedButton, setSelectedButton] = useState(1);
+
+  const handleButtonClick = (buttonId) => {
+
+    setSelectedButton(buttonId);
+
+  }
+
 
     return (
         <div>
             <HashRouter>
                 <Routes>
-                    <Route path="/" element={<Beer showAddButtons={addProduct} onShowAddButtons={toggleAddButtons} onShowProduct = {toggleProductBlock} onShowCountry = {toggleCountryBlock} showCountryBlock = {showCountryBlock} onShowSorts={toggleSortBlock} showSortBlock={showSortBlock} currentItem={menuItem} />} />
+                    <Route path="/" element={<Beer showRecoloredButton = {selectedButton} onReColour = {handleButtonClick} onLink = {handleClickLink} showAddButtons={addProduct} onShowAddButtons={toggleAddButtons} onShowProduct = {toggleProductBlock} onShowCountry = {toggleCountryBlock} showCountryBlock = {showCountryBlock} onShowSorts={toggleSortBlock} showSortBlock={showSortBlock} currentItem={menuItem} />} />
                     <Route path="/login" element={<Login onLogin={handleLogin} />} />
                     <Route path="/signup" element={<SignUp onLogin={handleLogin} />} />
                     <Route path="/profile" element={<Profile currentItem={menuItem} />} />

@@ -6,8 +6,9 @@ import FilterCountryBlock from '../FilterCountryBlock/FilterCountryBlock';
 import './Beer.css';
 import expand_more from './img/expand_more.png';
 import expand_more_2 from './img/expand_more_2.png';
+import filter_icon from './img/Group_11.png';
 
-function Beer( {currentItem, showSortBlock, onShowSorts, onShowCountry,showCountryBlock,  onShowProduct, onShowAddButtons, showAddButtons}  ) {
+function Beer( {currentItem, showSortBlock, onShowSorts, onShowCountry,showCountryBlock,  onShowProduct, onShowAddButtons, showAddButtons, onLink, onReColour, showRecoloredButton}  ) {
     return (
         <div>
             <Navbar currentItem={currentItem} />
@@ -15,20 +16,32 @@ function Beer( {currentItem, showSortBlock, onShowSorts, onShowCountry,showCount
             <div className="beer-block">
                 <div className="beer-header">
                     <div className="position">
+
+                        {window.innerWidth < 800 ? (
+
+                            <div className="menu-header">
+                                <div className="beer-title">ПИВО И СИДРЫ</div>
+                                <button className="mobile-filter-btn"><img alt="" src={filter_icon} /></button>
+                            </div>
+                        ) : (
+
+                        <div>
+
                         <div className="title-sort">
                             <div className="beer-title">ПИВО И СИДРЫ</div>
                             <div className="btns">
-                                <button className="all-btn">Всё</button>
-                                <button className="type-btn">Бутылочное</button>
-                                <button className="type-btn">Разливное</button>
+                                <button className={showRecoloredButton === 1 ? 'selected' : 'type-btn'} onClick={() => onReColour(1)}>Всё</button>
+                                <button className={showRecoloredButton === 2 ? 'selected' : 'type-btn'} onClick={() => onReColour(2)}>Бутылочное</button>
+                                <button className={showRecoloredButton === 3 ? 'selected' : 'type-btn'} onClick={() => onReColour(3)}>Разливное</button>
                             </div>
                         </div>
+
                         <div className="filltes">
                         {!showSortBlock ? (
                                 <button className="fillter-btn" onClick={onShowSorts}>Сорт<img alt="" src={expand_more}/></button>
                             ) : (
                                 <button className="togled-fillter-btn" onClick={onShowSorts}>Сорт<img alt="" src={expand_more_2}/></button>
-                            )}
+                        )}
                         {showSortBlock &&
                                 <FilterSortBlock/>
                         }
@@ -41,9 +54,12 @@ function Beer( {currentItem, showSortBlock, onShowSorts, onShowCountry,showCount
                             <FilterCountryBlock/>
                         }
                         </div>
+
+                        </div>
+                        )}
                     </div>
                 </div>
-                <div className="card-container"><Card showAddButtons={showAddButtons} onShowAddButtons={onShowAddButtons} onShowProduct={onShowProduct} /><Card onShowProduct= {onShowProduct} /><Card onShowProduct= {onShowProduct} /><Card onShowProduct= {onShowProduct} /><Card /><Card /></div>
+                <div className="card-container"><Card onLink = {onLink} showAddButtons={showAddButtons} onShowAddButtons={onShowAddButtons} onShowProduct={onShowProduct} /><Card onShowProduct= {onShowProduct} /><Card onShowProduct= {onShowProduct} /><Card onShowProduct= {onShowProduct} /><Card /><Card /></div>
             </div>
 
 

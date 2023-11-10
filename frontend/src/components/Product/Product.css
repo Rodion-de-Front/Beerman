@@ -146,3 +146,142 @@
     line-height: normal;
     cursor: pointer;
 }
+
+@media (max-width: 800px) {
+    .product-card {
+        position: relative;
+        width: 322px;
+        height: 578px;
+        flex-direction: column;
+    }
+
+    .close-product-card {
+        display: flex;
+        width: 24px;
+        height: 24px;
+        padding: 3px 8px;
+        justify-content: center;
+        align-items: center;
+        gap: 4px;
+        flex-shrink: 0;
+        border-radius: 5px;
+        background: #FFF;
+        background: color(display-p3 1 1 1);
+        box-sizing: border-box;
+        top: 10px;
+        right: 10px;
+    }
+
+    .product-card-photo {
+        border-radius: 10px 10px 0 0;
+        width: 322px;
+        height: 240px;
+    }
+
+    .product-card-text {
+        padding-left: 20px;
+    }
+
+    .product-card-name {
+        height: 46px;
+        margin-top: 25px;
+        color: #000;
+        color: color(display-p3 0 0 0);
+        font-family: Roboto Flex;
+        font-size: 20px;
+        font-style: normal;
+        font-weight: 700;
+        line-height: normal;
+        margin-bottom: 0;
+    }
+
+    .product-card-description {
+        color: #000;
+        color: color(display-p3 0 0 0);
+        font-family: Roboto Flex;
+        font-size: 8px;
+        font-style: normal;
+        font-weight: 500;
+        margin-top: 10px;
+    }
+
+    .product-card-price {
+        position: absolute;
+        right: 20px;
+        top: 42%;
+        color: #000;
+        color: color(display-p3 0 0 0);
+        font-family: Roboto Flex;
+        font-size: 20px;
+        font-style: normal;
+        font-weight: 700;
+        line-height: normal;
+    }
+
+    .product-card-about-title {
+        color: #000;
+        color: color(display-p3 0 0 0);
+        font-family: Roboto Flex;
+        font-size: 14px;
+        font-style: normal;
+        font-weight: 700;
+        line-height: normal;
+        margin-top: 24px;
+        margin-bottom: 10px;
+    }
+
+    .product-card-about-text {
+        width: 280px;
+        color: #000;
+        color: color(display-p3 0 0 0);
+        font-family: Roboto Flex;
+        font-size: 8px;
+        font-style: normal;
+        font-weight: 500;
+        line-height: 120%;
+        margin-bottom: 20px;
+    }
+
+    .product-card-name-taste-title {
+        color: #000;
+        color: color(display-p3 0 0 0);
+        font-family: Roboto Flex;
+        font-size: 14px;
+        font-style: normal;
+        font-weight: 700;
+        line-height: normal;
+        margin-bottom: 10px;
+    }
+
+    .product-card-taste-text {
+        height: 14px;
+        color: #000;
+        color: color(display-p3 0 0 0);
+        font-family: Roboto Flex;
+        font-size: 8px;
+        font-style: normal;
+        font-weight: 500;
+        line-height: 100%;
+    }
+
+    .add-btn {
+        width: 134px;
+        height: 24px;
+        display: flex;
+        padding: 6px 41px;
+        justify-content: center;
+        align-items: center;
+        border-radius: 3px;
+        background: #99826B;
+        background: color(display-p3 0.5843 0.5137 0.4314);
+        box-sizing: border-box;
+        color: #FFF;
+        color: color(display-p3 1 1 1);
+        font-family: Roboto Flex;
+        font-size: 10px;
+        font-style: normal;
+        font-weight: 400;
+        line-height: normal;
+        margin-top: 30px;
+    }
+}

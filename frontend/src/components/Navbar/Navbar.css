@@ -9,7 +9,7 @@
     background: color(display-p3 1 1 1);
 }
 
-.navbat-title {
+.navbar-title {
     color: #000;
     color: color(display-p3 0 0 0);
     line-height: 1.2;
@@ -20,6 +20,10 @@
     font-weight: 700;
     line-height: normal;
     text-transform: uppercase;
+}
+
+span {
+    color: #99826B;
 }
 
 .menu-items {
@@ -50,4 +54,33 @@
 
 #nonactive {
     display: none;
+}
+
+.menu-btn {
+    display: flex;
+    padding: 14px 11px;
+    justify-content: center;
+    align-items: center;
+    gap: 4px;
+    border-radius: 10px;
+    border: 1px solid #F1F1F1;
+    border: 1px solid color(display-p3 0.9451 0.9451 0.9451);
+    background: #FFF;
+    background: color(display-p3 1 1 1);
+    cursor: pointer;
+}
+
+@media (max-width: 800px) {
+
+    .navbar {
+        display: inline-flex;
+        padding: 5px 20px;
+        justify-content: center;
+        align-items: center;
+        gap: 96px;
+    }
+
+    .navbar-title {
+        font-size: 16px;
+    }
 }

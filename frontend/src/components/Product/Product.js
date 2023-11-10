@@ -1,10 +1,17 @@
 import './Product.css';
+import close from './img/Vector.png';
+import mob_close from './img/Vector-2.png';
 
 function Product( {onShowProduct} ) {
     return (
         <div className="product">
             <div className="product-card">
-                <div className="close-product-card" onClick={onShowProduct}></div>
+                {window.innerWidth < 800 ? (
+                    <div className="close-product-card" onClick={onShowProduct}><img alt="" src={mob_close} /></div>
+                    ) : (
+                    <div className="close-product-card" onClick={onShowProduct}><img alt="" src={close} /></div>
+                )}
+                <div className="close-product-card" onClick={onShowProduct}><img alt="" src={close} /></div>
                 <div className="product-card-photo"></div>
                 <div className="product-card-text">
                     <div className="product-card-name">Delirium Red Huyghe</div>

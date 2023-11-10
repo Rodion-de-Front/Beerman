@@ -1,7 +1,8 @@
 import './Card.css';
 import Icon from './img/Icon_Fill.png';
+import  { NavLink } from "react-router-dom";
 
-function Card( {onShowProduct, onShowAddButtons, showAddButtons} ) {
+function Card( {onShowProduct, onShowAddButtons, showAddButtons, onLink} ) {
     return (
         <div className="card" onClick={onShowProduct}>
             <div className="card-photo"></div>
@@ -16,7 +17,7 @@ function Card( {onShowProduct, onShowAddButtons, showAddButtons} ) {
                         <button className="cart-btn">-</button>
                         <div className="added-quantity">1</div>
                         <button className="cart-btn">+</button>
-                        <button className="add-to-cart-btn"><img alt="" src={Icon}/></button>
+                        <NavLink exact to="/cart"><button className="add-to-cart-btn" onClick={onLink}><img alt="" src={Icon}/></button></NavLink>
                     </div>
                 )}
             </div>
