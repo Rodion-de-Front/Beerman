@@ -7,6 +7,7 @@
     font-weight: 500;
     line-height: normal;
     margin-bottom: 7px;
+    margin-top: 20px;
 }
 
 .input {
@@ -19,6 +20,11 @@
     background: color(display-p3 1 1 1);
     padding: 22px 25px 23px 25px;
     box-sizing: border-box;
+    font-family: Roboto Flex;
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: normal;
 }
 
 .input:focus {
@@ -46,9 +52,39 @@
 #street {
     width: 377px;
     height: 64px;
+    margin-top: 8px;
 }
 
 #house {
-    width: 129px;
+    width: 115px;
     height: 64px;
+    margin-top: 8px;
+    margin-bottom: 30px;
+}
+
+@media (max-width: 800px) {
+    .input {
+        width: 320px;
+        height: 60px;
+        margin-bottom: 8px;
+        font-size: 12px;
+    }
+
+    #created_password {
+        width: 320px;
+        height: 60px;
+        font-size: 12px;
+    }
+
+    #repeated_password {
+        width: 320px;
+        height: 60px;
+        font-size: 12px;
+    }
+
+    #house {
+        width: 80px;
+        height: 60px;
+        font-size: 12px;
+    }
 }

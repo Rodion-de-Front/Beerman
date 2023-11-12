@@ -9,23 +9,6 @@
     background: color(display-p3 1 1 1);
 }
 
-.navbar-title {
-    color: #000;
-    color: color(display-p3 0 0 0);
-    line-height: 1.2;
-    text-align: center;
-    font-family: 'Roboto Flex', sans-serif;
-    font-size: 35px;
-    font-style: normal;
-    font-weight: 700;
-    line-height: normal;
-    text-transform: uppercase;
-}
-
-span {
-    color: #99826B;
-}
-
 .menu-items {
     display: flex;
     height: 20px;
@@ -68,19 +51,30 @@ span {
     background: #FFF;
     background: color(display-p3 1 1 1);
     cursor: pointer;
+    z-index: 3;
+}
+
+.active-menu-btn {
+    display: flex;
+    padding: 14px 11px;
+    justify-content: center;
+    align-items: center;
+    gap: 4px;
+    border-radius: 10px;
+    background: #99826B;
+    background: color(display-p3 0.5843 0.5137 0.4314);
+    cursor: pointer;
+    z-index: 3;
 }
 
 @media (max-width: 800px) {
 
     .navbar {
+        position: relative;
         display: inline-flex;
         padding: 5px 20px;
         justify-content: center;
         align-items: center;
-        gap: 96px;
-    }
-
-    .navbar-title {
-        font-size: 16px;
+        gap: 178px;
     }
 }

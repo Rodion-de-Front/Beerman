@@ -62,23 +62,33 @@ function App() {
         e.stopPropagation();
     }
 
-  const [selectedButton, setSelectedButton] = useState(1);
+    // функция для филтров пива
+    const [selectedButton, setSelectedButton] = useState(1);
 
-  const handleButtonClick = (buttonId) => {
+    const handleButtonClick = (buttonId) => {
 
-    setSelectedButton(buttonId);
+        setSelectedButton(buttonId);
 
-  }
+    }
+
+    // показ блока со странами пива
+    const [showMenuBlock, setShowMenuBlock] = useState(false);
+
+    const toggleMenuBlock = () => {
+
+        setShowMenuBlock(!showMenuBlock);
+
+    };
 
 
     return (
         <div>
             <HashRouter>
                 <Routes>
-                    <Route path="/" element={<Beer showRecoloredButton = {selectedButton} onReColour = {handleButtonClick} onLink = {handleClickLink} showAddButtons={addProduct} onShowAddButtons={toggleAddButtons} onShowProduct = {toggleProductBlock} onShowCountry = {toggleCountryBlock} showCountryBlock = {showCountryBlock} onShowSorts={toggleSortBlock} showSortBlock={showSortBlock} currentItem={menuItem} />} />
-                    <Route path="/login" element={<Login onLogin={handleLogin} />} />
-                    <Route path="/signup" element={<SignUp onLogin={handleLogin} />} />
-                    <Route path="/profile" element={<Profile currentItem={menuItem} />} />
+                    <Route path="/" element={<Beer onShowMenuBlock = {toggleMenuBlock} showMenuBlock = {showMenuBlock} showRecoloredButton = {selectedButton} onReColour = {handleButtonClick} onLink = {handleClickLink} showAddButtons={addProduct} onShowAddButtons={toggleAddButtons} onShowProduct = {toggleProductBlock} onShowCountry = {toggleCountryBlock} showCountryBlock = {showCountryBlock} onShowSorts={toggleSortBlock} showSortBlock={showSortBlock} currentItem={menuItem} />} />
+                    <Route path="/login" element={<Login onShowMenuBlock = {toggleMenuBlock} showMenuBlock = {showMenuBlock} currentItem={menuItem} onLogin={handleLogin} />} />
+                    <Route path="/signup" element={<SignUp onShowMenuBlock = {toggleMenuBlock} showMenuBlock = {showMenuBlock} currentItem={menuItem} onLogin={handleLogin} />} />
+                    <Route path="/profile" element={<Profile onShowMenuBlock = {toggleMenuBlock} showMenuBlock = {showMenuBlock} currentItem={menuItem} />} />
                     <Route path="/cart" element={<Cart currentItem={menuItem} />} />
                 </Routes>
             </HashRouter>

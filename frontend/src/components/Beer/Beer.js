@@ -8,10 +8,10 @@ import expand_more from './img/expand_more.png';
 import expand_more_2 from './img/expand_more_2.png';
 import filter_icon from './img/Group_11.png';
 
-function Beer( {currentItem, showSortBlock, onShowSorts, onShowCountry,showCountryBlock,  onShowProduct, onShowAddButtons, showAddButtons, onLink, onReColour, showRecoloredButton}  ) {
+function Beer( {currentItem, showSortBlock, onShowSorts, onShowCountry,showCountryBlock,  onShowProduct, onShowAddButtons, showAddButtons, onLink, onReColour, showRecoloredButton, onShowMenuBlock, showMenuBlock}  ) {
     return (
         <div>
-            <Navbar currentItem={currentItem} />
+            <Navbar onShowMenuBlock = {onShowMenuBlock} showMenuBlock = {showMenuBlock} currentItem={currentItem} />
             <Carusel />
             <div className="beer-block">
                 <div className="beer-header">
@@ -25,7 +25,7 @@ function Beer( {currentItem, showSortBlock, onShowSorts, onShowCountry,showCount
                             </div>
                         ) : (
 
-                        <div>
+                        <div className="position">
 
                         <div className="title-sort">
                             <div className="beer-title">ПИВО И СИДРЫ</div>

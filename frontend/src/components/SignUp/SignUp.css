@@ -58,3 +58,26 @@ body {
     text-decoration: none;
     box-sizing: border-box;
 }
+
+@media (max-width: 800px) {
+    .sign-form {
+        width: 360px;
+        height: 100vh;
+        padding: 89px 20px 0 20px;
+        box-sizing: border-box;
+        background: #F1F1F1;
+        background: color(display-p3 0.9451 0.9451 0.9451);
+    }
+
+    .form-title {
+        font-size: 20px;
+    }
+
+    .reg-btn {
+        width: 320px;
+        height: 60px;
+        font-size: 14px;
+        padding: 22px 32px;
+        margin-top: 16px;
+    }
+}

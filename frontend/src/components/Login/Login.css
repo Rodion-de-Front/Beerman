@@ -16,7 +16,6 @@ body {
     width: 640px;
     height: 463px;
     border-radius: 10px;
-    background: red;
     background: color(display-p3 1 1 1);
     display: flex;
     flex-direction: column;
@@ -35,7 +34,7 @@ body {
     margin-bottom: 15px;
 }
 
-.form-description, .form-description a {
+.login-form-description, .login-form-description a {
     color: #000;
     color: color(display-p3 0 0 0);
     font-family: Roboto Flex;
@@ -47,11 +46,11 @@ body {
     margin-bottom: 30px;
 }
 
-.form-description a {
+.login-form-description a {
     color: color(display-p3 0.5843 0.5137 0.4314);
 }
 
-.input {
+.login-input {
     width: 514px;
     height: 64px;
     border-radius: 10px;
@@ -70,7 +69,7 @@ body {
     outline: none;
 }
 
-.input:focus {
+.login-input:focus {
     border: 1px solid #99826B;
     border: 1px solid color(display-p3 0.5843 0.5137 0.4314);
     background: #FFF;
@@ -104,4 +103,44 @@ body {
     position: absolute;
     right: 30px;
     top: 30px;
+}
+
+@media (max-width: 800px) {
+
+    .form {
+        width: 360px;
+        height: 100vh;
+        padding: 89px 20px 0 20px;
+        box-sizing: border-box;
+        background: #F1F1F1;
+        background: color(display-p3 0.9451 0.9451 0.9451);
+    }
+
+    .form-title {
+        font-size: 20px;
+    }
+
+    .login-form-description, .login-form-description a {
+        width: 284px;
+        height: 14px;
+        font-size: 12px;
+    }
+
+    .login-form-description a {
+        color: #95836E;
+    }
+
+    .login-input {
+        width: 320px;
+        height: 60px;
+        font-size: 12px;
+        padding: 23px 15px;
+    }
+
+    .auth-btn {
+        width: 320px;
+        height: 60px;
+        font-size: 14px;
+        padding: 22px 32px;
+    }
 }

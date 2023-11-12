@@ -1,0 +1,32 @@
+.mob-menu {
+    position: absolute;
+    top: 75%;
+    right: 6%;
+    display: flex;
+    width: 185px;
+    height: 146px;
+    padding: 16px;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 16px;
+    border-radius: 10px;
+    background: #FFF;
+    background: color(display-p3 1 1 1);
+    box-shadow: 0px 4px 12px 0px rgba(0, 0, 0, 0.12);
+    box-shadow: 0px 4px 12px 0px color(display-p3 0 0 0 / 0.12);
+    z-index: 2;
+    box-sizing: border-box;
+}
+
+.mob-menu-item a {
+    width: 92px;
+    height: 10px;
+    color: #000;
+    color: color(display-p3 0 0 0);
+    font-family: Roboto Flex;
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 100%;
+    text-decoration: none;
+}
