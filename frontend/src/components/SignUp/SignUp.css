@@ -15,7 +15,7 @@ body {
 .sign-form {
     position: relative;
     width: 640px;
-    height: 887px;
+    height: 687px;
     border-radius: 10px;
     background: #FFF;
     background: color(display-p3 1 1 1);
@@ -47,7 +47,7 @@ body {
     background: #99826B;
     background: color(display-p3 0.5843 0.5137 0.4314);
     cursor: pointer;
-    margin-top: 10px;
+    margin-top: 20px;
     color: #FFF;
     color: color(display-p3 1 1 1);
     font-family: Roboto Flex;

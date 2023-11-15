@@ -4,6 +4,7 @@ import SignUp from "./components/SignUp/SignUp";
 import Profile from "./components/Profile/Profile";
 import Product from "./components/Product/Product";
 import Cart from "./components/Cart/Cart";
+import AdressForm from "./components/AddressForm/AdressForm";
 import  { HashRouter, Routes, Route } from "react-router-dom";
 
 import { useState } from 'react';
@@ -87,7 +88,8 @@ function App() {
                 <Routes>
                     <Route path="/" element={<Beer onShowMenuBlock = {toggleMenuBlock} showMenuBlock = {showMenuBlock} showRecoloredButton = {selectedButton} onReColour = {handleButtonClick} onLink = {handleClickLink} showAddButtons={addProduct} onShowAddButtons={toggleAddButtons} onShowProduct = {toggleProductBlock} onShowCountry = {toggleCountryBlock} showCountryBlock = {showCountryBlock} onShowSorts={toggleSortBlock} showSortBlock={showSortBlock} currentItem={menuItem} />} />
                     <Route path="/login" element={<Login onShowMenuBlock = {toggleMenuBlock} showMenuBlock = {showMenuBlock} currentItem={menuItem} onLogin={handleLogin} />} />
-                    <Route path="/signup" element={<SignUp onShowMenuBlock = {toggleMenuBlock} showMenuBlock = {showMenuBlock} currentItem={menuItem} onLogin={handleLogin} />} />
+                    <Route path="/signup" element={<SignUp onShowMenuBlock = {toggleMenuBlock} showMenuBlock = {showMenuBlock} currentItem={menuItem} />} />
+                    <Route path="/address" element={<AdressForm onShowMenuBlock = {toggleMenuBlock} showMenuBlock = {showMenuBlock} currentItem={menuItem} onLogin={handleLogin}/>} />
                     <Route path="/profile" element={<Profile onShowMenuBlock = {toggleMenuBlock} showMenuBlock = {showMenuBlock} currentItem={menuItem} />} />
                     <Route path="/cart" element={<Cart currentItem={menuItem} />} />
                 </Routes>

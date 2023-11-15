@@ -4,7 +4,7 @@ import close from './img/Vector.png';
 import FullForm from '../FullForm/FullForm';
 import Navbar from '../Navbar/Navbar';
 
-function SignUp({ onLogin, currentItem, onShowMenuBlock, showMenuBlock }) {
+function SignUp({ currentItem, onShowMenuBlock, showMenuBlock }) {
     return (
         <div>
         {window.innerWidth < 800 ? (
@@ -13,7 +13,7 @@ function SignUp({ onLogin, currentItem, onShowMenuBlock, showMenuBlock }) {
                 <div className="sign-form">
                     <div className="form-title">Регистрация</div>
                     <FullForm />
-                    <NavLink exact to="/" className="reg-btn" onClick={onLogin} >Продолжить</NavLink>
+                    <NavLink exact to="/address" className="reg-btn">Продолжить</NavLink>
                 </div>
             </div>
         ):(
@@ -21,7 +21,7 @@ function SignUp({ onLogin, currentItem, onShowMenuBlock, showMenuBlock }) {
             <div className="sign-form">
                 <div className="form-title">Регистрация</div>
                 <FullForm />
-                <NavLink exact to="/" className="reg-btn" onClick={onLogin} >Продолжить</NavLink>
+                <NavLink exact to="/address" className="reg-btn">Продолжить</NavLink>
                 <div className="close"><NavLink exact to="/"><img alt ="" src={close} /></NavLink></div>
             </div>
         </div>
