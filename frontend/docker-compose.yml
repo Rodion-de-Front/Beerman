@@ -1,0 +1,11 @@
+version: "3.9"
+services:
+  web:
+    build: .
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.services.${SERVICE_NAME}.loadbalancer.server.port=80"
+      - "traefik.http.routers.${SERVICE_NAME}.tls.certresolver=le"
+      - "traefik.http.routers.${SERVICE_NAME}.rule=Host(`biermann.onixx.ru`)"
+      - "traefik.http.routers.${SERVICE_NAME}.entrypoints=websecure"
+      - "traefik.http.routers.${SERVICE_NAME}.tls=true"
