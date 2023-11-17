@@ -47,3 +47,17 @@
 .dot.active {
     background-color: #FFFFFF;
 }
+
+@media (max-width: 800px) {
+    .main-carousel {
+        padding: 0 20px 0 20px;
+    }
+
+    .carousel-container {
+        height: 100px;
+    }
+
+    .slide img {
+        height: 100px;
+    }
+}
