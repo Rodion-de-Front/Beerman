@@ -4,3 +4,4 @@ venv/
 .env
 /storage/*
 data/
+node_modules/
