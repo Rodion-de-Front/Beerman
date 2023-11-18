@@ -26,6 +26,55 @@
     margin-top: 30px;
 }
 
+.metka {
+    position: absolute;
+    z-index: 3000000;
+    width: 50px;
+    height: 50px;
+    top: 45%;
+    right: 45%;
+}
+
+.nahuy-hohlov {
+    height: 25px;
+    width: 237px;
+    position: absolute;
+    z-index: 3000000;
+    color: #FFF;
+    bottom: 0;
+    right: 0;
+    border-radius: 0 0 10px 0;
+    text-align: center;
+    background-color: #99826B;
+    font-family: Roboto Flex;
+    font-size: 14px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.leaflet-container {
+    border-radius: 10px 10px 10px 10px;
+}
+
+#profile-address {
+    width: 514px;
+    height: 64px;
+}
+
+#profile-street {
+    width: 377px;
+    height: 64px;
+    margin-top: 8px;
+}
+
+#profile-house {
+    width: 116px;
+    height: 64px;
+    margin-top: 8px;
+    margin-bottom: 3px;
+}
+
 @media (max-width: 800px) {
     .profile {
         width: 360px;
@@ -40,7 +89,7 @@
         box-sizing: border-box;
         background: #F1F1F1;
         background: color(display-p3 0.9451 0.9451 0.9451);
-        padding: 89px 20px 0 20px;
+        padding: 89px 20px 25px 20px;
     }
 
     .save-btn {

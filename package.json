@@ -1,0 +1,11 @@
+{
+  "dependencies": {
+    "@react-google-maps/api": "^2.19.2",
+    "leaflet": "^1.9.4",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "react-google-maps-api": "^1.0.8",
+    "react-leaflet-universal": "^2.2.1",
+    "react-simple-maps": "^3.0.0"
+  }
+}

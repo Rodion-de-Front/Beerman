@@ -1,5 +1,5 @@
 import Card from '../Card/Card';
-import Carusel from '../Carusel/Carusel';
+import Carusel from '../Carousel/Carousel';
 import Navbar from '../Navbar/Navbar';
 import FilterSortBlock from '../FilterSortBlock/FilterSortBlock';
 import FilterCountryBlock from '../FilterCountryBlock/FilterCountryBlock';
@@ -8,11 +8,11 @@ import expand_more from './img/expand_more.png';
 import expand_more_2 from './img/expand_more_2.png';
 import filter_icon from './img/Group_11.png';
 
-function Beer( {currentItem, showSortBlock, onShowSorts, onShowCountry,showCountryBlock,  onShowProduct, onShowAddButtons, showAddButtons, onLink, onReColour, showRecoloredButton, onShowMenuBlock, showMenuBlock}  ) {
+function Beer( {currentItem, showSortBlock, onShowSorts, onShowCountry,showCountryBlock,  onShowProduct, onShowAddButtons, showAddButtons, onLink, onReColour, showRecoloredButton, onShowMenuBlock, showMenuBlock, images}  ) {
     return (
         <div>
             <Navbar onShowMenuBlock = {onShowMenuBlock} showMenuBlock = {showMenuBlock} currentItem={currentItem} />
-            <Carusel />
+            <Carusel images={images} />
             <div className="beer-block">
                 <div className="beer-header">
                     <div className="position">
