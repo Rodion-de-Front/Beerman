@@ -1,0 +1,66 @@
+version: "3.9"
+
+name: biermann_shop
+services:
+  redis:
+    image: redislabs/redismod
+    ports:
+      - "16379:6379"
+    volumes:
+      - $PWD/data:/data
+  db:
+    image: postgres:14
+    restart: always
+    env_file:
+      - .env
+    volumes:
+      - biermann_pg_data:/var/lib/postgresql/data
+    ports:
+      - "5676:5432"
+    healthcheck:
+      test: ["CMD-SHELL", "sh -c 'pg_isready -U ${POSTGRES_USER} -d ${POSTGRES_DB}'"]
+      interval: 10s
+      timeout: 3s
+      retries: 3
+  api:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    restart: always
+    env_file:
+      - .env
+    # volumes:
+    #   - "logs:/data"
+    ports:
+      - "3231:3333"
+    depends_on:
+      - db
+      - redis
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.services.${SERVICE_NAME}.loadbalancer.server.port=3333"
+      - "traefik.http.routers.${SERVICE_NAME}.tls.certresolver=le"
+      - "traefik.http.routers.${SERVICE_NAME}.rule=Host(`biermann-api.onixx.ru`)"
+      - "traefik.http.routers.${SERVICE_NAME}.entrypoints=websecure"
+      - "traefik.http.routers.${SERVICE_NAME}.tls=true"
+  biermann-ui:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    restart: always
+    env_file:
+      - .env
+    ports:
+      - "3230:80"
+    depends_on:
+      - api
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.services.${SERVICE_NAME}.loadbalancer.server.port=80"
+      - "traefik.http.routers.${SERVICE_NAME}.tls.certresolver=le"
+      - "traefik.http.routers.${SERVICE_NAME}.rule=Host(`biermann.onixx.ru`)"
+      - "traefik.http.routers.${SERVICE_NAME}.entrypoints=websecure"
+      - "traefik.http.routers.${SERVICE_NAME}.tls=true"
+
+volumes:
+  biermann_pg_data:
