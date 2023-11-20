@@ -17,7 +17,7 @@ function Card( {onShowProduct, onShowAddButtons, showAddButtons, onLink} ) {
                         <button className="cart-btn">-</button>
                         <div className="added-quantity">1</div>
                         <button className="cart-btn">+</button>
-                        <NavLink exact to="/cart"><button className="add-to-cart-btn" onClick={onLink}><img alt="" src={Icon}/></button></NavLink>
+                        <NavLink exact="true" to="/cart"><button className="add-to-cart-btn" onClick={onLink}><img alt="" src={Icon}/></button></NavLink>
                     </div>
                 )}
             </div>

@@ -25,14 +25,14 @@ function Navbar({ currentItem, onShowMenuBlock, showMenuBlock }) {
             <div className="navbar">
                 <div className="navbar-title"><img alt="" src={Logo}/></div>
                 <div className="menu-items">
-                    <div className="menu-item"><NavLink exact to="/">Меню</NavLink></div>
-                    <div className="menu-item"><NavLink exact to="/delivery">О доставке</NavLink></div>
-                    <div className="menu-item"><NavLink exact to="/cart">Корзина</NavLink></div>
+                    <div className="menu-item"><NavLink exact="true" to="/">Меню</NavLink></div>
+                    <div className="menu-item"><NavLink exact="true" to="/delivery">О доставке</NavLink></div>
+                    <div className="menu-item"><NavLink exact="true" to="/cart">Корзина</NavLink></div>
                     <div id={currentItem === 'Главная' ? 'active' : 'nonactive'} className="menu-item">
-                        <NavLink exact to="/login">Вход</NavLink>
+                        <NavLink exact="true" to="/login">Вход</NavLink>
                     </div>
                     <div id={currentItem === 'Профиль' ? 'active' : 'nonactive'} className="menu-item">
-                        <NavLink exact to="/profile">Имя</NavLink>
+                        <NavLink exact="true" to="/profile">Имя</NavLink>
                     </div>
                 </div>
             </div>

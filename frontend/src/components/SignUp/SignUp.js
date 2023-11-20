@@ -13,7 +13,7 @@ function SignUp({ currentItem, onShowMenuBlock, showMenuBlock }) {
                 <div className="sign-form">
                     <div className="form-title">Регистрация</div>
                     <FullForm />
-                    <NavLink exact to="/address" className="reg-btn">Продолжить</NavLink>
+                    <NavLink exact="true" to="/address" className="reg-btn">Продолжить</NavLink>
                 </div>
             </div>
         ):(
@@ -21,8 +21,8 @@ function SignUp({ currentItem, onShowMenuBlock, showMenuBlock }) {
             <div className="sign-form">
                 <div className="form-title">Регистрация</div>
                 <FullForm />
-                <NavLink exact to="/address" className="reg-btn">Продолжить</NavLink>
-                <div className="close"><NavLink exact to="/"><img alt ="" src={close} /></NavLink></div>
+                <NavLink exact="true" to="/address" className="reg-btn">Продолжить</NavLink>
+                <div className="close"><NavLink exact="true" to="/"><img alt ="" src={close} /></NavLink></div>
             </div>
         </div>
         )}

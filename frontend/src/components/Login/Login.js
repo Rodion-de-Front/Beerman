@@ -12,21 +12,21 @@ function Login({ onLogin, onShowMenuBlock, showMenuBlock, currentItem }) {
                 <Navbar onShowMenuBlock = {onShowMenuBlock} showMenuBlock = {showMenuBlock} currentItem={currentItem} />
                 <div className="form">
                     <div className="form-title">Вход</div>
-                    <div className="login-form-description">Введите логин и пароль или <NavLink exact to="/signup"><span>зарегистрируйтесь</span></NavLink></div>
+                    <div className="login-form-description">Введите логин и пароль или <NavLink exact="true" to="/signup"><span>зарегистрируйтесь</span></NavLink></div>
                     <input className="login-input" id="email" type="text" placeholder="Почта"/>
                     <input className="login-input" id="password" type="password" placeholder="Пароль"/>
-                    <NavLink exact to="/" onClick={onLogin} className="auth-btn">Авторизоваться</NavLink>
+                    <NavLink exact="true" to="/" onClick={onLogin} className="auth-btn">Авторизоваться</NavLink>
                 </div>
             </div>
             ) : (
             <div className="login">
                 <div className="form">
                     <div className="form-title">Вход</div>
-                    <div className="login-form-description">Введите логин и пароль или <NavLink exact to="/signup">зарегистрируйтесь</NavLink></div>
+                    <div className="login-form-description">Введите логин и пароль или <NavLink exact="true" to="/signup">зарегистрируйтесь</NavLink></div>
                     <input className="login-input" id="email" type="text" placeholder="Почта"/>
                     <input className="login-input" id="password" type="password" placeholder="Пароль"/>
-                    <NavLink exact to="/" onClick={onLogin} className="auth-btn">Авторизоваться</NavLink>
-                    <div className="close"><NavLink exact to="/"><img alt="" src={close} /></NavLink></div>
+                    <NavLink exact="true" to="/" onClick={onLogin} className="auth-btn">Авторизоваться</NavLink>
+                    <div className="close"><NavLink exact="true" to="/"><img alt="" src={close} /></NavLink></div>
                 </div>
             </div>
         )}

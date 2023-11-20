@@ -6,7 +6,6 @@ import Product from "./components/Product/Product";
 import Cart from "./components/Cart/Cart";
 import AdressForm from "./components/AddressForm/AdressForm";
 import  { HashRouter, Routes, Route } from "react-router-dom";
-
 import { useState } from 'react';
 
 function App() {

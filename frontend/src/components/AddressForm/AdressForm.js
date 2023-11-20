@@ -1,8 +1,8 @@
 import './AdressForm.css';
-import  { NavLink } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 import close from './img/Frame_57.png';
 import Navbar from '../Navbar/Navbar';
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { MapContainer, TileLayer } from 'react-leaflet';
 import Metka from './img/metka.png';
 import 'leaflet/dist/leaflet.css'
@@ -40,8 +40,8 @@ function AdressForm( { currentItem, onShowMenuBlock, showMenuBlock, onLogin } ) 
                     <div className="adress-title">Адрес доставки</div>
                     <input className="input" id="adress" type="text" placeholder="Населенный пункт" value={"КП 'Бристоль'"} readOnly/>
                         <div className="row">
-                            <input className="input" id="street" type="text" placeholder="Улица" value={address.street}/>
-                            <input className="input" id="house" type="text" placeholder="Дом" value={address.house}/>
+                            <input className="input" id="street" type="text" placeholder="Улица" value={address.street} readOnly />
+                            <input className="input" id="house" type="text" placeholder="Дом" value={address.house} readOnly />
                         </div>
                     <div className="map">
                         <div>
@@ -60,7 +60,7 @@ function AdressForm( { currentItem, onShowMenuBlock, showMenuBlock, onLogin } ) 
                             </MapContainer>
                         </div>
                     </div>
-                    <NavLink exact to="/profile" className="reg-btn">Завершить</NavLink>
+                    <NavLink exact="true" to="/profile" className="reg-btn">Завершить</NavLink>
                 </div>
             </div>
         ):(
@@ -70,10 +70,10 @@ function AdressForm( { currentItem, onShowMenuBlock, showMenuBlock, onLogin } ) 
                         <div className="adress-title">Адрес доставки</div>
                         <input className="input" id="adress" type="text" placeholder="Населенный пункт" value={"КП 'Бристоль'"} readOnly/>
                         <div className="row">
-                            <input className="input" id="street" type="text" placeholder="Улица" value={address.street}/>
-                            <input className="input" id="house" type="text" placeholder="Дом" value={address.house}/>
+                            <input className="input" id="street" type="text" placeholder="Улица" value={address.street} readOnly/>
+                            <input className="input" id="house" type="text" placeholder="Дом" value={address.house} readOnly/>
                         </div>
-                        <NavLink exact to="/profile" className="adress-btn" onClick={onLogin}>Сохранить</NavLink>
+                        <NavLink exact="true" to="/profile" className="adress-btn" onClick={onLogin}>Сохранить</NavLink>
                     </div>
                     <div className="map">
                         <div>
@@ -92,7 +92,7 @@ function AdressForm( { currentItem, onShowMenuBlock, showMenuBlock, onLogin } ) 
                             </MapContainer>
                         </div>
                     </div>
-                    <div className="close"><NavLink exact to="/"><img alt ="" src={close} /></NavLink></div>
+                    <div className="close"><NavLink exact="true" to="/"><img alt ="" src={close} /></NavLink></div>
                 </div>
             </div>
         )}
