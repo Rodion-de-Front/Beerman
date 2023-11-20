@@ -1,7 +1,7 @@
 import FullForm from '../FullForm/FullForm';
 import Navbar from '../Navbar/Navbar';
 import React, { useState } from 'react';
-import { Map, TileLayer } from 'react-leaflet';
+import { MapContainer, TileLayer } from 'react-leaflet';
 import Metka from './img/metka.png';
 import 'leaflet/dist/leaflet.css'
 import './Profile.css';
@@ -47,7 +47,7 @@ function Profile( {currentItem, onShowMenuBlock, showMenuBlock} ) {
                         </div>
                         <div className="profile-map">
                             <div>
-                                <Map
+                                <MapContainer
                                     center={mapCenter}
                                     zoom={17}
                                     style={{ height: '500px', width: '320px' }}
@@ -59,7 +59,7 @@ function Profile( {currentItem, onShowMenuBlock, showMenuBlock} ) {
                                     />
                                     <img className="metka" src={Metka} alt="" style={{ maxWidth: '100%' }} />
                                     <div className="nahuy-hohlov">Наведите метку на свой дом</div>
-                                </Map>
+                                </MapContainer>
                             </div>
                         </div>
                         <button className="save-btn">Сохранить</button>
@@ -82,7 +82,7 @@ function Profile( {currentItem, onShowMenuBlock, showMenuBlock} ) {
                     </div>
                     <div className="profile-map">
                         <div>
-                            <Map
+                            <MapContainer
                                 center={mapCenter}
                                 zoom={17}
                                 style={{ height: '800px', width: '575px' }}
@@ -94,7 +94,7 @@ function Profile( {currentItem, onShowMenuBlock, showMenuBlock} ) {
                                 />
                                 <img className="metka" src={Metka} alt="" style={{ maxWidth: '100%' }} />
                                 <div className="nahuy-hohlov">Наведите метку на свой дом</div>
-                            </Map>
+                            </MapContainer>
                         </div>
                     </div>
                 </div>
