@@ -68,10 +68,11 @@ function AdressForm( { currentItem, onShowMenuBlock, showMenuBlock, onLogin } ) 
                 <div className="address-form">
                     <div className="address-form-inputs">
                         <div className="adress-title">Адрес доставки</div>
-                        <input className="input" id="adress" type="text" placeholder="Населенный пункт" value={"КП 'Бристоль'"} readOnly/>
+                        <div className="suka">{address.street} suka</div>
+                        <input className="input" id="adress" type="text" placeholder="Населенный пункт" value={"КП 'Бристоль'"} readOnly />
                         <div className="row">
-                            <input className="input" id="street" type="text" placeholder="Улица" value={address.street} readOnly/>
-                            <input className="input" id="house" type="text" placeholder="Дом" value={address.house} readOnly/>
+                            <input className="input" id="street" type="text" placeholder="Улица" value={address.street} onChange={() => {}} />
+                            <input className="input" id="house" type="text" placeholder="Дом" value={address.house} onChange={() => {}} />
                         </div>
                         <NavLink exact="true" to="/profile" className="adress-btn" onClick={onLogin}>Сохранить</NavLink>
                     </div>
