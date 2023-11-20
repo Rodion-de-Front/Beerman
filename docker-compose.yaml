@@ -50,8 +50,6 @@ services:
     restart: always
     env_file:
       - .env
-    ports:
-      - "3230:80"
     depends_on:
       - api
     labels:
