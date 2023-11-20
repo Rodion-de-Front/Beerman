@@ -38,11 +38,11 @@ services:
       - redis
     labels:
       - "traefik.enable=true"
-      - "traefik.http.services.${SERVICE_NAME}.loadbalancer.server.port=3333"
-      - "traefik.http.routers.${SERVICE_NAME}.tls.certresolver=le"
-      - "traefik.http.routers.${SERVICE_NAME}.rule=Host(`biermann-api.onixx.ru`)"
-      - "traefik.http.routers.${SERVICE_NAME}.entrypoints=websecure"
-      - "traefik.http.routers.${SERVICE_NAME}.tls=true"
+      - "traefik.http.services.beerman-back.loadbalancer.server.port=3333"
+      - "traefik.http.routers.beerman-back.tls.certresolver=le"
+      - "traefik.http.routers.beerman-back.rule=Host(`biermann-api.onixx.ru`)"
+      - "traefik.http.routers.beerman-back.entrypoints=websecure"
+      - "traefik.http.routers.beerman-back.tls=true"
   biermann-ui:
     build:
       context: ./frontend
@@ -54,11 +54,11 @@ services:
       - api
     labels:
       - "traefik.enable=true"
-      - "traefik.http.services.${SERVICE_NAME}.loadbalancer.server.port=80"
-      - "traefik.http.routers.${SERVICE_NAME}.tls.certresolver=le"
-      - "traefik.http.routers.${SERVICE_NAME}.rule=Host(`biermann.onixx.ru`)"
-      - "traefik.http.routers.${SERVICE_NAME}.entrypoints=websecure"
-      - "traefik.http.routers.${SERVICE_NAME}.tls=true"
+      - "traefik.http.services.beerman.loadbalancer.server.port=80"
+      - "traefik.http.routers.beerman.tls.certresolver=le"
+      - "traefik.http.routers.beerman.rule=Host(`biermann.onixx.ru`)"
+      - "traefik.http.routers.beerman.entrypoints=websecure"
+      - "traefik.http.routers.beerman.tls=true"
 
 volumes:
   biermann_pg_data:
