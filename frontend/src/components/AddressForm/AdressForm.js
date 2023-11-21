@@ -3,7 +3,7 @@ import { NavLink } from "react-router-dom";
 import close from './img/Frame_57.png';
 import Navbar from '../Navbar/Navbar';
 import { useState } from 'react';
-import { MapContainer, TileLayer } from 'react-leaflet';
+import { Map, TileLayer } from 'react-leaflet';
 import Metka from './img/metka.png';
 import 'leaflet/dist/leaflet.css'
 
@@ -45,7 +45,7 @@ function AdressForm( { currentItem, onShowMenuBlock, showMenuBlock, onLogin } ) 
                         </div>
                     <div className="map">
                         <div>
-                            <MapContainer
+                            <Map
                                 center={mapCenter}
                                 zoom={17}
                                 style={{ height: '500px', width: '320px' }}
@@ -57,7 +57,7 @@ function AdressForm( { currentItem, onShowMenuBlock, showMenuBlock, onLogin } ) 
                                 />
                                 <img className="metka" src={Metka} alt="" style={{ maxWidth: '100%' }} />
                                 <div className="nahuy-hohlov">Наведите метку на свой дом</div>
-                            </MapContainer>
+                            </Map>
                         </div>
                     </div>
                     <NavLink exact="true" to="/profile" className="reg-btn">Завершить</NavLink>
@@ -78,7 +78,7 @@ function AdressForm( { currentItem, onShowMenuBlock, showMenuBlock, onLogin } ) 
                     </div>
                     <div className="map">
                         <div>
-                            <MapContainer
+                            <Map
                                 center={mapCenter}
                                 zoom={17}
                                 style={{ height: '600px', width: '475px' }}
@@ -90,7 +90,7 @@ function AdressForm( { currentItem, onShowMenuBlock, showMenuBlock, onLogin } ) 
                                 />
                                 <img className="metka" src={Metka} alt="" style={{ maxWidth: '100%' }} />
                                 <div className="nahuy-hohlov">Наведите метку на свой дом</div>
-                            </MapContainer>
+                            </Map>
                         </div>
                     </div>
                     <div className="close"><NavLink exact="true" to="/"><img alt ="" src={close} /></NavLink></div>

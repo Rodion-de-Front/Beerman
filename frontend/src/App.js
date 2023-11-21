@@ -4,7 +4,7 @@ import SignUp from "./components/SignUp/SignUp";
 import Profile from "./components/Profile/Profile";
 import Product from "./components/Product/Product";
 import Cart from "./components/Cart/Cart";
-import AdressForm from "./components/AddressForm/AdressForm";
+import AdressForm from "./components/AdressForm/AdressForm";
 import  { HashRouter, Routes, Route } from "react-router-dom";
 import { useState } from 'react';
 
