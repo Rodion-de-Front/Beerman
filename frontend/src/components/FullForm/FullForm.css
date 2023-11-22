@@ -25,6 +25,7 @@
     font-style: normal;
     font-weight: 500;
     line-height: normal;
+    outline: none;
 }
 
 .input:focus {
@@ -47,6 +48,18 @@
 #repeated_password {
     width: 247px;
     height: 64px;
+}
+
+.mis-match {
+    margin-left: 5px;
+    margin-top: 5px;
+    color: red;
+    font-family: Roboto Flex;
+    font-size: 12px;
+}
+
+.input-mis-match {
+    border: 1px solid red;
 }
 
 @media (max-width: 800px) {

@@ -7,7 +7,7 @@ import { Map, TileLayer } from 'react-leaflet';
 import Metka from './img/metka.png';
 import 'leaflet/dist/leaflet.css'
 
-function AdressForm( { currentItem, onShowMenuBlock, showMenuBlock, onLogin } ) {
+function AdressForm( { currentItem, onShowMenuBlock, showMenuBlock, invalidAdress, final_sign_up } ) {
 
     const [mapCenter, setMapCenter] = useState([55.616981, 37.323904]);
     const [address, setAddress] = useState({ settlement: '', street: '', house: '' });
@@ -56,7 +56,14 @@ function AdressForm( { currentItem, onShowMenuBlock, showMenuBlock, onLogin } ) 
                                 url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
                                 attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
                                 />
-                                <img className="metka" src={Metka} alt="" style={{ maxWidth: '100%' }} />
+                                {invalidAdress ? (
+                                    <div className="message-container">
+                                    <p className="message-text">Cюда нельзя заказать</p>
+                                    <div className="message-triangle"></div>
+                                  </div>
+                                ):(
+                                    <img className="metka" src={Metka} alt="" style={{ maxWidth: '100%' }} />
+                                )}
                                 <div className="nahuy-hohlov">Наведите метку на свой дом</div>
                             </Map>
                         </div>
@@ -71,10 +78,11 @@ function AdressForm( { currentItem, onShowMenuBlock, showMenuBlock, onLogin } ) 
                         <div className="adress-title">Адрес доставки</div>
                         <input className="input" id="adress" type="text" placeholder="Населенный пункт" value={"КП 'Бристоль'"} readOnly />
                         <div className="row">
-                            <input className="input" id="street" type="text" placeholder="Улица" defaultValue={address.street} onChange={() => {}} />
-                            <input className="input" id="house" type="text" placeholder="Дом" defaultValue={address.house} onChange={() => {}} />
+                            <input className="input" id="street" type="text" placeholder="Улица" defaultValue={address.street}/>
+                            <input className="input" id="house" type="text" placeholder="Дом" defaultValue={address.house}/>
                         </div>
-                        <NavLink exact="true" to="/profile" className="adress-btn" onClick={onLogin}>Сохранить</NavLink>
+                        <NavLink id="final_sign_up" exact="true" to="/profile"></NavLink>
+                        <div className="adress-btn" onClick={final_sign_up}>Сохранить</div>
                     </div>
                     <div className="map">
                         <div>
@@ -88,7 +96,14 @@ function AdressForm( { currentItem, onShowMenuBlock, showMenuBlock, onLogin } ) 
                                 url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
                                 attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
                                 />
-                                <img className="metka" src={Metka} alt="" style={{ maxWidth: '100%' }} />
+                                {invalidAdress ? (
+                                    <div className="message-container">
+                                    <p className="message-text">Cюда нельзя заказать</p>
+                                    <div className="message-triangle"></div>
+                                  </div>
+                                ):(
+                                    <img className="metka" src={Metka} alt="" style={{ maxWidth: '100%' }} />
+                                )}
                                 <div className="nahuy-hohlov">Наведите метку на свой дом</div>
                             </Map>
                         </div>

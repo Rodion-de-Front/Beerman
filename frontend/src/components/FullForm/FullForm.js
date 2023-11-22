@@ -1,34 +1,63 @@
 import './FullForm.css';
 
-function FullForm() {
+function FullForm( { misMatch } ) {
     return (
         <div>
         {window.innerWidth < 800 ? (
             <div>
-                <input className="input" id="name" type="text" placeholder="Имя"/>
-                <input className="input" id="login" type="text" placeholder="Фамилия"/>
-                <input className="input" id="created_password" type="password" placeholder="Введите пароль"/>
-                <input className="input" id="repeated_password" type="password" placeholder="Подтвердить пароль"/>
-                <input className="input" id="number" type="text" placeholder="Номер телефона"/>
+            {misMatch ? (
+                <div>
+                    <input className="input" id="name" type="text" placeholder="Имя"/>
+                    <input className="input" id="login" type="text" placeholder="Фамилия"/>
+                    <input className="input input-mis-match" id="created_password" type="password" placeholder="Введите пароль"/>
+                    <input className="input input-mis-match" id="repeated_password" type="password" placeholder="Подтвердить пароль"/>
+                    <div className="mis-match">Пароли не совпадают</div>
+                    <input className="input" id="number" type="text" placeholder="Номер телефона"/>
+                </div>
+            ):(
+                <div>
+                    <input className="input" id="name" type="text" placeholder="Имя"/>
+                    <input className="input" id="login" type="text" placeholder="Фамилия"/>
+                    <input className="input" id="created_password" type="password" placeholder="Введите пароль"/>
+                    <input className="input" id="repeated_password" type="password" placeholder="Подтвердить пароль"/>
+                    <input className="input" id="number" type="text" placeholder="Номер телефона"/>
+                </div>
+            )}
             </div>
         ):(
         <div>
             <div className="input-name">Имя</div>
-            <input className="input" id="name" type="text" />
+            <input className="input" id="name" type="text" placeholder="Имя"/>
             <div className="input-name">Логин</div>
-            <input className="input" id="login" type="text" />
-            <div className="row">
-                <div>
-                    <div className="input-name">Пароль</div>
-                    <input className="input" id="created_password" type="password" />
+            <input className="input" id="login" type="text" placeholder="biermann@yandex.ru"/>
+            {misMatch ? (
+                <div className="row">
+                    <div>
+                        <div className="input-name">Пароль</div>
+                        <input className="input input-mis-match" id="created_password" type="password" placeholder="Пароль"/>
+                    </div>
+                    <div>
+                        <div className="input-name">Повторите пароль</div>
+                        <input className="input input-mis-match" id="repeated_password" type="password" placeholder="Пароль"/>
+                    </div>
                 </div>
-                <div>
-                    <div className="input-name">Повторите пароль</div>
-                    <input className="input" id="repeated_password" type="password" />
+            ):(
+                <div className="row">
+                    <div>
+                        <div className="input-name">Пароль</div>
+                        <input className="input" id="created_password" type="password" placeholder="Пароль"/>
+                    </div>
+                    <div>
+                        <div className="input-name">Повторите пароль</div>
+                        <input className="input" id="repeated_password" type="password" placeholder="Пароль"/>
+                    </div>
                 </div>
-            </div>
+            )}
+            {misMatch &&
+                <div className="mis-match">Пароли не совпадают</div>
+            }
             <div className="input-name">Номер телефона</div>
-            <input className="input" id="number" type="text" />
+            <input className="input" id="number" type="text" placeholder="+7 (111) 222-33-44"/>
         </div>
         )}
         </div>

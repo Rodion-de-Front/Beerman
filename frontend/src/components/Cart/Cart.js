@@ -11,7 +11,7 @@ function Cart( {currentItem} ) {
                 <div className="goods-container">
                     <SelectedGoods />
                 </div>
-                <div class="delivery-data">
+                <div className="delivery-data">
                     <div className="delivery-block">
                         <div className="delivery-tittle">Доставка</div>
                         <div className="delivery-adress">Москва, Ленинский проспект, д.4, кв. 610, под. 1, дмф. 1111</div>

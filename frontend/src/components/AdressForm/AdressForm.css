@@ -58,6 +58,7 @@
     line-height: normal;
     text-decoration: none;
     margin-top: 225px;
+    cursor: pointer;
 }
 
 .address-input {
@@ -144,6 +145,58 @@
     width: 100px;
     background-color: red;
     color: #000;
+}
+
+.container {
+    width: 300px;
+    height: 150px;
+    background: linear-gradient(to right, #f0f0f0 50%, #fff 50%);
+    margin: 50px auto;
+    border-radius: 10px;
+    padding: 20px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    position: absolute;
+    z-index: 3000000;
+
+}
+
+.message-container {
+    position: absolute;
+    max-width: 300px;
+    height: 10px;
+    background-color: rgb(243, 86, 86);
+    color: #fff;
+    border-radius: 10px;
+    padding: 15px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    top: 45%;
+    right: 25%;
+    z-index: 3000000;
+    box-sizing: border-box;
+  }
+
+  .message-triangle {
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    transform: translateX(-50%);
+    content: '';
+    width: 0;
+    height: 0;
+    border-left: 10px solid transparent;
+    border-right: 10px solid transparent;
+    border-top: 10px solid rgb(243, 86, 86);
+  }
+
+  .message-text {
+    font-size: 15px;
+    line-height: 1.4;
+  }
+
+.close {
+    z-index: 3000000;
 }
 
 @media (max-width: 800px) {
