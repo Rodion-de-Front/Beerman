@@ -3,7 +3,7 @@ import { NavLink } from "react-router-dom";
 import close from './img/Frame_57.png';
 import Navbar from '../Navbar/Navbar';
 import { useState } from 'react';
-import { Map, TileLayer } from 'react-leaflet';
+import { MapContainer as Map, TileLayer } from 'react-leaflet';
 import Metka from './img/metka.png';
 import 'leaflet/dist/leaflet.css'
 
