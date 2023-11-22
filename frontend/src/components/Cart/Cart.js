@@ -41,7 +41,7 @@ function Cart( {currentItem} ) {
                         <div className="delivery-tittle">Комментарий</div>
                         <textarea placeholder="Можем оставить у двери или предварительно позвонить"></textarea>
                     </div>
-                    <div class="order-btn">Заказать</div>
+                    <div className="order-btn">Заказать</div>
                 </div>
             </div>
         </div>

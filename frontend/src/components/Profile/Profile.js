@@ -1,7 +1,7 @@
 import FullForm from '../FullForm/FullForm';
 import Navbar from '../Navbar/Navbar';
 import React, { useState } from 'react';
-import { MapContainer, TileLayer } from 'react-leaflet';
+import { Map, TileLayer } from 'react-leaflet';
 import Metka from './img/metka.png';
 import 'leaflet/dist/leaflet.css'
 import './Profile.css';
@@ -28,6 +28,7 @@ function Profile( {currentItem, onShowMenuBlock, showMenuBlock} ) {
         .catch((error) => {
           console.error('Error fetching address:', error);
         });
+
     };
 
 
@@ -42,12 +43,12 @@ function Profile( {currentItem, onShowMenuBlock, showMenuBlock} ) {
                         <div className="form-title adress-title">Адрес доставки</div>
                         <input className="input" id="adress" type="text" placeholder="Населенный пункт" value={"КП 'Бристоль'"}/>
                         <div className="row">
-                            <input className="input" id="street" type="text" placeholder="Улица" value={address.street}/>
-                            <input className="input" id="house" type="text" placeholder="Дом" value={address.house}/>
+                            <input className="input" id="street" type="text" placeholder="Улица" defaultValue={address.street}/>
+                            <input className="input" id="house" type="text" placeholder="Дом" defaultValue={address.house}/>
                         </div>
                         <div className="profile-map">
                             <div>
-                                <MapContainer
+                                <Map
                                     center={mapCenter}
                                     zoom={17}
                                     style={{ height: '500px', width: '320px' }}
@@ -59,7 +60,7 @@ function Profile( {currentItem, onShowMenuBlock, showMenuBlock} ) {
                                     />
                                     <img className="metka" src={Metka} alt="" style={{ maxWidth: '100%' }} />
                                     <div className="nahuy-hohlov">Наведите метку на свой дом</div>
-                                </MapContainer>
+                                </Map>
                             </div>
                         </div>
                         <button className="save-btn">Сохранить</button>
@@ -75,14 +76,14 @@ function Profile( {currentItem, onShowMenuBlock, showMenuBlock} ) {
                         <div className="input-name">Адрес доставки</div>
                         <input className="input" id="profile-adress" type="text" placeholder="Населенный пункт" value={"КП 'Бристоль'"} readOnly/>
                         <div className="row">
-                            <input className="input" id="profile-street" type="text" placeholder="Улица" value={address.street}/>
-                            <input className="input" id="profile-house" type="text" placeholder="Дом" value={address.house}/>
+                            <input className="input" id="profile-street" type="text" placeholder="Улица" defaultValue={address.street}/>
+                            <input className="input" id="profile-house" type="text" placeholder="Дом" defaultValue={address.house}/>
                         </div>
                         <button className="save-btn">Сохранить</button>
                     </div>
                     <div className="profile-map">
                         <div>
-                            <MapContainer
+                            <Map
                                 center={mapCenter}
                                 zoom={17}
                                 style={{ height: '800px', width: '575px' }}
@@ -94,7 +95,7 @@ function Profile( {currentItem, onShowMenuBlock, showMenuBlock} ) {
                                 />
                                 <img className="metka" src={Metka} alt="" style={{ maxWidth: '100%' }} />
                                 <div className="nahuy-hohlov">Наведите метку на свой дом</div>
-                            </MapContainer>
+                            </Map>
                         </div>
                     </div>
                 </div>
