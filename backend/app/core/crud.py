@@ -32,6 +32,8 @@ def get_user(db: Session, email: Union[str, None]) -> Union[models.UserInDB, Non
 def create_user(db: Session, user: request_schemas.UserCreate) -> response_schemas.User:
     db_user = db_models.Users(
         email=user.email,
+        phone=user.phone,
+        address=user.address,
         username=user.username,
         hashed_password=get_password_hash(user.password),
     )
