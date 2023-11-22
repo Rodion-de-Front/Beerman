@@ -1,7 +1,7 @@
 # Stage 0, "build-stage", based on Node.js, to build and compile the frontend
-FROM greenaj/node-frontend:17 as build-stage
+FROM node:18-alpine as build-stage
 WORKDIR /app
-COPY package*.json /app/
+COPY package.json /app/
 RUN npm install
 COPY ./ /app/
 RUN npm run build
