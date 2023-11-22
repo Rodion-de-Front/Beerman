@@ -1,7 +1,7 @@
 import FullForm from '../FullForm/FullForm';
 import Navbar from '../Navbar/Navbar';
 import React, { useState } from 'react';
-import { Map, TileLayer } from 'react-leaflet';
+import { MapContainer as Map, TileLayer } from 'react-leaflet';
 import Metka from './img/metka.png';
 import 'leaflet/dist/leaflet.css'
 import './Profile.css';
