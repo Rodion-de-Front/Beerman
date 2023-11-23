@@ -3,7 +3,7 @@ import { NavLink } from "react-router-dom";
 import close from './img/Frame_57.png';
 import Navbar from '../Navbar/Navbar';
 import { useState } from 'react';
-import { MapContainer as Map, TileLayer } from 'react-leaflet';
+import { MapContainer, TileLayer, useMapEvents } from 'react-leaflet';
 import Metka from './img/metka.png';
 import 'leaflet/dist/leaflet.css'
 
@@ -32,6 +32,16 @@ function AdressForm( { currentItem, onShowMenuBlock, showMenuBlock, invalidAdres
 
     };
 
+    const HandlerComponent = () => {
+        // Use useLeafletContext hook to access the leaflet context
+
+        const map = useMapEvents({
+            moveend: handleMoveEnd  // This event is triggered at the end of a map movement
+          });
+
+        return null; // or your component JSX
+      };
+
     return (
         <div>
         {window.innerWidth < 800 ? (
@@ -46,7 +56,7 @@ function AdressForm( { currentItem, onShowMenuBlock, showMenuBlock, invalidAdres
                         </div>
                     <div className="map">
                         <div>
-                            <Map
+                            <MapContainer
                                 center={mapCenter}
                                 zoom={17}
                                 style={{ height: '500px', width: '320px' }}
@@ -65,7 +75,8 @@ function AdressForm( { currentItem, onShowMenuBlock, showMenuBlock, invalidAdres
                                     <img className="metka" src={Metka} alt="" style={{ maxWidth: '100%' }} />
                                 )}
                                 <div className="nahuy-hohlov">Наведите метку на свой дом</div>
-                            </Map>
+                                <HandlerComponent />
+                            </MapContainer>
                         </div>
                     </div>
                     <NavLink exact="true" to="/profile" className="reg-btn">Завершить</NavLink>
@@ -86,7 +97,7 @@ function AdressForm( { currentItem, onShowMenuBlock, showMenuBlock, invalidAdres
                     </div>
                     <div className="map">
                         <div>
-                            <Map
+                            <MapContainer
                                 center={mapCenter}
                                 zoom={17}
                                 style={{ height: '600px', width: '475px' }}
@@ -105,7 +116,8 @@ function AdressForm( { currentItem, onShowMenuBlock, showMenuBlock, invalidAdres
                                     <img className="metka" src={Metka} alt="" style={{ maxWidth: '100%' }} />
                                 )}
                                 <div className="nahuy-hohlov">Наведите метку на свой дом</div>
-                            </Map>
+                                <HandlerComponent />
+                            </MapContainer>
                         </div>
                     </div>
                     <div className="close"><NavLink exact="true" to="/"><img alt ="" src={close} /></NavLink></div>
