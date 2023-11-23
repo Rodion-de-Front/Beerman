@@ -71,6 +71,15 @@ function App() {
 
     }
 
+    // функция для филтров закусок
+    const [selectedSnackButton, setSelectedSnackButton] = useState(1);
+
+    const handleSnackButtonClick = (buttonId) => {
+
+        setSelectedSnackButton(buttonId);
+
+    }
+
     // показ блока со странами пива
     const [showMenuBlock, setShowMenuBlock] = useState(false);
 
@@ -132,9 +141,6 @@ function App() {
 
         if ((house !== "") && (street === "улица Диккенса" || street === "улица Шекспира" || street === "улица Киплинга")) {
 
-            setMenuItem('Профиль');
-            setInvalidAdress(false)
-            document.getElementById("final_sign_up").click()
             let fullAdress = street + " " + house
 
             const data = {
@@ -163,6 +169,9 @@ function App() {
                 .then(responseData => {
                     // Обработка успешного ответа
                     console.log(responseData);
+                    setMenuItem('Профиль');
+                    setInvalidAdress(false)
+                    document.getElementById("final_sign_up").click()
                 })
                 .catch(error => {
                     console.error('Ошибка:', error);
@@ -178,9 +187,6 @@ function App() {
 
         if (email !== "" && password !== "") {
 
-            setMenuItem('Профиль');
-            document.getElementById("login").click()
-
             const data = {
                 username: email,
                 password: password
@@ -188,26 +194,36 @@ function App() {
 
             console.log(data)
 
+            var formBody = [];
+            for (var property in data) {
+                var encodedKey = encodeURIComponent(property);
+                var encodedValue = encodeURIComponent(data[property]);
+                formBody.push(encodedKey + "=" + encodedValue);
+            }
+            formBody = formBody.join("&");
+
             fetch('https://biermann-api.onixx.ru/api/user/token', {
-                method: 'POST',
-                headers: {
-                'Content-Type': 'application/json',
-                },
-                body: JSON.stringify(data),
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8'
+            },
+            body: formBody
             })
-                .then(response => {
-                    if (!response.ok) {
-                      throw new Error('Ошибка при отправке запроса');
-                    }
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Ошибка при отправке запроса');
+                }
                     return response.json();
-                })
-                .then(responseData => {
-                    // Обработка успешного ответа
-                    console.log(responseData);
-                })
-                .catch(error => {
-                    console.error('Ошибка:', error);
-                });
+            })
+            .then(responseData => {
+                // Обработка успешного ответа
+                console.log(responseData);
+                setMenuItem('Профиль');
+                document.getElementById("login").click()
+            })
+            .catch(error => {
+                console.error('Ошибка:', error);
+            });
         }
 
     }
@@ -217,7 +233,7 @@ function App() {
         <div>
             <HashRouter>
                 <Routes>
-                    <Route path="/" element={<Beer images={images} onShowMenuBlock = {toggleMenuBlock} showMenuBlock = {showMenuBlock} showRecoloredButton = {selectedButton} onReColour = {handleButtonClick} onLink = {handleClickLink} showAddButtons={addProduct} onShowAddButtons={toggleAddButtons} onShowProduct = {toggleProductBlock} onShowCountry = {toggleCountryBlock} showCountryBlock = {showCountryBlock} onShowSorts={toggleSortBlock} showSortBlock={showSortBlock} currentItem={menuItem} />} />
+                    <Route path="/" element={<Beer images={images} onShowMenuBlock = {toggleMenuBlock} showMenuBlock = {showMenuBlock} showRecoloredButton = {selectedButton} onReColour = {handleButtonClick} onLink = {handleClickLink} showAddButtons={addProduct} onShowAddButtons={toggleAddButtons} onShowProduct = {toggleProductBlock} onShowCountry = {toggleCountryBlock} showCountryBlock = {showCountryBlock} onShowSorts={toggleSortBlock} showSortBlock={showSortBlock} currentItem={menuItem} onClickSnackButton = {handleSnackButtonClick} selectedSnackButton = {selectedSnackButton} />} />
                     <Route path="/login" element={<Login onShowMenuBlock = {toggleMenuBlock} showMenuBlock = {showMenuBlock} currentItem={menuItem} login={login} />} />
                     <Route path="/signup" element={<SignUp misMatch = {misMatch} sign_up_step1 = {sign_up_step1} onShowMenuBlock = {toggleMenuBlock} showMenuBlock = {showMenuBlock} currentItem={menuItem} />} />
                     <Route path="/address" element={<AdressForm invalidAdress = {invalidAdress} final_sign_up = {final_sign_up} onShowMenuBlock = {toggleMenuBlock} showMenuBlock = {showMenuBlock} currentItem={menuItem}/>} />

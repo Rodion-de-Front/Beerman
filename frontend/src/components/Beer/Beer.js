@@ -8,7 +8,7 @@ import expand_more from './img/expand_more.png';
 import expand_more_2 from './img/expand_more_2.png';
 import filter_icon from './img/Group_11.png';
 
-function Beer( {currentItem, showSortBlock, onShowSorts, onShowCountry,showCountryBlock,  onShowProduct, onShowAddButtons, showAddButtons, onLink, onReColour, showRecoloredButton, onShowMenuBlock, showMenuBlock, images}  ) {
+function Beer( {currentItem, showSortBlock, onShowSorts, onShowCountry,showCountryBlock,  onShowProduct, onShowAddButtons, showAddButtons, onLink, onReColour, showRecoloredButton, onShowMenuBlock, showMenuBlock, images, onClickSnackButton, selectedSnackButton}  ) {
     return (
         <div>
             <Navbar onShowMenuBlock = {onShowMenuBlock} showMenuBlock = {showMenuBlock} currentItem={currentItem} />
@@ -70,9 +70,10 @@ function Beer( {currentItem, showSortBlock, onShowSorts, onShowCountry,showCount
                         <div className="title-sort">
                             <div className="beer-title">Закуски</div>
                             <div className="btns">
-                                <button className="all-btn">Всё</button>
-                                <button className="type-btn">Бутылочное</button>
-                                <button className="type-btn">Разливное</button>
+                            <button className={selectedSnackButton === 1 ? 'selected' : 'type-btn'} onClick={() => onClickSnackButton(1)}>Всё</button>
+                            <button className={selectedSnackButton === 2 ? 'selected' : 'type-btn'} onClick={() => onClickSnackButton(2)}>Мясные</button>
+                            <button className={selectedSnackButton === 3 ? 'selected' : 'type-btn'} onClick={() => onClickSnackButton(3)}>Сырные</button>
+                            <button className={selectedSnackButton === 4 ? 'selected' : 'type-btn'} onClick={() => onClickSnackButton(4)}>Орешки</button>
                             </div>
                         </div>
                         {/* <div className="filltes">
