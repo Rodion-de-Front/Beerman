@@ -11,6 +11,7 @@ from app.schemas import response_schemas, request_schemas
 from app.core.dependencies import get_db
 from app.core import crud
 from app.config import settings
+from app.utils.token import get_current_active_user
 from app.utils.token import (
     authenticate_user,
     create_access_token,
@@ -70,3 +71,9 @@ async def login_for_access_token(
         data={"email": user.email}, expires_delta=access_token_expires
     )
     return {"access_token": access_token, "token_type": "bearer"}
+
+@router.get("/profile", response_model=response_schemas.User)
+async def get_user_profile(
+    current_user: response_schemas.User = Depends(get_current_active_user),
+):
+    return current_user
