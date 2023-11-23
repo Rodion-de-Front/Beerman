@@ -23,7 +23,6 @@ router = APIRouter(
 @router.get("/all", response_model=response_schemas.AllItems)
 @cache(expire=settings.CACHE_EXPIRE)
 async def get_items(
-    current_user: response_schemas.User = Depends(get_current_active_user),
     db: Session = Depends(get_db),
 ):
     """
@@ -55,7 +54,6 @@ async def create_item(
 @router.get("/get/{item_id}", response_model=response_schemas.FullItem)
 async def get_cam(
     item_id: int,
-    current_user: response_schemas.User = Depends(get_current_active_user),
     db: Session = Depends(get_db),
 ):
     """
