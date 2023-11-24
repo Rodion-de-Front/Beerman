@@ -135,6 +135,7 @@ def get_all_items(db: Session) -> Union[response_schemas.AllItems, None]:
                     db_models.Products.name.label("name"),
                     db_models.Products.price.label("price"),
                     db_models.Products.available.label("available"),
+                    db_models.Products.image.label("image")
                 ).all()
             ],
         )

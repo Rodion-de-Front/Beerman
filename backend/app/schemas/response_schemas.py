@@ -29,6 +29,7 @@ class Item(BaseModel):
     name: str
     price: int
     available: bool
+    image: str
 
 
 class FullItem(Item):
