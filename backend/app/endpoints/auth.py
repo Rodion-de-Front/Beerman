@@ -77,3 +77,14 @@ async def get_user_profile(
     current_user: response_schemas.User = Depends(get_current_active_user),
 ):
     return current_user
+
+@router.put("/update", response_model=response_schemas.User)
+async def update_user(
+    user: request_schemas.UserUpdate,
+    current_user: response_schemas.User = Depends(get_current_active_user),
+    db: Session = Depends(get_db),
+):
+    """
+    Update user profile
+    """
+    return crud.update_user(db=db, user=user, current_user=current_user)

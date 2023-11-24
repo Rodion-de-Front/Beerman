@@ -46,6 +46,38 @@ def create_user(db: Session, user: request_schemas.UserCreate) -> response_schem
     log.info(f"Created user: {db_user}")
     return db_user
 
+def user_update(db: Session,
+                user: request_schemas.UserUpdate,
+                current_user: response_schemas.User
+                ) -> Union[response_schemas.User, None]:
+    try:
+        db_user = (
+            db.query(db_models.Users)
+            .filter(
+                db_models.Users.id == current_user.id,
+            )
+            .one()
+        )
+        if user.email:
+            db_user.email = user.email
+        if user.phone:
+            db_user.phone = user.phone
+        if user.address:
+            db_user.address = user.address
+        if user.username:
+            db_user.username = user.username
+        if user.password:
+            db_user.hashed_password = get_password_hash(user.password)
+        db.commit()
+        db.refresh(db_user)
+
+        db_user = response_schemas.User.model_validate(db_user)
+
+        log.info(f"Updated user {db_user}")
+        return db_user
+
+    except NoResultFound:
+        return None
 
 def create_item(db: Session, item: request_schemas.ItemCreate) -> response_schemas.Item:
     db_item = db_models.Products(

@@ -23,7 +23,16 @@ class UserLogin(BaseModel):
     email: EmailStr
     password: str
 
+class UserUpdate(BaseModel):
+    """
+    User update schema
+    """
 
+    email: Optional[EmailStr]
+    password: Optional[str]
+    username: Optional[str]
+    phone: Optional[str]
+    address: Optional[str]
 
 class ItemCreate(BaseModel):
     """
