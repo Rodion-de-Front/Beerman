@@ -87,4 +87,4 @@ async def update_user(
     """
     Update user profile
     """
-    return crud.update_user(db=db, user=user, current_user=current_user)
+    return crud.user_update(db=db, user=user, current_user=current_user)
