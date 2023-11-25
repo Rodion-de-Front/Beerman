@@ -157,6 +157,22 @@
     cursor: pointer;
 }
 
+.active-mobile-filter-btn {
+    display: inline-flex;
+    padding: 8px 10px;
+    justify-content: center;
+    align-items: center;
+    gap: 4px;
+    border-radius: 4px;
+    border: 1px solid #F1F1F1;
+    border: 1px solid color(display-p3 0.9451 0.9451 0.9451);
+    background: #FFF;
+    background: color(display-p3 1 1 1);
+    cursor: pointer;
+    background: #99826B;
+    background: color(display-p3 0.5843 0.5137 0.4314);
+}
+
 @media (max-width: 800px) {
 
     .beer-block {
