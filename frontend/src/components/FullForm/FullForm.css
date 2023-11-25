@@ -91,4 +91,19 @@
     .row {
         gap: 8px;
     }
+
+    .input-flex {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+    }
+
+    .mis-match {
+        margin-left: 5px;
+        margin-top: 2px;
+        margin-bottom: 15px;
+        color: red;
+        font-family: Roboto Flex;
+        font-size: 12px;
+    }
 }

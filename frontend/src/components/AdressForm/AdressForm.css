@@ -201,9 +201,8 @@
 
 @media (max-width: 800px) {
     .address-form {
-        width: 360px;
-        height: 150vh;
-        padding: 89px 20px 0 20px;
+        height: 100vh;
+        width: 100vw;
         box-sizing: border-box;
         background: #F1F1F1;
         background: color(display-p3 0.9451 0.9451 0.9451);
@@ -230,6 +229,11 @@
         font-size: 12px;
     }
 
+    #adress {
+        width: 320px;
+        height: 60px;
+    }
+
     #street {
         width: 232px;
         height: 60px;
@@ -240,6 +244,10 @@
         width: 80px;
         height: 60px;
         font-size: 12px;
+    }
+
+    .row {
+        width: 320px;
     }
 
     .map {

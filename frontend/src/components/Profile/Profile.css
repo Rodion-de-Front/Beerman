@@ -75,9 +75,45 @@
     margin-bottom: 3px;
 }
 
+.row-update {
+    display: flex;
+    align-items: center;
+    gap: 24px;
+}
+
+.update-title {
+    color: #000;
+    color: color(display-p3 0 0 0);
+    font-family: Roboto Flex;
+    font-size: 18px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: normal;
+    margin-top: 30px;
+}
+
+.save-btn-update {
+    display: flex;
+    padding: 24px 32px;
+    justify-content: center;
+    align-items: center;
+    gap: 4px;
+    border-radius: 10px;
+    background: #99826B;
+    opacity: 0.5;
+    background: color(display-p3 0.5843 0.5137 0.4314);
+    color: #FFF;
+    color: color(display-p3 1 1 1);
+    font-family: Roboto Flex;
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+    margin-top: 30px;
+}
+
 @media (max-width: 800px) {
     .profile {
-        width: 360px;
         height: 150vh;
         padding: 0;
         box-sizing: border-box;
@@ -86,6 +122,10 @@
     }
 
     .profile-form {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
         box-sizing: border-box;
         background: #F1F1F1;
         background: color(display-p3 0.9451 0.9451 0.9451);
@@ -99,7 +139,24 @@
         padding: 22px 32px;
     }
 
+    .save-btn-update {
+        width: 320px;
+        height: 60px;
+        font-size: 14px;
+        padding: 22px 32px;
+    }
+
     .adress-title {
         margin-top: 32px;
+    }
+
+    #profile-street {
+        width: 232px;
+        height: 60px;
+    }
+
+    #profile-house {
+        width: 80px;
+        height: 60px;
     }
 }

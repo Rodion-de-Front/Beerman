@@ -11,7 +11,7 @@ function MobileMenu( {onShowMenuBlock, currentItem} ) {
                 <NavLink exact="true" to="/login">Вход</NavLink>
             </div>
             <div id={currentItem === 'Профиль' ? 'active' : 'nonactive'} className="mob-menu-item" onClick={onShowMenuBlock}>
-                <NavLink exact to="/profile">Личный кабинет</NavLink>
+                <NavLink exact="true" to="/profile">Личный кабинет</NavLink>
             </div>
         </div>
     );

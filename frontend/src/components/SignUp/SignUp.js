@@ -14,7 +14,9 @@ function SignUp({ currentItem, onShowMenuBlock, showMenuBlock, sign_up_step1, mi
                 <div className="sign-form">
                     <div className="form-title">Регистрация</div>
                     <FullForm misMatch = {misMatch}/>
-                    <NavLink exact="true" to="address" className="reg-btn">Продолжить</NavLink>
+                    <NavLink exact="true" to="/address" id="addressPage"></NavLink>
+                    <div className="reg-btn" onClick = {sign_up_step1}>Продолжить</div>
+                    <div className="close"><NavLink exact="true" to="/"><img alt ="" src={close} /></NavLink></div>
                 </div>
             </div>
         ):(

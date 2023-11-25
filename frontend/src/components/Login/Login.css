@@ -105,12 +105,25 @@ body {
     top: 30px;
 }
 
+.no-existe {
+    margin-left: 5px;
+    margin-top: 5px;
+    color: red;
+    font-family: Roboto Flex;
+    font-size: 12px;
+    margin-bottom: 20px;
+}
+
+.input-no-existe {
+    border: 1px solid red;
+    margin-bottom: 0;
+}
+
 @media (max-width: 800px) {
 
     .form {
-        width: 360px;
-        height: 100vh;
-        padding: 89px 20px 0 20px;
+        width: 100vw;
+        height: 90vh;
         box-sizing: border-box;
         background: #F1F1F1;
         background: color(display-p3 0.9451 0.9451 0.9451);

@@ -71,10 +71,9 @@
 
     .navbar {
         position: relative;
-        display: inline-flex;
+        display: flex;
         padding: 5px 20px;
-        justify-content: center;
+        justify-content: space-between;
         align-items: center;
-        gap: 178px;
     }
 }

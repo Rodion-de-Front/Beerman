@@ -6,9 +6,62 @@ import Product from "./components/Product/Product";
 import Cart from "./components/Cart/Cart";
 import AdressForm from "./components/AdressForm/AdressForm";
 import  { HashRouter, Routes, Route } from "react-router-dom";
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 
 function App() {
+
+    // показ в зависимости от того авторизован пользователь или нет
+    const [menuItem, setMenuItem] = useState('Главная');
+
+    useEffect(()=>{
+        if (localStorage.getItem("token") !== null) {
+            setMenuItem('Профиль');
+        } else {
+            setMenuItem('Главная');
+        }
+    }, [])
+
+    const [beforeSecondSpace, setBeforeSecondSpace] = useState('');
+    const [afterSecondSpace, setAfterSecondSpace] = useState('');
+
+    useEffect(() => {
+        fetch("https://biermann-api.onixx.ru/api/user/profile", {
+            method: "GET",
+            headers: {
+                'Authorization': 'Bearer ' + localStorage.getItem("token")
+            },
+        })
+        .then((response) => response.json())
+        .then((data) => {
+            console.log(data);
+
+            // Разделяем строку по пробелам
+            var myString = data.address;
+            var words = myString.split(' ');
+
+            // Если второго пробела нет, массив будет содержать только один элемент
+            var beforeSecondSpace = words.slice(0)[0] + " " + words.slice(0)[1]
+            setBeforeSecondSpace(beforeSecondSpace);
+
+            // Берем все элементы после второго пробела и объединяем их обратно в строку
+            var afterSecondSpace = words.slice(2).join('') || '';
+            setAfterSecondSpace(afterSecondSpace);
+
+            console.log("До второго пробела:", beforeSecondSpace);
+            console.log("После второго пробела:", afterSecondSpace);
+
+            document.getElementById("name").value = data.username
+            document.getElementById("login").value = data.email
+            document.getElementById("number").value = data.phone
+
+        })
+        .catch((error) => {
+            console.log(error);
+            localStorage.removeItem("token");
+            setMenuItem('Главная');
+        });
+    }, []);
+
 
     const images = [
         'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSyg4ujypj5_WBONKq-M64Y8hfFEqh2YCenBQ&usqp=CAU',
@@ -88,9 +141,6 @@ function App() {
         setShowMenuBlock(!showMenuBlock);
 
     };
-
-    // показ в зависимости от того авторизован пользователь или нет
-    const [menuItem, setMenuItem] = useState('Главная');
 
     let username = ""
     let email = ""
@@ -172,6 +222,7 @@ function App() {
                     setMenuItem('Профиль');
                     setInvalidAdress(false)
                     document.getElementById("final_sign_up").click()
+                    localStorage.setItem("token", responseData.access_token)
                 })
                 .catch(error => {
                     console.error('Ошибка:', error);
@@ -179,6 +230,9 @@ function App() {
         }
 
     }
+
+    // стили при несовпадении паролей
+    let [noExistence, setNoExistence] = useState(false);
 
     function login() {
 
@@ -213,31 +267,75 @@ function App() {
                 if (!response.ok) {
                     throw new Error('Ошибка при отправке запроса');
                 }
-                    return response.json();
+                return response.json();
             })
             .then(responseData => {
                 // Обработка успешного ответа
                 console.log(responseData);
+                localStorage.setItem("token", responseData.access_token)
                 setMenuItem('Профиль');
                 document.getElementById("login").click()
+                setNoExistence(false)
             })
             .catch(error => {
                 console.error('Ошибка:', error);
+                setNoExistence(true)
             });
         }
 
     }
 
+    const [update, setUpdate] = useState(false);
+
+    function updateUser() {
+
+    if (document.getElementById("created_password").value !== document.getElementById("repeated_password").value) {
+        setMisMatch(true)
+        return
+    }
+
+    let newAddress = document.getElementById("profile-street").value + " " + document.getElementById("profile-house").value
+
+    // Пример данных, которые вы хотите отправить
+    const requestData = {
+        email: document.getElementById("login").value,
+        password: document.getElementById("created_password").value,
+        username: document.getElementById("name").value,
+        phone: document.getElementById("number").value,
+        address: newAddress,
+    };
+
+    console.log(requestData)
+
+    fetch("https://biermann-api.onixx.ru/api/user/update", {
+        method: "PUT",
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': 'Bearer ' + localStorage.getItem("token"),
+        },
+        body: JSON.stringify(requestData),
+      })
+      .then((response) => response.json())
+      .then((responseData) => {
+        console.log(responseData);
+        setUpdate(true)
+      })
+      .catch((error) => {
+        console.error('Error:', error);
+        // Обработка ошибки, если необходимо
+      });
+
+    }
 
     return (
         <div>
             <HashRouter>
                 <Routes>
                     <Route path="/" element={<Beer images={images} onShowMenuBlock = {toggleMenuBlock} showMenuBlock = {showMenuBlock} showRecoloredButton = {selectedButton} onReColour = {handleButtonClick} onLink = {handleClickLink} showAddButtons={addProduct} onShowAddButtons={toggleAddButtons} onShowProduct = {toggleProductBlock} onShowCountry = {toggleCountryBlock} showCountryBlock = {showCountryBlock} onShowSorts={toggleSortBlock} showSortBlock={showSortBlock} currentItem={menuItem} onClickSnackButton = {handleSnackButtonClick} selectedSnackButton = {selectedSnackButton} />} />
-                    <Route path="/login" element={<Login onShowMenuBlock = {toggleMenuBlock} showMenuBlock = {showMenuBlock} currentItem={menuItem} login={login} />} />
+                    <Route path="/login" element={<Login noExistence = {noExistence} onShowMenuBlock = {toggleMenuBlock} showMenuBlock = {showMenuBlock} currentItem={menuItem} login={login} />} />
                     <Route path="/signup" element={<SignUp misMatch = {misMatch} sign_up_step1 = {sign_up_step1} onShowMenuBlock = {toggleMenuBlock} showMenuBlock = {showMenuBlock} currentItem={menuItem} />} />
                     <Route path="/address" element={<AdressForm invalidAdress = {invalidAdress} final_sign_up = {final_sign_up} onShowMenuBlock = {toggleMenuBlock} showMenuBlock = {showMenuBlock} currentItem={menuItem}/>} />
-                    <Route path="/profile" element={<Profile onShowMenuBlock = {toggleMenuBlock} showMenuBlock = {showMenuBlock} currentItem={menuItem} />} />
+                    <Route path="/profile" element={<Profile misMatch = {misMatch} update = {update} updateUser = {updateUser} trimedHouse = {afterSecondSpace} trimedStreet = {beforeSecondSpace}  onShowMenuBlock = {toggleMenuBlock} showMenuBlock = {showMenuBlock} currentItem={menuItem} />} />
                     <Route path="/cart" element={<Cart currentItem={menuItem} />} />
                 </Routes>
             </HashRouter>

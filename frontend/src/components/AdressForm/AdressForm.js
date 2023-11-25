@@ -79,7 +79,8 @@ function AdressForm( { currentItem, onShowMenuBlock, showMenuBlock, invalidAdres
                             </MapContainer>
                         </div>
                     </div>
-                    <NavLink exact="true" to="/profile" className="reg-btn">Завершить</NavLink>
+                    <NavLink id="final_sign_up" exact="true" to="/profile"></NavLink>
+                    <div className="adress-btn" onClick={final_sign_up}>Завершить</div>
                 </div>
             </div>
         ):(
@@ -93,7 +94,7 @@ function AdressForm( { currentItem, onShowMenuBlock, showMenuBlock, invalidAdres
                             <input className="input" id="house" type="text" placeholder="Дом" defaultValue={address.house}/>
                         </div>
                         <NavLink id="final_sign_up" exact="true" to="/profile"></NavLink>
-                        <div className="adress-btn" onClick={final_sign_up}>Сохранить</div>
+                        <div className="adress-btn" onClick={final_sign_up}>Завершить</div>
                     </div>
                     <div className="map">
                         <div>
