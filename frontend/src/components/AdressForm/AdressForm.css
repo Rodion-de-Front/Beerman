@@ -140,13 +140,6 @@
     border-radius: 0 10px 10px 0;
 }
 
-.suka {
-    height: 100px;
-    width: 100px;
-    background-color: red;
-    color: #000;
-}
-
 .container {
     width: 300px;
     height: 150px;
@@ -197,6 +190,13 @@
 
 .close {
     z-index: 3000000;
+}
+
+.already-registrated {
+    font-family: Roboto Flex;
+    font-size: 14px;
+    color: red;
+    margin-left: 5px;
 }
 
 @media (max-width: 800px) {

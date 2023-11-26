@@ -4,7 +4,9 @@ import close from './img/Vector.png';
 import FullForm from '../FullForm/FullForm';
 import Navbar from '../Navbar/Navbar';
 
-function SignUp({ currentItem, onShowMenuBlock, showMenuBlock, sign_up_step1, misMatch }) {
+function SignUp({ currentItem, onShowMenuBlock, showMenuBlock, sign_up_step1, misMatch, setAlreadyExiste }) {
+
+    setAlreadyExiste(false)
 
     return (
         <div>

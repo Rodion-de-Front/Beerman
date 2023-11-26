@@ -2,14 +2,30 @@ import './Card.css';
 import Icon from './img/Icon_Fill.png';
 import  { NavLink } from "react-router-dom";
 
-function Card( {onShowProduct, onShowAddButtons, showAddButtons, onLink} ) {
+function Card( {onShowProduct, onShowAddButtons, showAddButtons, onLink, product} ) {
+
+    console.log(product)
+    // Проверка, что product определен
+    if (!product) {
+        return <div>Product is undefined</div>;
+    }
+
+    // Деструктурирование свойств после проверки
+    const { price, name, description, image } = product;
+
+    const cardStyle = {
+        backgroundImage: `url(data:image/png;base64, ${image})`,
+        borderRadius: '5px 5px 0 0',
+        backgroundSize: 'cover',
+      };
+
     return (
-        <div className="card" onClick={onShowProduct}>
-            <div className="card-photo"></div>
+        <div  className="card" onClick={onShowProduct}>
+            <div className="card-photo" style={cardStyle}></div>
             <div className="card-text">
-                <div className="price">450 ₽</div>
-                <div className="name">Delirium Red Huyghe</div>
-                <div className="description">Бельгия, 0.33 л</div>
+                <div className="price">{price + " ₽"}</div>
+                <div className="name">{name}</div>
+                <div className="description">{description}</div>
                 {!showAddButtons ? (
                     <button className="card-btn" onClick={onShowAddButtons}>В корзину</button>
                 ) : (

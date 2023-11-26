@@ -178,6 +178,8 @@ function App() {
     // стили при несовпадении паролей
     const [invalidAdress, setInvalidAdress] = useState(false);
 
+    const [alreadyExiste, setAlreadyExiste] = useState(false);
+
     function final_sign_up() {
 
         street = document.getElementById("street").value
@@ -190,6 +192,8 @@ function App() {
         }
 
         if ((house !== "") && (street === "улица Диккенса" || street === "улица Шекспира" || street === "улица Киплинга")) {
+
+            setInvalidAdress(false)
 
             let fullAdress = street + " " + house
 
@@ -226,6 +230,7 @@ function App() {
                 })
                 .catch(error => {
                     console.error('Ошибка:', error);
+                    setAlreadyExiste(true)
                 });
         }
 
@@ -333,8 +338,8 @@ function App() {
                 <Routes>
                     <Route path="/" element={<Beer images={images} onShowMenuBlock = {toggleMenuBlock} showMenuBlock = {showMenuBlock} showRecoloredButton = {selectedButton} onReColour = {handleButtonClick} onLink = {handleClickLink} showAddButtons={addProduct} onShowAddButtons={toggleAddButtons} onShowProduct = {toggleProductBlock} onShowCountry = {toggleCountryBlock} showCountryBlock = {showCountryBlock} onShowSorts={toggleSortBlock} showSortBlock={showSortBlock} currentItem={menuItem} onClickSnackButton = {handleSnackButtonClick} selectedSnackButton = {selectedSnackButton} />} />
                     <Route path="/login" element={<Login noExistence = {noExistence} onShowMenuBlock = {toggleMenuBlock} showMenuBlock = {showMenuBlock} currentItem={menuItem} login={login} />} />
-                    <Route path="/signup" element={<SignUp misMatch = {misMatch} sign_up_step1 = {sign_up_step1} onShowMenuBlock = {toggleMenuBlock} showMenuBlock = {showMenuBlock} currentItem={menuItem} />} />
-                    <Route path="/address" element={<AdressForm invalidAdress = {invalidAdress} final_sign_up = {final_sign_up} onShowMenuBlock = {toggleMenuBlock} showMenuBlock = {showMenuBlock} currentItem={menuItem}/>} />
+                    <Route path="/signup" element={<SignUp setAlreadyExiste = {setAlreadyExiste} misMatch = {misMatch} sign_up_step1 = {sign_up_step1} onShowMenuBlock = {toggleMenuBlock} showMenuBlock = {showMenuBlock} currentItem={menuItem} />} />
+                    <Route path="/address" element={<AdressForm setInvalidAdress = {setInvalidAdress} alreadyExiste = {alreadyExiste} invalidAdress = {invalidAdress} final_sign_up = {final_sign_up} onShowMenuBlock = {toggleMenuBlock} showMenuBlock = {showMenuBlock} currentItem={menuItem}/>} />
                     <Route path="/profile" element={<Profile misMatch = {misMatch} update = {update} updateUser = {updateUser} trimedHouse = {afterSecondSpace} trimedStreet = {beforeSecondSpace}  onShowMenuBlock = {toggleMenuBlock} showMenuBlock = {showMenuBlock} currentItem={menuItem} />} />
                     <Route path="/cart" element={<Cart currentItem={menuItem} />} />
                 </Routes>

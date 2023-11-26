@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import Card from '../Card/Card';
 import Carusel from '../Carousel/Carousel';
 import Navbar from '../Navbar/Navbar';
@@ -23,6 +23,20 @@ function Beer( {currentItem, showSortBlock, onShowSorts, onShowCountry, showCoun
     function onFilterSnacks() {
         setActiveSnacksFilter(!activeSnacksFilter)
     }
+
+    const [products, setProducts] = useState([]);
+
+    useEffect(() => {
+        // Ваш запрос к серверу для получения массива данных
+        fetch('https://biermann-api.onixx.ru/api/items/all')
+          .then(response => response.json())
+          .then(data => {
+            setProducts(data.items);
+          })
+          .catch(error => console.error('Ошибка при запросе данных:', error));
+      }, []);
+
+      console.log(products)
 
     return (
         <div>
@@ -82,7 +96,11 @@ function Beer( {currentItem, showSortBlock, onShowSorts, onShowCountry, showCoun
                         )}
                     </div>
                 </div>
-                <div className="card-container"><Card onLink = {onLink} showAddButtons={showAddButtons} onShowAddButtons={onShowAddButtons} onShowProduct={onShowProduct} /><Card onShowProduct= {onShowProduct} /><Card onShowProduct= {onShowProduct} /><Card onShowProduct= {onShowProduct} /><Card /><Card /></div>
+                <div className="card-container">
+                {products.map((product) => (
+                    <Card key={product.id} product={product} onLink = {onLink} showAddButtons={showAddButtons} onShowAddButtons={onShowAddButtons} onShowProduct={onShowProduct}/>
+                ))}
+                </div>
             </div>
 
             <div className="beer-block">

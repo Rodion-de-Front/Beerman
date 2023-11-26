@@ -14,9 +14,7 @@
 }
 
 .card-photo {
-    border-radius: 5px 5px 0 0;
     background: url("img/image_20.png"), lightgray 50%;
-    background-size: cover;
     width: 310px;
     height: 205px;
 }

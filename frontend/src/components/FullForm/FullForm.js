@@ -30,9 +30,9 @@ function FullForm( { misMatch, data } ) {
         ):(
         <div>
             <div className="input-name">Имя</div>
-            <input className="input" id="name" type="text" placeholder="Имя" defaultValue={data.username}/>
+            <input className="input" id="name" type="text" placeholder="Имя"/>
             <div className="input-name">Логин</div>
-            <input className="input" id="login" type="text" placeholder="biermann@yandex.ru" defaultValue={data.email}/>
+            <input className="input" id="login" type="text" placeholder="biermann@yandex.ru"/>
             {misMatch ? (
                 <div className="row">
                     <div>
@@ -60,7 +60,7 @@ function FullForm( { misMatch, data } ) {
                 <div className="mis-match">Пароли не совпадают</div>
             }
             <div className="input-name">Номер телефона</div>
-            <input className="input" id="number" type="text" placeholder="+7 (111) 222-33-44" defaultValue={data.phone}/>
+            <input className="input" id="number" type="text" placeholder="+7 (111) 222-33-44"/>
         </div>
         )}
         </div>

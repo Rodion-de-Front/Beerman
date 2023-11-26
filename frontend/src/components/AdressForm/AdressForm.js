@@ -7,7 +7,7 @@ import { MapContainer, TileLayer, useMapEvents } from 'react-leaflet';
 import Metka from './img/metka.png';
 import 'leaflet/dist/leaflet.css'
 
-function AdressForm( { currentItem, onShowMenuBlock, showMenuBlock, invalidAdress, final_sign_up } ) {
+function AdressForm( { currentItem, onShowMenuBlock, showMenuBlock, invalidAdress, final_sign_up, alreadyExiste } ) {
 
     const [mapCenter, setMapCenter] = useState([55.616981, 37.323904]);
     const [address, setAddress] = useState({ settlement: '', street: '', house: '' });
@@ -50,10 +50,20 @@ function AdressForm( { currentItem, onShowMenuBlock, showMenuBlock, invalidAdres
                 <div className="address-form">
                     <div className="adress-title">Адрес доставки</div>
                     <input className="input" id="adress" type="text" placeholder="Населенный пункт" value={"КП 'Бристоль'"} readOnly/>
-                        <div className="row">
-                            <input className="input" id="street" type="text" placeholder="Улица" defaultValue={address.street} readOnly />
-                            <input className="input" id="house" type="text" placeholder="Дом" defaultValue={address.house} readOnly />
+                    {alreadyExiste ? (
+                        <div>
+                            <div className="row">
+                                <input className="input" id="street" type="text" placeholder="Улица" defaultValue={address.street}/>
+                                <input className="input" id="house" type="text" placeholder="Дом" defaultValue={address.house}/>
+                            </div>
+                            <div className="already-registrated">Пользватель с такой почтой уже зарегистрирован</div>
                         </div>
+                        ):(
+                        <div className="row">
+                            <input className="input" id="street" type="text" placeholder="Улица" defaultValue={address.street}/>
+                            <input className="input" id="house" type="text" placeholder="Дом" defaultValue={address.house}/>
+                        </div>
+                        )}
                     <div className="map">
                         <div>
                             <MapContainer
@@ -89,10 +99,20 @@ function AdressForm( { currentItem, onShowMenuBlock, showMenuBlock, invalidAdres
                     <div className="address-form-inputs">
                         <div className="adress-title">Адрес доставки</div>
                         <input className="input" id="adress" type="text" placeholder="Населенный пункт" value={"КП 'Бристоль'"} readOnly />
+                        {alreadyExiste ? (
+                        <div>
+                            <div className="row">
+                                <input className="input" id="street" type="text" placeholder="Улица" defaultValue={address.street}/>
+                                <input className="input" id="house" type="text" placeholder="Дом" defaultValue={address.house}/>
+                            </div>
+                            <div className="already-registrated">Пользватель с такой почтой уже зарегистрирован</div>
+                        </div>
+                        ):(
                         <div className="row">
                             <input className="input" id="street" type="text" placeholder="Улица" defaultValue={address.street}/>
                             <input className="input" id="house" type="text" placeholder="Дом" defaultValue={address.house}/>
                         </div>
+                        )}
                         <NavLink id="final_sign_up" exact="true" to="/profile"></NavLink>
                         <div className="adress-btn" onClick={final_sign_up}>Завершить</div>
                     </div>
