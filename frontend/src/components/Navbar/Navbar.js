@@ -6,7 +6,7 @@ import Logo from './img/Logo.png';
 import Mob_Logo from './img/Mob_Logo.png';
 import MobileMenu from '../MobileMenu/MobileMenu';
 
-function Navbar({ currentItem, onShowMenuBlock, showMenuBlock }) {
+function Navbar({ currentItem, onShowMenuBlock, showMenuBlock, profileName}) {
     return (
         <div>
         {window.innerWidth < 800 ? (
@@ -18,7 +18,7 @@ function Navbar({ currentItem, onShowMenuBlock, showMenuBlock }) {
                         <button className="active-menu-btn" onClick={onShowMenuBlock}><img alt="" src={Icon2} /></button>
                     )}
                     {showMenuBlock &&
-                        <MobileMenu currentItem = {currentItem} onShowMenuBlock={onShowMenuBlock}/>
+                        <MobileMenu profileName = {profileName} currentItem = {currentItem} onShowMenuBlock={onShowMenuBlock}/>
                     }
                 </div>
         ) : (
@@ -32,7 +32,7 @@ function Navbar({ currentItem, onShowMenuBlock, showMenuBlock }) {
                         <NavLink exact="true" to="/login">Вход</NavLink>
                     </div>
                     <div id={currentItem === 'Профиль' ? 'active' : 'nonactive'} className="menu-item">
-                        <NavLink exact="true" to="/profile">Имя</NavLink>
+                        <NavLink id="nav_name" exact="true" to="/profile">{profileName}</NavLink>
                     </div>
                 </div>
             </div>

@@ -6,7 +6,7 @@ import Metka from './img/metka.png';
 import 'leaflet/dist/leaflet.css'
 import './Profile.css';
 
-function Profile( {currentItem, onShowMenuBlock, showMenuBlock, trimedStreet, trimedHouse, updateUser, update, misMatch} ) {
+function Profile( {currentItem, onShowMenuBlock, showMenuBlock, trimedStreet, trimedHouse, updateUser, update, misMatch, profileName} ) {
 
     const [data, setData] = useState([])
 
@@ -104,7 +104,7 @@ function Profile( {currentItem, onShowMenuBlock, showMenuBlock, trimedStreet, tr
         <div>
         {window.innerWidth < 800 ? (
             <div className="profile">
-                <Navbar onShowMenuBlock = {onShowMenuBlock} showMenuBlock = {showMenuBlock} currentItem={currentItem} />
+                <Navbar profileName = {profileName} onShowMenuBlock = {onShowMenuBlock} showMenuBlock = {showMenuBlock} currentItem={currentItem} />
                     <div className="profile-form" onChange={formChange}>
                         <div className="form-title">Личный кабинет</div>
                         <FullForm misMatch = {misMatch} data = {data} />
@@ -148,7 +148,7 @@ function Profile( {currentItem, onShowMenuBlock, showMenuBlock, trimedStreet, tr
             </div>
         ):(
             <div className="profile">
-                <Navbar currentItem={currentItem} />
+                <Navbar profileName = {profileName} currentItem={currentItem} />
                 <div className="profile-elements">
                     <div className="profile-form" onChange={formChange}>
                         <div className="form-title">Профиль</div>

@@ -4,14 +4,13 @@ import  { NavLink } from "react-router-dom";
 
 function Card( {onShowProduct, onShowAddButtons, showAddButtons, onLink, product} ) {
 
-    console.log(product)
     // Проверка, что product определен
     if (!product) {
         return <div>Product is undefined</div>;
     }
 
     // Деструктурирование свойств после проверки
-    const { price, name, description, image } = product;
+    const { id, price, name, description, image } = product;
 
     const cardStyle = {
         backgroundImage: `url(data:image/png;base64, ${image})`,
@@ -20,7 +19,7 @@ function Card( {onShowProduct, onShowAddButtons, showAddButtons, onLink, product
       };
 
     return (
-        <div  className="card" onClick={onShowProduct}>
+        <div id={id} className="card" onClick={onShowProduct}>
             <div className="card-photo" style={cardStyle}></div>
             <div className="card-text">
                 <div className="price">{price + " ₽"}</div>

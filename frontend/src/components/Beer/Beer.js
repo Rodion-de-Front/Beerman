@@ -10,7 +10,7 @@ import expand_more_2 from './img/expand_more_2.png';
 import filter_icon from './img/Group_11.png';
 import filter_active_icon from './img/active_fiter.png';
 
-function Beer( {currentItem, showSortBlock, onShowSorts, onShowCountry, showCountryBlock,  onShowProduct, onShowAddButtons, showAddButtons, onLink, onReColour, showRecoloredButton, onShowMenuBlock, showMenuBlock, images, onClickSnackButton, selectedSnackButton}  ) {
+function Beer( {currentItem, showSortBlock, onShowSorts, onShowCountry, showCountryBlock,  onShowProduct, onShowAddButtons, showAddButtons, onLink, onReColour, showRecoloredButton, onShowMenuBlock, showMenuBlock, images, onClickSnackButton, selectedSnackButton, profileName}  ) {
 
     const[activeBeerFilter, setActiveBeerFilter] = useState(false)
 
@@ -40,7 +40,7 @@ function Beer( {currentItem, showSortBlock, onShowSorts, onShowCountry, showCoun
 
     return (
         <div>
-            <Navbar onShowMenuBlock = {onShowMenuBlock} showMenuBlock = {showMenuBlock} currentItem={currentItem} />
+            <Navbar onShowMenuBlock = {onShowMenuBlock} showMenuBlock = {showMenuBlock} currentItem={currentItem} profileName={profileName} />
             <Carusel images={images} />
             <div className="beer-block">
                 <div className="beer-header">
@@ -125,6 +125,7 @@ function Beer( {currentItem, showSortBlock, onShowSorts, onShowCountry, showCoun
                                     <button className={selectedSnackButton === 1 ? 'selected' : 'type-btn'} onClick={() => onClickSnackButton(1)}>Всё</button>
                                     <button className={selectedSnackButton === 2 ? 'selected' : 'type-btn'} onClick={() => onClickSnackButton(2)}>Мясные</button>
                                     <button className={selectedSnackButton === 3 ? 'selected' : 'type-btn'} onClick={() => onClickSnackButton(3)}>Сырные</button>
+                                    <button className={selectedSnackButton === 4 ? 'selected' : 'type-btn'} onClick={() => onClickSnackButton(4)}>Рыбные</button>
                                     <button className={selectedSnackButton === 4 ? 'selected' : 'type-btn'} onClick={() => onClickSnackButton(4)}>Орешки</button>
                                 </div>
                             </div>

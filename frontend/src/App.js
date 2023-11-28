@@ -23,6 +23,7 @@ function App() {
 
     const [beforeSecondSpace, setBeforeSecondSpace] = useState('');
     const [afterSecondSpace, setAfterSecondSpace] = useState('');
+    const [profileName, setProfileName] = useState('');
 
     useEffect(() => {
         fetch("https://biermann-api.onixx.ru/api/user/profile", {
@@ -50,9 +51,7 @@ function App() {
             console.log("До второго пробела:", beforeSecondSpace);
             console.log("После второго пробела:", afterSecondSpace);
 
-            document.getElementById("name").value = data.username
-            document.getElementById("login").value = data.email
-            document.getElementById("number").value = data.phone
+            setProfileName(data.username)
 
         })
         .catch((error) => {
@@ -281,6 +280,7 @@ function App() {
                 setMenuItem('Профиль');
                 document.getElementById("login").click()
                 setNoExistence(false)
+                window.location.reload()
             })
             .catch(error => {
                 console.error('Ошибка:', error);
@@ -336,11 +336,11 @@ function App() {
         <div>
             <HashRouter>
                 <Routes>
-                    <Route path="/" element={<Beer images={images} onShowMenuBlock = {toggleMenuBlock} showMenuBlock = {showMenuBlock} showRecoloredButton = {selectedButton} onReColour = {handleButtonClick} onLink = {handleClickLink} showAddButtons={addProduct} onShowAddButtons={toggleAddButtons} onShowProduct = {toggleProductBlock} onShowCountry = {toggleCountryBlock} showCountryBlock = {showCountryBlock} onShowSorts={toggleSortBlock} showSortBlock={showSortBlock} currentItem={menuItem} onClickSnackButton = {handleSnackButtonClick} selectedSnackButton = {selectedSnackButton} />} />
+                    <Route path="/" element={<Beer profileName = {profileName} images={images} onShowMenuBlock = {toggleMenuBlock} showMenuBlock = {showMenuBlock} showRecoloredButton = {selectedButton} onReColour = {handleButtonClick} onLink = {handleClickLink} showAddButtons={addProduct} onShowAddButtons={toggleAddButtons} onShowProduct = {toggleProductBlock} onShowCountry = {toggleCountryBlock} showCountryBlock = {showCountryBlock} onShowSorts={toggleSortBlock} showSortBlock={showSortBlock} currentItem={menuItem} onClickSnackButton = {handleSnackButtonClick} selectedSnackButton = {selectedSnackButton} />} />
                     <Route path="/login" element={<Login noExistence = {noExistence} onShowMenuBlock = {toggleMenuBlock} showMenuBlock = {showMenuBlock} currentItem={menuItem} login={login} />} />
                     <Route path="/signup" element={<SignUp setAlreadyExiste = {setAlreadyExiste} misMatch = {misMatch} sign_up_step1 = {sign_up_step1} onShowMenuBlock = {toggleMenuBlock} showMenuBlock = {showMenuBlock} currentItem={menuItem} />} />
                     <Route path="/address" element={<AdressForm setInvalidAdress = {setInvalidAdress} alreadyExiste = {alreadyExiste} invalidAdress = {invalidAdress} final_sign_up = {final_sign_up} onShowMenuBlock = {toggleMenuBlock} showMenuBlock = {showMenuBlock} currentItem={menuItem}/>} />
-                    <Route path="/profile" element={<Profile misMatch = {misMatch} update = {update} updateUser = {updateUser} trimedHouse = {afterSecondSpace} trimedStreet = {beforeSecondSpace}  onShowMenuBlock = {toggleMenuBlock} showMenuBlock = {showMenuBlock} currentItem={menuItem} />} />
+                    <Route path="/profile" element={<Profile profileName = {profileName} misMatch = {misMatch} update = {update} updateUser = {updateUser} trimedHouse = {afterSecondSpace} trimedStreet = {beforeSecondSpace}  onShowMenuBlock = {toggleMenuBlock} showMenuBlock = {showMenuBlock} currentItem={menuItem} />} />
                     <Route path="/cart" element={<Cart currentItem={menuItem} />} />
                 </Routes>
             </HashRouter>
