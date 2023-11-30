@@ -1,6 +1,6 @@
 from app.core import crud
 from app.config import settings
-from app.core.dependencies import pwd_context, oauth2_scheme, get_db
+from app.core.dependencies import pwd_context, oauth2_scheme, get_db, alternate_oauth2_scheme
 from app.schemas.response_schemas import TokenData, User
 from app.config import log
 
@@ -41,9 +41,14 @@ def authenticate_user(db: Session, email: str, password: str):
         return False
     return user
 
+no_token_exception = HTTPException(
+        status_code=status.HTTP_401_UNAUTHORIZED,
+        detail="Not authenticated",
+        headers={"WWW-Authenticate": "Bearer"},
+    )
 
 async def get_current_user(
-        token: Annotated[str, Depends(oauth2_scheme)],
+        token: Annotated[str, Depends(alternate_oauth2_scheme)],
         db: Session = Depends(get_db),
 ):
     credentials_exception = HTTPException(
@@ -51,6 +56,8 @@ async def get_current_user(
         detail="Could not validate credentials",
         headers={"WWW-Authenticate": "Bearer"},
     )
+    if token is None or token == "":
+        return None
     log.info(f'Getting current user from token {token}')
     try:
         payload = jwt.decode(
@@ -66,12 +73,14 @@ async def get_current_user(
     user = crud.get_user(db, email=token_data.email)
     if user is None:
         raise credentials_exception
+    is_admin = crud.check_if_user_admin(db=db, user=user)
     user = User(
         id=user.id,
         username=user.username,
         email=user.email,
         phone=user.phone,
-        address=user.address
+        address=user.address,
+        role="admin" if is_admin else "client",
     )
     return user
 
@@ -79,4 +88,19 @@ async def get_current_user(
 async def get_current_active_user(
     current_user: Annotated[User, Depends(get_current_user)]
 ):
+    return current_user
+
+async def get_current_soft_client(
+    current_user: Annotated[User, Depends(get_current_user)]
+):
+    return current_user
+
+async def get_current_active_admin(
+    current_user: Annotated[User, Depends(get_current_user)]
+):
+    if current_user.role != "admin":
+        raise HTTPException(
+            status_code=status.HTTP_403_FORBIDDEN,
+            detail="The user doesn't have enough privileges",
+        )
     return current_user

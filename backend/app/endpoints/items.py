@@ -8,7 +8,7 @@ from app.schemas import response_schemas, request_schemas
 from app.core.dependencies import get_db
 from app.core import crud
 from app.config import settings
-from app.utils.token import get_current_active_user
+from app.utils.token import get_current_active_user, get_current_active_admin
 
 from fastapi_cache.decorator import cache
 
@@ -20,15 +20,19 @@ router = APIRouter(
 )
 
 
+# get all items with possible category and type filters
 @router.get("/all", response_model=response_schemas.AllItems)
 @cache(expire=settings.CACHE_EXPIRE)
-async def get_items(
+async def get_all_items(
+    category_id: int = None,
+    type_id: int = None,
     db: Session = Depends(get_db),
 ):
     """
-    Get all cams
+    Get all items
     """
-    items = crud.get_all_items(db=db)
+    print(f"category_id: {category_id}, type_id: {type_id}")
+    items = crud.get_all_items(db=db, category_id=category_id, type_id=type_id)
 
     if items is None:
         raise HTTPException(
@@ -38,11 +42,47 @@ async def get_items(
 
     return items
 
+@router.get("/categories", response_model=response_schemas.AllCategories)
+@cache(expire=settings.CACHE_EXPIRE)
+async def get_categories(
+    db: Session = Depends(get_db),
+):
+    """
+    Get all categories
+    """
+    categories = crud.get_all_categories(db=db)
+
+    if categories is None:
+        raise HTTPException(
+            status_code=status.HTTP_404_NOT_FOUND,
+            detail="No categories found",
+        )
+
+    return categories
+
+@router.get("/category/{category_id}/types", response_model=response_schemas.AllTypes)
+@cache(expire=settings.CACHE_EXPIRE)
+def get_category_types(
+    category_id: int,
+    db: Session = Depends(get_db),
+):
+    """
+    Get all types of a category
+    """
+    types = crud.get_all_category_types(db=db, category_id=category_id)
+
+    if types is None:
+        raise HTTPException(
+            status_code=status.HTTP_404_NOT_FOUND,
+            detail="No types found",
+        )
+
+    return types
 
 @router.post("/create", response_model=None)
 async def create_item(
     item: request_schemas.ItemCreate,
-    current_user: response_schemas.User = Depends(get_current_active_user),
+    current_user: response_schemas.User = Depends(get_current_active_admin),
     db: Session = Depends(get_db),
 ):
     """
@@ -72,7 +112,7 @@ async def get_cam(
 @router.delete("/delete/{item_id}", response_model=response_schemas.Item)
 async def delete_item(
     item_id: int,
-    current_user: response_schemas.User = Depends(get_current_active_user),
+    current_user: response_schemas.User = Depends(get_current_active_admin),
     db: Session = Depends(get_db),
 ):
     """
@@ -86,14 +126,14 @@ async def delete_item(
     if deleting_op is None:
         raise HTTPException(
             status_code=status.HTTP_404_NOT_FOUND,
-            detail="No cam found",
+            detail="No item found",
         )
 
 
 @router.put("/update", response_model=response_schemas.FullItem)
 async def update_cam(
     item: request_schemas.ItemUpdate,
-    current_user: response_schemas.User = Depends(get_current_active_user),
+    current_user: response_schemas.User = Depends(get_current_active_admin),
     db: Session = Depends(get_db),
 ):
     """

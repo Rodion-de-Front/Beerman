@@ -20,6 +20,7 @@ class User(BaseModel):
     email: str
     phone: str
     address: str
+    role: str | None = None
 
 
 class Item(BaseModel):
@@ -46,16 +47,44 @@ class AllItems(BaseModel):
 
     items: List[Item]
 
-class ShoppingCartItem(BaseModel):
+class Category(BaseModel):
     model_config = ConfigDict(from_attributes=True)
 
+    id: int | None = None
+    name: str
+
+class Type(BaseModel):
+    model_config = ConfigDict(from_attributes=True)
+
+    id: int | None = None
+    name: str
+    category_id: int
+
+class AllCategories(BaseModel):
+    model_config = ConfigDict(from_attributes=True)
+
+    categories: List[Category]
+
+class AllTypes(BaseModel):
+    model_config = ConfigDict(from_attributes=True)
+
+    types: List[Type]
+
+class CartItem(BaseModel):
+    model_config = ConfigDict(from_attributes=True)
+
+    id: int
+    cart_id: int
     product_id: int
     name: str
     price: int
     quantity: int
 
-class ShoppingCart(BaseModel):
+class Cart(BaseModel):
     model_config = ConfigDict(from_attributes=True)
 
-    items: List[ShoppingCartItem]
+    cart_id: int
+    items: List[CartItem]
+    items_price: int
+    delivery_price: int
     total_price: int

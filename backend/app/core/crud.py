@@ -29,6 +29,19 @@ def get_user(db: Session, email: Union[str, None]) -> Union[models.UserInDB, Non
     except NoResultFound:
         return None
 
+def check_if_user_admin(db: Session, user: response_schemas.User) -> bool:
+    try:
+        result = (
+            db.query(db_models.UserRoles)
+            .filter_by(
+                user_id=user.id,
+                role=db_models.Roles.admin,
+            ).first()
+        )
+        return result is not None
+    except NoResultFound:
+        return False
+
 def create_user(db: Session, user: request_schemas.UserCreate) -> response_schemas.User:
     db_user = db_models.Users(
         email=user.email,
@@ -157,19 +170,241 @@ def item_update(db: Session, item: request_schemas.ItemUpdate) -> Union[response
     except NoResultFound:
         return None
 
-def get_all_items(db: Session) -> Union[response_schemas.AllItems, None]:
+def get_all_items(db: Session, category_id: int = None, type_id: int = None) -> Union[response_schemas.AllItems, None]:
     try:
-        return response_schemas.AllItems(
-            items=[
-                response_schemas.Item.model_validate(item)
-                for item in db.query(
-                    db_models.Products.id.label("id"),
-                    db_models.Products.name.label("name"),
-                    db_models.Products.price.label("price"),
-                    db_models.Products.available.label("available"),
-                    db_models.Products.image.label("image")
+        if category_id:
+            if type_id:
+                return response_schemas.AllItems(
+                    items=[
+                        response_schemas.Item.model_validate(item)
+                        for item in db.query(
+                            db_models.Products.id.label("id"),
+                            db_models.Products.name.label("name"),
+                            db_models.Products.price.label("price"),
+                            db_models.Products.available.label("available"),
+                            db_models.Products.image.label("image"),
+                        ).join(
+                            db_models.ProductTypes,
+                            db_models.ProductTypes.product_id == db_models.Products.id,
+                        ).join(
+                            db_models.ProductCategories,
+                            db_models.ProductCategories.product_id == db_models.Products.id,
+                        ).filter(
+                            db_models.ProductTypes.type_id == type_id,
+                            db_models.ProductCategories.category_id == category_id,
+                        ).all()
+                    ],
+                )
+            else:
+                return response_schemas.AllItems(
+                    items=[
+                        response_schemas.Item.model_validate(item)
+                        for item in db.query(
+                            db_models.Products.id.label("id"),
+                            db_models.Products.name.label("name"),
+                            db_models.Products.price.label("price"),
+                            db_models.Products.available.label("available"),
+                            db_models.Products.image.label("image"),
+                        ).join(
+                            db_models.ProductCategories,
+                            db_models.ProductCategories.product_id == db_models.Products.id,
+                        ).filter(
+                            db_models.ProductCategories.category_id == category_id,
+                        ).all()
+                    ],
+                )
+        else:
+            return response_schemas.AllItems(
+                items=[
+                    response_schemas.Item.model_validate(item)
+                    for item in db.query(
+                        db_models.Products.id.label("id"),
+                        db_models.Products.name.label("name"),
+                        db_models.Products.price.label("price"),
+                        db_models.Products.available.label("available"),
+                        db_models.Products.image.label("image"),
+                    ).all()
+                ],
+            )
+    except NoResultFound:
+        return None
+
+def get_all_categories(db: Session) -> Union[response_schemas.AllCategories, None]:
+    try:
+        return response_schemas.AllCategories(
+            categories=[
+                response_schemas.Category.model_validate(category)
+                for category in db.query(
+                    db_models.Categories.id.label("id"),
+                    db_models.Categories.name.label("name"),
                 ).all()
             ],
         )
+    except NoResultFound:
+        return None
+
+def get_all_category_types(db: Session, category_id: int) -> Union[response_schemas.AllTypes, None]:
+    try:
+        return response_schemas.AllTypes(
+            types=[
+                response_schemas.Type.model_validate(type)
+                for type in db.query(
+                    db_models.Types.id.label("id"),
+                    db_models.Types.name.label("name"),
+                    db_models.Types.category_id.label("category_id"),
+                ).filter(
+                    db_models.Types.category_id == category_id,
+                ).all()
+            ],
+        )
+    except NoResultFound:
+        return None
+
+def get_user_cart_id(db: Session, user_id: int) -> Union[int, None]:
+    try:
+        return db.query(db_models.Users).filter(
+                db_models.Users.id == user_id,
+            ).one().cart_id
+    except NoResultFound:
+        return None
+
+def get_cart(db: Session, cart_id: int) -> Union[response_schemas.Cart, None]:
+    try:
+        return response_schemas.Cart(
+            cart_id=cart_id,
+            items=[
+                response_schemas.CartItem.model_validate(cart_item)
+                for cart_item in db.query(
+                    db_models.CartItems.id.label("id"),
+                    db_models.CartItems.cart_id.label("cart_id"),
+                    db_models.CartItems.product_id.label("product_id"),
+                    db_models.Products.name.label("name"),
+                    db_models.Products.price.label("price"),
+                    db_models.CartItems.quantity.label("quantity"),
+                ).join(
+                    db_models.Products,
+                    db_models.Products.id == db_models.CartItems.product_id,
+                ).filter(
+                    db_models.CartItems.cart_id == cart_id,
+                ).all()
+            ],
+            items_price=
+                db.query(db_models.Cart)
+                .filter(
+                    db_models.Cart.id == cart_id,
+                )
+                .one().total_price,
+            delivery_price=300,
+            total_price=
+                db.query(db_models.Cart)
+                .filter(
+                    db_models.Cart.id == cart_id,
+                )
+                .one().total_price + 300,
+        )
+    except NoResultFound:
+        return None
+
+def create_cart(db: Session, user_id: int = None) -> int:
+    db_cart = db_models.Cart()
+    db.add(db_cart)
+    db.commit()
+    db.refresh(db_cart)
+
+    if user_id is not None:
+        db_user = (
+            db.query(db_models.Users)
+            .filter(
+                db_models.Users.id == user_id,
+            )
+            .one()
+        )
+        db_user.cart_id = db_cart.id
+        db.commit()
+        db.refresh(db_user)
+
+    log.info(f"Created cart: {db_cart}")
+    return db_cart.id
+
+def add_to_cart(db: Session, cartItem: request_schemas.AddCartItem) -> Union[response_schemas.CartItem, None]:
+    try:
+        db_cart_item = db_models.CartItems(
+            cart_id=cartItem.cart_id,
+            product_id=cartItem.product_id,
+            quantity=cartItem.quantity,
+        )
+        db.add(db_cart_item)
+        db.commit()
+        db.refresh(db_cart_item)
+        db_cart_item.cart.total_price += db_cart_item.product.price * db_cart_item.quantity
+        db.commit()
+        db.refresh(db_cart_item)
+
+        cart_item = response_schemas.CartItem(
+            id=db_cart_item.id,
+            cart_id=db_cart_item.cart_id,
+            product_id=db_cart_item.product_id,
+            name=db_cart_item.product.name,
+            price=db_cart_item.product.price,
+            quantity=db_cart_item.quantity,
+        )
+
+        log.info(f"Added to cart: {cart_item}")
+        return cart_item
+    except NoResultFound:
+        return None
+
+def del_from_cart (db: Session, cart_item_id: int) -> Union[response_schemas.CartItem, None]:
+    try:
+        db_cart_item = (
+            db.query(db_models.CartItems)
+            .filter(
+                db_models.CartItems.id == cart_item_id,
+            )
+            .one()
+        )
+        db_cart_item.cart.total_price -= db_cart_item.product.price * db_cart_item.quantity
+        cart_item = response_schemas.CartItem(
+            id=db_cart_item.id,
+            cart_id=db_cart_item.cart_id,
+            product_id=db_cart_item.product_id,
+            name=db_cart_item.product.name,
+            price=db_cart_item.product.price,
+            quantity=db_cart_item.quantity,
+        )
+        db.delete(db_cart_item)
+        db.commit()
+
+        log.info(f"Deleted from cart: {cart_item}")
+        return cart_item
+    except NoResultFound:
+        return None
+
+def update_cart_item(db: Session, cart_item_id: int, cart_item: request_schemas.UpdateCartItem) -> Union[response_schemas.CartItem, None]:
+    try:
+        db_cart_item = (
+            db.query(db_models.CartItems)
+            .filter(
+                db_models.CartItems.id == cart_item_id,
+            )
+            .one()
+        )
+        price_delta = db_cart_item.product.price * (cart_item.quantity - db_cart_item.quantity)
+        db_cart_item.quantity = cart_item.quantity
+        db_cart_item.cart.total_price += price_delta
+        db.commit()
+        db.refresh(db_cart_item)
+
+        cart_item = response_schemas.CartItem(
+            id=db_cart_item.id,
+            cart_id=db_cart_item.cart_id,
+            product_id=db_cart_item.product_id,
+            name=db_cart_item.product.name,
+            price=db_cart_item.product.price,
+            quantity=db_cart_item.quantity,
+        )
+
+        log.info(f"Updated cart item: {cart_item}")
+        return cart_item
     except NoResultFound:
         return None

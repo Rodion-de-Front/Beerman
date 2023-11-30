@@ -1,0 +1,128 @@
+2023-11-30T05:15:43.908203+0300 INFO initialized db
+2023-11-30T05:15:44.261149+0300 INFO initialized db
+2023-11-30T05:17:44.413818+0300 INFO shutting down
+2023-11-30T05:25:30.166018+0300 INFO initialized db
+2023-11-30T05:25:30.471392+0300 INFO initialized db
+2023-11-30T05:25:40.588235+0300 INFO Created user: id=1 username='Oleg' email='s.olegys0801@gmail.com' phone='+79913131772' address='Jopa mira' role=None
+2023-11-30T05:26:06.988138+0300 INFO Verifying password admin against $2b$12$hliT1xFhmr.YUvqmKk.12.U6aHDuhJWnrOTQaZ8KMhTmAlqzYJvaW
+2023-11-30T05:26:21.305198+0300 INFO Getting current user from token eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InMub2xlZ3lzMDgwMUBnbWFpbC5jb20iLCJleHAiOjE3MDEzMTEzNDd9.guH75Tgi6UcLaHUjysR_rHzhi7he1FyeVIB5p-V_ZIw
+2023-11-30T05:26:21.308191+0300 INFO {'email': 's.olegys0801@gmail.com', 'exp': 1701311347}
+2023-11-30T05:26:30.618204+0300 INFO Getting current user from token eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InMub2xlZ3lzMDgwMUBnbWFpbC5jb20iLCJleHAiOjE3MDEzMTEzNDd9.guH75Tgi6UcLaHUjysR_rHzhi7he1FyeVIB5p-V_ZIw
+2023-11-30T05:26:30.619507+0300 INFO {'email': 's.olegys0801@gmail.com', 'exp': 1701311347}
+2023-11-30T05:26:49.740752+0300 INFO Getting current user from token eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InMub2xlZ3lzMDgwMUBnbWFpbC5jb20iLCJleHAiOjE3MDEzMTEzNDd9.guH75Tgi6UcLaHUjysR_rHzhi7he1FyeVIB5p-V_ZIw
+2023-11-30T05:26:49.741451+0300 INFO {'email': 's.olegys0801@gmail.com', 'exp': 1701311347}
+2023-11-30T05:26:57.446664+0300 INFO shutting down
+2023-11-30T05:27:01.730129+0300 INFO initialized db
+2023-11-30T05:27:02.046382+0300 INFO initialized db
+2023-11-30T05:28:23.598796+0300 INFO Getting current user from token eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InMub2xlZ3lzMDgwMUBnbWFpbC5jb20iLCJleHAiOjE3MDEzMTEzNDd9.guH75Tgi6UcLaHUjysR_rHzhi7he1FyeVIB5p-V_ZIw
+2023-11-30T05:28:23.599284+0300 INFO {'email': 's.olegys0801@gmail.com', 'exp': 1701311347}
+2023-11-30T05:28:30.603641+0300 INFO shutting down
+2023-11-30T05:28:32.686431+0300 INFO initialized db
+2023-11-30T05:28:33.206393+0300 INFO initialized db
+2023-11-30T05:28:37.305374+0300 INFO Getting current user from token eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InMub2xlZ3lzMDgwMUBnbWFpbC5jb20iLCJleHAiOjE3MDEzMTEzNDd9.guH75Tgi6UcLaHUjysR_rHzhi7he1FyeVIB5p-V_ZIw
+2023-11-30T05:28:37.305818+0300 INFO {'email': 's.olegys0801@gmail.com', 'exp': 1701311347}
+2023-11-30T05:29:45.709594+0300 INFO shutting down
+2023-11-30T05:29:47.633801+0300 INFO initialized db
+2023-11-30T05:29:47.903870+0300 INFO initialized db
+2023-11-30T05:29:50.193916+0300 INFO Getting current user from token eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InMub2xlZ3lzMDgwMUBnbWFpbC5jb20iLCJleHAiOjE3MDEzMTEzNDd9.guH75Tgi6UcLaHUjysR_rHzhi7he1FyeVIB5p-V_ZIw
+2023-11-30T05:30:28.205577+0300 INFO Verifying password admin against $2b$12$hliT1xFhmr.YUvqmKk.12.U6aHDuhJWnrOTQaZ8KMhTmAlqzYJvaW
+2023-11-30T05:30:37.450050+0300 INFO Getting current user from token eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InMub2xlZ3lzMDgwMUBnbWFpbC5jb20iLCJleHAiOjE3MDEzMTE2MDh9.3lODpOv1LB5sUAsYu9Ksguc0lyMuGHjEHmzYPIrVPx8
+2023-11-30T05:30:37.450600+0300 INFO {'email': 's.olegys0801@gmail.com', 'exp': 1701311608}
+2023-11-30T05:31:06.578643+0300 INFO shutting down
+2023-11-30T05:31:08.865998+0300 INFO initialized db
+2023-11-30T05:31:09.110557+0300 INFO initialized db
+2023-11-30T05:31:12.255237+0300 INFO Getting current user from token eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InMub2xlZ3lzMDgwMUBnbWFpbC5jb20iLCJleHAiOjE3MDEzMTE2MDh9.3lODpOv1LB5sUAsYu9Ksguc0lyMuGHjEHmzYPIrVPx8
+2023-11-30T05:31:12.255763+0300 INFO {'email': 's.olegys0801@gmail.com', 'exp': 1701311608}
+2023-11-30T05:31:20.609789+0300 INFO shutting down
+2023-11-30T05:31:22.642768+0300 INFO initialized db
+2023-11-30T05:31:22.895800+0300 INFO initialized db
+2023-11-30T05:31:25.479920+0300 INFO Getting current user from token eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InMub2xlZ3lzMDgwMUBnbWFpbC5jb20iLCJleHAiOjE3MDEzMTE2MDh9.3lODpOv1LB5sUAsYu9Ksguc0lyMuGHjEHmzYPIrVPx8
+2023-11-30T05:31:25.480428+0300 INFO {'email': 's.olegys0801@gmail.com', 'exp': 1701311608}
+2023-11-30T05:32:25.044141+0300 INFO shutting down
+2023-11-30T05:32:27.312497+0300 INFO initialized db
+2023-11-30T05:32:27.560493+0300 INFO initialized db
+2023-11-30T05:32:31.290084+0300 INFO Getting current user from token eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InMub2xlZ3lzMDgwMUBnbWFpbC5jb20iLCJleHAiOjE3MDEzMTE2MDh9.3lODpOv1LB5sUAsYu9Ksguc0lyMuGHjEHmzYPIrVPx8
+2023-11-30T05:32:31.290871+0300 INFO {'email': 's.olegys0801@gmail.com', 'exp': 1701311608}
+2023-11-30T05:33:46.691575+0300 INFO shutting down
+2023-11-30T05:33:48.900109+0300 INFO initialized db
+2023-11-30T05:33:49.154723+0300 INFO initialized db
+2023-11-30T05:33:54.656886+0300 INFO Getting current user from token eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InMub2xlZ3lzMDgwMUBnbWFpbC5jb20iLCJleHAiOjE3MDEzMTE2MDh9.3lODpOv1LB5sUAsYu9Ksguc0lyMuGHjEHmzYPIrVPx8
+2023-11-30T05:34:10.101714+0300 INFO shutting down
+2023-11-30T05:34:13.291342+0300 INFO initialized db
+2023-11-30T05:34:13.540657+0300 INFO initialized db
+2023-11-30T05:34:27.290279+0300 INFO Verifying password admin against $2b$12$hliT1xFhmr.YUvqmKk.12.U6aHDuhJWnrOTQaZ8KMhTmAlqzYJvaW
+2023-11-30T05:34:37.313098+0300 INFO Getting current user from token eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InMub2xlZ3lzMDgwMUBnbWFpbC5jb20iLCJleHAiOjE3MDEzMTUyNjd9.MRRYcq8IRzwldYJLTK6NASWEjR0y5PsBr136UTChthw
+2023-11-30T05:34:37.313550+0300 INFO {'email': 's.olegys0801@gmail.com', 'exp': 1701315267}
+2023-11-30T05:35:21.047642+0300 INFO Getting current user from token eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InMub2xlZ3lzMDgwMUBnbWFpbC5jb20iLCJleHAiOjE3MDEzMTUyNjd9.MRRYcq8IRzwldYJLTK6NASWEjR0y5PsBr136UTChthw
+2023-11-30T05:35:21.048452+0300 INFO {'email': 's.olegys0801@gmail.com', 'exp': 1701315267}
+2023-11-30T05:35:27.374384+0300 INFO Getting current user from token eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InMub2xlZ3lzMDgwMUBnbWFpbC5jb20iLCJleHAiOjE3MDEzMTUyNjd9.MRRYcq8IRzwldYJLTK6NASWEjR0y5PsBr136UTChthw
+2023-11-30T05:35:27.374804+0300 INFO {'email': 's.olegys0801@gmail.com', 'exp': 1701315267}
+2023-11-30T05:37:18.289219+0300 INFO Getting current user from token eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InMub2xlZ3lzMDgwMUBnbWFpbC5jb20iLCJleHAiOjE3MDEzMTUyNjd9.MRRYcq8IRzwldYJLTK6NASWEjR0y5PsBr136UTChthw
+2023-11-30T05:37:18.291349+0300 INFO {'email': 's.olegys0801@gmail.com', 'exp': 1701315267}
+2023-11-30T05:37:18.325025+0300 INFO Created item: id=1 name='Product 1' price=100 available=True image='base64 image'
+2023-11-30T05:37:30.825689+0300 INFO Getting current user from token eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InMub2xlZ3lzMDgwMUBnbWFpbC5jb20iLCJleHAiOjE3MDEzMTUyNjd9.MRRYcq8IRzwldYJLTK6NASWEjR0y5PsBr136UTChthw
+2023-11-30T05:37:30.826104+0300 INFO {'email': 's.olegys0801@gmail.com', 'exp': 1701315267}
+2023-11-30T05:37:30.845849+0300 INFO Created item: id=2 name='Product 2' price=50 available=True image='base64 image'
+2023-11-30T05:37:45.662964+0300 INFO Getting current user from token eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InMub2xlZ3lzMDgwMUBnbWFpbC5jb20iLCJleHAiOjE3MDEzMTUyNjd9.MRRYcq8IRzwldYJLTK6NASWEjR0y5PsBr136UTChthw
+2023-11-30T05:37:45.663381+0300 INFO {'email': 's.olegys0801@gmail.com', 'exp': 1701315267}
+2023-11-30T05:37:45.679072+0300 INFO Created item: id=3 name='Product 3' price=200 available=True image='base64 image'
+2023-11-30T05:45:13.786093+0300 INFO shutting down
+2023-11-30T05:45:16.158809+0300 INFO initialized db
+2023-11-30T05:45:16.482556+0300 INFO initialized db
+2023-11-30T05:46:44.933191+0300 INFO shutting down
+2023-11-30T05:46:47.056087+0300 INFO initialized db
+2023-11-30T05:46:47.327901+0300 INFO initialized db
+2023-11-30T05:50:59.222113+0300 INFO shutting down
+2023-11-30T05:51:01.495487+0300 INFO initialized db
+2023-11-30T05:51:01.812902+0300 INFO initialized db
+2023-11-30T05:55:25.828017+0300 INFO shutting down
+2023-11-30T05:55:28.251876+0300 INFO initialized db
+2023-11-30T05:55:28.510575+0300 INFO initialized db
+2023-11-30T05:56:45.094071+0300 INFO Verifying password admin against $2b$12$hliT1xFhmr.YUvqmKk.12.U6aHDuhJWnrOTQaZ8KMhTmAlqzYJvaW
+2023-11-30T05:56:48.945248+0300 INFO Getting current user from token eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InMub2xlZ3lzMDgwMUBnbWFpbC5jb20iLCJleHAiOjE3MDEzMTY2MDV9.Sxru-BaEvuwXcMW3aIDh1J4h42fnAwsrA9LcQAxqPcY
+2023-11-30T05:56:48.945764+0300 INFO {'email': 's.olegys0801@gmail.com', 'exp': 1701316605}
+2023-11-30T05:56:57.202733+0300 INFO Getting current user from token eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InMub2xlZ3lzMDgwMUBnbWFpbC5jb20iLCJleHAiOjE3MDEzMTY2MDV9.Sxru-BaEvuwXcMW3aIDh1J4h42fnAwsrA9LcQAxqPcY
+2023-11-30T05:56:57.203189+0300 INFO {'email': 's.olegys0801@gmail.com', 'exp': 1701316605}
+2023-11-30T05:57:11.551956+0300 INFO Created cart: <app.models.db_models.Cart object at 0x10b72ca30>
+2023-11-30T05:58:34.510722+0300 INFO shutting down
+2023-11-30T05:58:36.692566+0300 INFO initialized db
+2023-11-30T05:58:37.041077+0300 INFO initialized db
+2023-11-30T05:58:52.708576+0300 INFO Created cart: <app.models.db_models.Cart object at 0x10f7400d0>
+2023-11-30T06:04:00.956049+0300 INFO shutting down
+2023-11-30T06:04:03.721849+0300 INFO initialized db
+2023-11-30T06:04:04.037550+0300 INFO initialized db
+2023-11-30T06:04:24.725880+0300 INFO Created cart: <app.models.db_models.Cart object at 0x10ac50250>
+2023-11-30T06:04:24.758920+0300 INFO Added to cart: id=2 cart_id=3 product_id=1 name='Product 1' price=100 quantity=1
+2023-11-30T06:06:18.858192+0300 INFO shutting down
+2023-11-30T06:06:21.359728+0300 INFO initialized db
+2023-11-30T06:06:21.666561+0300 INFO initialized db
+2023-11-30T06:08:29.238234+0300 INFO shutting down
+2023-11-30T06:08:31.467429+0300 INFO initialized db
+2023-11-30T06:08:31.820279+0300 INFO initialized db
+2023-11-30T06:08:34.342211+0300 INFO shutting down
+2023-11-30T06:08:36.164905+0300 INFO initialized db
+2023-11-30T06:08:36.414224+0300 INFO initialized db
+2023-11-30T06:09:18.387855+0300 INFO shutting down
+2023-11-30T06:09:21.421610+0300 INFO initialized db
+2023-11-30T06:09:21.745159+0300 INFO initialized db
+2023-11-30T06:09:24.197610+0300 INFO Updated cart item: id=2 cart_id=3 product_id=1 name='Product 1' price=100 quantity=2
+2023-11-30T06:12:02.222589+0300 INFO shutting down
+2023-11-30T06:12:04.454146+0300 INFO initialized db
+2023-11-30T06:12:04.776660+0300 INFO initialized db
+2023-11-30T06:12:20.906211+0300 INFO Updated cart item: id=2 cart_id=3 product_id=1 name='Product 1' price=100 quantity=3
+2023-11-30T06:13:11.948373+0300 INFO shutting down
+2023-11-30T06:13:13.901288+0300 INFO initialized db
+2023-11-30T06:13:14.217088+0300 INFO initialized db
+2023-11-30T06:13:22.547708+0300 INFO Updated cart item: id=2 cart_id=3 product_id=1 name='Product 1' price=100 quantity=2
+2023-11-30T06:14:48.624493+0300 INFO shutting down
+2023-11-30T06:14:51.102845+0300 INFO initialized db
+2023-11-30T06:14:51.423150+0300 INFO initialized db
+2023-11-30T06:15:10.524442+0300 INFO Updated cart item: id=2 cart_id=3 product_id=1 name='Product 1' price=100 quantity=1
+2023-11-30T06:15:52.942844+0300 INFO Updated cart item: id=2 cart_id=3 product_id=1 name='Product 1' price=100 quantity=3
+2023-11-30T06:17:40.349626+0300 INFO Created cart: <app.models.db_models.Cart object at 0x113e93b80>
+2023-11-30T06:17:40.375596+0300 INFO Added to cart: id=3 cart_id=4 product_id=2 name='Product 2' price=50 quantity=1
+2023-11-30T06:20:15.636646+0300 INFO shutting down
+2023-11-30T06:20:18.423293+0300 INFO initialized db
+2023-11-30T06:20:18.740614+0300 INFO initialized db
+2023-11-30T06:20:29.837261+0300 INFO Added to cart: id=4 cart_id=3 product_id=2 name='Product 2' price=50 quantity=1
+2023-11-30T06:24:37.041673+0300 INFO shutting down

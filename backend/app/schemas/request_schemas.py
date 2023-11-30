@@ -98,23 +98,41 @@ class ItemUpdate(BaseModel):
         }
     }
 
-class ReactionCreate(BaseModel):
+class AddCartItem(BaseModel):
     """
-    Reaction create schema
+    Add item to cart schema
     """
 
-    post_id: int
-    reaction_type: str
+    product_id: int
+    quantity: int
+    cart_id: Optional[int] = None
 
     model_config = {
         "json_schema_extra": {
             "examples": [
-                {"post_id": 1, "reaction_type": "like"},
-                {"post_id": 1, "reaction_type": "dislike"},
+                {
+                    "product_id": 1,
+                    "quantity": 1,
+                },
+                {
+                    "product_id": 2,
+                    "quantity": 5,
+                    "cart_id": 1,
+                },
             ]
         }
     }
 
+class RemoveCartItem(BaseModel):
+    """
+    Remove item from cart schema
+    """
 
-class ReactionDelete(BaseModel):
-    post_id: int
+    cart_item_id: int
+
+class UpdateCartItem(BaseModel):
+    """
+    Update item in cart schema
+    """
+
+    quantity: int
