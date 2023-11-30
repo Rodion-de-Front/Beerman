@@ -60,6 +60,59 @@ async def get_categories(
 
     return categories
 
+@router.post("/category/create", response_model=response_schemas.Category)
+async def create_category(
+    category: request_schemas.CategoryCreate,
+    current_user: response_schemas.User = Depends(get_current_active_admin),
+    db: Session = Depends(get_db),
+):
+    """
+    Create a category
+    """
+    return crud.create_category(db=db, category=category)
+
+@router.delete("/category/{category_id}", response_model=response_schemas.Category)
+async def delete_category(
+    category_id: int,
+    current_user: response_schemas.User = Depends(get_current_active_admin),
+    db: Session = Depends(get_db),
+):
+    """
+    Delete a category
+    """
+    deleting_op = crud.del_category(
+        db=db,
+        category_id=category_id
+    )
+
+    if deleting_op is None:
+        raise HTTPException(
+            status_code=status.HTTP_404_NOT_FOUND,
+            detail="No category found",
+        )
+
+@router.put("/category/{category_id}", response_model=response_schemas.Category)
+async def update_category(
+    category_id: int,
+    category: request_schemas.CategoryUpdate,
+    current_user: response_schemas.User = Depends(get_current_active_admin),
+    db: Session = Depends(get_db),
+):
+    """
+    Update a category
+    """
+    result = crud.category_update(
+        db=db,
+        category_id=category_id,
+        category=category
+    )
+    if result is None:
+        raise HTTPException(
+            status_code=status.HTTP_404_NOT_FOUND,
+            detail="No category found",
+        )
+    return result
+
 @router.get("/category/{category_id}/types", response_model=response_schemas.AllTypes)
 @cache(expire=settings.CACHE_EXPIRE)
 def get_category_types(
@@ -78,6 +131,59 @@ def get_category_types(
         )
 
     return types
+
+@router.post("/type/create", response_model=response_schemas.Type)
+async def create_type(
+    type: request_schemas.TypeCreate,
+    current_user: response_schemas.User = Depends(get_current_active_admin),
+    db: Session = Depends(get_db),
+):
+    """
+    Create a type
+    """
+    return crud.create_type(db=db, type=type)
+
+@router.delete("/type/{type_id}", response_model=response_schemas.Type)
+async def delete_type(
+    type_id: int,
+    current_user: response_schemas.User = Depends(get_current_active_admin),
+    db: Session = Depends(get_db),
+):
+    """
+    Delete a type
+    """
+    deleting_op = crud.del_type(
+        db=db,
+        type_id=type_id
+    )
+
+    if deleting_op is None:
+        raise HTTPException(
+            status_code=status.HTTP_404_NOT_FOUND,
+            detail="No type found",
+        )
+
+@router.put("/type/{type_id}", response_model=response_schemas.Type)
+async def update_type(
+    type_id: int,
+    type: request_schemas.TypeUpdate,
+    current_user: response_schemas.User = Depends(get_current_active_admin),
+    db: Session = Depends(get_db),
+):
+    """
+    Update a type
+    """
+    result = crud.type_update(
+        db=db,
+        type_id=type_id,
+        type=type
+    )
+    if result is None:
+        raise HTTPException(
+            status_code=status.HTTP_404_NOT_FOUND,
+            detail="No type found",
+        )
+    return result
 
 @router.post("/create", response_model=None)
 async def create_item(

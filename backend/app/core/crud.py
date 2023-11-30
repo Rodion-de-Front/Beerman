@@ -229,6 +229,133 @@ def get_all_items(db: Session, category_id: int = None, type_id: int = None) -> 
     except NoResultFound:
         return None
 
+def create_category(db: Session, category: request_schemas.CategoryCreate) -> response_schemas.Category:
+    db_category = db_models.Categories(
+        name=category.name,
+    )
+    db.add(db_category)
+    db.commit()
+    db.refresh(db_category)
+
+    db_category = response_schemas.Category(
+        id=db_category.id,
+        name=db_category.name,
+    )
+
+    log.info(f"Created category: {db_category}")
+    return db_category
+
+def category_update(db: Session, category: request_schemas.CategoryUpdate) -> Union[response_schemas.Category, None]:
+    try:
+        db_category = (
+            db.query(db_models.Categories)
+            .filter(
+                db_models.Categories.id == category.id,
+            )
+            .one()
+        )
+        db_category.name = category.name
+        db.commit()
+        db.refresh(db_category)
+
+        db_category = response_schemas.Category(
+            id=db_category.id,
+            name=db_category.name,
+        )
+
+        log.info(f"Updated category: {db_category}")
+        return db_category
+    except NoResultFound:
+        return None
+
+def del_category(db: Session, category_id: int) -> Union[response_schemas.Category, None]:
+    try:
+        db_category = (
+            db.query(db_models.Categories)
+            .filter(
+                db_models.Categories.id == category_id,
+            )
+            .one()
+        )
+        db.delete(db_category)
+        db.commit()
+
+        db_category = response_schemas.Category(
+            id=db_category.id,
+            name=db_category.name,
+        )
+
+        log.info(f"Deleted category: {db_category}")
+        return db_category
+    except NoResultFound:
+        return None
+
+def create_type(db: Session, type: request_schemas.TypeCreate) -> response_schemas.Type:
+    db_type = db_models.Types(
+        name=type.name,
+        category_id=type.category_id,
+    )
+    db.add(db_type)
+    db.commit()
+    db.refresh(db_type)
+
+    db_type = response_schemas.Type(
+        id=db_type.id,
+        name=db_type.name,
+        category_id=db_type.category_id,
+    )
+
+    log.info(f"Created type: {db_type}")
+    return db_type
+
+def type_update(db: Session, type: request_schemas.TypeUpdate) -> Union[response_schemas.Type, None]:
+    try:
+        db_type = (
+            db.query(db_models.Types)
+            .filter(
+                db_models.Types.id == type.id,
+            )
+            .one()
+        )
+        db_type.name = type.name
+        db_type.category_id = type.category_id
+        db.commit()
+        db.refresh(db_type)
+
+        db_type = response_schemas.Type(
+            id=db_type.id,
+            name=db_type.name,
+            category_id=db_type.category_id,
+        )
+
+        log.info(f"Updated type: {db_type}")
+        return db_type
+    except NoResultFound:
+        return None
+
+def del_type(db: Session, type_id: int) -> Union[response_schemas.Type, None]:
+    try:
+        db_type = (
+            db.query(db_models.Types)
+            .filter(
+                db_models.Types.id == type_id,
+            )
+            .one()
+        )
+        db.delete(db_type)
+        db.commit()
+
+        db_type = response_schemas.Type(
+            id=db_type.id,
+            name=db_type.name,
+            category_id=db_type.category_id,
+        )
+
+        log.info(f"Deleted type: {db_type}")
+        return db_type
+    except NoResultFound:
+        return None
+
 def get_all_categories(db: Session) -> Union[response_schemas.AllCategories, None]:
     try:
         return response_schemas.AllCategories(

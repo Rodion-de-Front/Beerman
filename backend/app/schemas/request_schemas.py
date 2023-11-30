@@ -34,6 +34,26 @@ class UserUpdate(BaseModel):
     phone: Optional[str]
     address: Optional[str]
 
+def CategoryCreate(BaseModel):
+    """
+    Category create schema
+    """
+    name: str
+
+class CategoryUpdate(BaseModel):
+
+    name: str
+
+class TypeCreate(BaseModel):
+
+    name: str
+    category_id: int
+
+class TypeUpdate(BaseModel):
+
+        name: str
+        category_id: int
+
 class ItemCreate(BaseModel):
     """
     Item (product) create schema
