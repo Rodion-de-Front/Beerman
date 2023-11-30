@@ -24,6 +24,7 @@
     width: 163.5px;
     height: 147.25px;
     background: url('img/image_20.png'), lightgray 50% / cover no-repeat;
+    background-size: cover;
     border-radius: 5px;
 }
 
@@ -94,4 +95,73 @@
     font-style: normal;
     font-weight: 700;
     line-height: normal;
+}
+
+@media (max-width: 800px) {
+    .selected-goods {
+        width: 320px;
+        height: 66px;
+        padding: 5.6px 7.5px;
+    }
+
+    .goods-name {
+        width: 65px;
+        height: 17px;
+        line-height: 10px;
+        font-size: 10px;
+    }
+
+    .goods-charact {
+        font-size: 7px;
+        margin-top: 0px;
+    }
+
+    .goods-price {
+        font-size: 10px;
+    }
+
+    .goods-photo {
+        width: 56.5px;
+        height: 50.25px;
+    }
+
+    .goods-info {
+        gap: 22px;
+    }
+
+    .goods-price {
+        color: #000;
+        color: color(display-p3 0 0 0);
+        font-family: Roboto Flex;
+        font-size: 10px;
+        font-style: normal;
+        font-weight: 700;
+        line-height: 30px;
+        margin-bottom: 0;
+    }
+
+    .quantity-number {
+        display: flex;
+        padding: 2.1px;
+        justify-content: center;
+        align-items: center;
+        gap: 1.362px;
+        font-size: 7px;
+    }
+
+    .quantity-btn {
+        display: flex;
+        width: 10.213px;
+        height: 10.213px;
+        padding: 1.021px 2.723px;
+        justify-content: center;
+        align-items: center;
+        gap: 1.362px;
+        border-radius: 1.702px;
+        font-size: 7px;
+    }
+
+    .goods-quantity {
+        gap: 2.723px;
+    }
 }

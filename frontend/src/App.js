@@ -1,4 +1,5 @@
 import Login from "./components/Login/Login";
+import Delivery from "./components/Delivery/Delivery";
 import Beer from "./components/Beer/Beer";
 import SignUp from "./components/SignUp/SignUp";
 import Profile from "./components/Profile/Profile";
@@ -101,14 +102,6 @@ function App() {
           }
     };
 
-    // показ кнопок для добавления товаров
-    const [addProduct, setAddProduct] = useState(false);
-
-    const toggleAddButtons = (e) => {
-        e.stopPropagation();
-        setAddProduct(!addProduct);
-    };
-
     // параметр для открытия ссылки в без карточки
     const handleClickLink = (e) => {
         e.stopPropagation();
@@ -184,7 +177,7 @@ function App() {
         street = document.getElementById("street").value
         house = document.getElementById("house").value
 
-        if (street !== "улица Диккенса" || street !== "улица Шекспира" || street !== "улица Киплинга") {
+        if (street !== "улица Диккенса" && street !== "улица Шекспира" && street !== "улица Киплинга") {
 
             setInvalidAdress(true)
 
@@ -336,12 +329,13 @@ function App() {
         <div>
             <HashRouter>
                 <Routes>
-                    <Route path="/" element={<Beer profileName = {profileName} images={images} onShowMenuBlock = {toggleMenuBlock} showMenuBlock = {showMenuBlock} showRecoloredButton = {selectedButton} onReColour = {handleButtonClick} onLink = {handleClickLink} showAddButtons={addProduct} onShowAddButtons={toggleAddButtons} onShowProduct = {toggleProductBlock} onShowCountry = {toggleCountryBlock} showCountryBlock = {showCountryBlock} onShowSorts={toggleSortBlock} showSortBlock={showSortBlock} currentItem={menuItem} onClickSnackButton = {handleSnackButtonClick} selectedSnackButton = {selectedSnackButton} />} />
+                    <Route path="/" element={<Beer profileName = {profileName} images={images} onShowMenuBlock = {toggleMenuBlock} showMenuBlock = {showMenuBlock} showRecoloredButton = {selectedButton} onReColour = {handleButtonClick} onLink = {handleClickLink}  onShowProduct = {toggleProductBlock} onShowCountry = {toggleCountryBlock} showCountryBlock = {showCountryBlock} onShowSorts={toggleSortBlock} showSortBlock={showSortBlock} currentItem={menuItem} onClickSnackButton = {handleSnackButtonClick} selectedSnackButton = {selectedSnackButton} />} />
                     <Route path="/login" element={<Login noExistence = {noExistence} onShowMenuBlock = {toggleMenuBlock} showMenuBlock = {showMenuBlock} currentItem={menuItem} login={login} />} />
                     <Route path="/signup" element={<SignUp setAlreadyExiste = {setAlreadyExiste} misMatch = {misMatch} sign_up_step1 = {sign_up_step1} onShowMenuBlock = {toggleMenuBlock} showMenuBlock = {showMenuBlock} currentItem={menuItem} />} />
                     <Route path="/address" element={<AdressForm setInvalidAdress = {setInvalidAdress} alreadyExiste = {alreadyExiste} invalidAdress = {invalidAdress} final_sign_up = {final_sign_up} onShowMenuBlock = {toggleMenuBlock} showMenuBlock = {showMenuBlock} currentItem={menuItem}/>} />
                     <Route path="/profile" element={<Profile profileName = {profileName} misMatch = {misMatch} update = {update} updateUser = {updateUser} trimedHouse = {afterSecondSpace} trimedStreet = {beforeSecondSpace}  onShowMenuBlock = {toggleMenuBlock} showMenuBlock = {showMenuBlock} currentItem={menuItem} />} />
-                    <Route path="/cart" element={<Cart currentItem={menuItem} />} />
+                    <Route path="/delivery" element={<Delivery profileName={profileName} onShowMenuBlock = {toggleMenuBlock} showMenuBlock = {showMenuBlock} currentItem={menuItem} />} />
+                    <Route path="/cart" element={<Cart invalidAdress = {invalidAdress} profileName={profileName} afterSecondSpace = {afterSecondSpace} beforeSecondSpace = {beforeSecondSpace} onShowMenuBlock = {toggleMenuBlock} showMenuBlock = {showMenuBlock} currentItem={menuItem} />} />
                 </Routes>
             </HashRouter>
             {showProductBlock &&

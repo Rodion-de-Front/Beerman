@@ -49,7 +49,47 @@
 }
 
 .payment {
+    margin-bottom: 24px;
+}
+
+.del-row {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.pen {
+    width: 14px;
+    height: 14px;
+    cursor: pointer;
+}
+
+.change-input {
+    width: 310px;
+    height: 60px;
+    flex-shrink: 0;
+    border-radius: 5px;
+    border: 1px solid #E0E0E0;
+    border: 1px solid color(display-p3 0.8792 0.8792 0.8792);
+    background: color(display-p3 1 1 1);
+    color: rgba(0, 0, 0, 0.50);
+    color: color(display-p3 0 0 0 / 0.50);
+    font-family: Roboto Flex;
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: normal;
     margin-bottom: 50px;
+    padding: 15px 20px;
+    box-sizing: border-box;
+    outline: none;
+}
+
+.change-input:focus {
+    border: 1px solid #99826B;
+    border: 1px solid color(display-p3 0.5843 0.5137 0.4314);
+    background: #FFF;
+    background: color(display-p3 1 1 1);
 }
 
 .delivery-row {
@@ -138,4 +178,163 @@ textarea {
     line-height: normal;
     box-sizing: border-box;
     cursor: pointer;
+    text-decoration: none;
+}
+
+a {
+    text-decoration: none;
+}
+
+.new-address-input {
+    width: 310px;
+    height: 60px;
+    flex-shrink: 0;
+    border-radius: 5px;
+    border: 1px solid #E0E0E0;
+    border: 1px solid color(display-p3 0.8792 0.8792 0.8792);
+    background: color(display-p3 1 1 1);
+    color: rgba(0, 0, 0, 0.50);
+    color: color(display-p3 0 0 0 / 0.50);
+    font-family: Roboto Flex;
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: normal;
+    margin-bottom: 50px;
+    padding: 15px 20px;
+    box-sizing: border-box;
+    outline: none;
+    margin-top: 15px;
+}
+
+.new-address-input:focus {
+    border: 1px solid #99826B;
+    border: 1px solid color(display-p3 0.5843 0.5137 0.4314);
+    background: #FFF;
+    background: color(display-p3 1 1 1);
+}
+
+.cart-map {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 999;
+}
+
+.cart-blur {
+    position: relative;
+  }
+
+.cart-blur::after {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.7);
+    z-index: 999;
+}
+
+body.no-scroll {
+    overflow: hidden;
+}
+
+.lol {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+@media (max-width: 800px) {
+    .cart {
+        flex-direction: column;
+        padding: 0 20px 18px 20px;
+        gap: 40px;
+    }
+
+    .cart-title {
+        width: 76%;
+        display: flex;
+        justify-content: flex-start;
+        font-size: 20px;
+        /* padding: 0 20px 24px 20px; */
+    }
+
+    .delivery-tittle {
+        font-size: 20px;
+    }
+
+    .delivery-adress {
+        width: 320px;
+        font-size: 10px;
+        margin-top: 5.89px;
+        margin-bottom: 40px;
+    }
+
+    textarea {
+        width: 320px;
+        height: 60px;
+        border-radius: 5px;
+        border: 1px solid #E0E0E0;
+        border: 1px solid color(display-p3 0.8792 0.8792 0.8792);
+        background: #FFF;
+        background: color(display-p3 1 1 1);
+        color: #808080;
+        color: color(display-p3 0.502 0.502 0.502);
+        font-family: Roboto Flex;
+        font-size: 12px;
+        font-style: normal;
+        font-weight: 500;
+        line-height: normal;
+        padding: 22px 15px;
+        box-sizing: border-box;
+        resize: none;
+        margin-bottom: 20px;
+    }
+
+    .delivery-row {
+        margin-top: 15px;
+    }
+
+    .total {
+        margin-bottom: 0;
+    }
+
+    .final-price {
+        margin-bottom: 0;
+    }
+
+    .order-btn {
+        margin-top: 50px;
+        display: flex;
+        width: 320px;
+        padding: 22px 32px;
+        justify-content: center;
+        align-items: center;
+        gap: 4px;
+        border-radius: 10px;
+        background: #99826B;
+        background: color(display-p3 0.5843 0.5137 0.4314);
+        color: #FFF;
+        color: color(display-p3 1 1 1);
+        font-family: Roboto Flex;
+        font-size: 14px;
+        font-style: normal;
+        font-weight: 400;
+        line-height: normal;
+    }
+
+    .cart-map {
+        padding: 20px;
+        box-sizing: border-box;
+        background: #F1F1F1;
+        background: color(display-p3 0.9451 0.9451 0.9451);
+        flex-direction: column;
+        gap: 3px;
+    }
+
 }
