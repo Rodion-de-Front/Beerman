@@ -34,7 +34,7 @@ class UserUpdate(BaseModel):
     phone: Optional[str]
     address: Optional[str]
 
-def CategoryCreate(BaseModel):
+class CategoryCreate(BaseModel):
     """
     Category create schema
     """
@@ -64,6 +64,8 @@ class ItemCreate(BaseModel):
     description: str
     image: str
     available: bool
+    category_id: Optional[int] = None
+    type_id: Optional[int] = None
 
     model_config = {
         "json_schema_extra": {
@@ -74,6 +76,8 @@ class ItemCreate(BaseModel):
                     "description": "Product 1 description",
                     "image": "base64 image",
                     "available": True,
+                    "category_id": 1,
+                    "type_id": 1,
                 },
                 {
                     "name": "Product 2",
@@ -90,12 +94,14 @@ class ItemUpdate(BaseModel):
     """
     Item (product) update schema
     """
-
+    id: int
     name: str
     price: int
     description: str
     image: str
     available: bool
+    category_id: Optional[int] = None
+    type_id: Optional[int] = None
 
     model_config = {
         "json_schema_extra": {
@@ -106,6 +112,8 @@ class ItemUpdate(BaseModel):
                     "description": "Product 1 description",
                     "image": "base64 image",
                     "available": True,
+                    "category_id": 1,
+                    "type_id": 1,
                 },
                 {
                     "name": "Product 2",
@@ -113,6 +121,8 @@ class ItemUpdate(BaseModel):
                     "description": "Product 2 description",
                     "image": "base64 image",
                     "available": False,
+                    "category_id": 1,
+                    "type_id": 1,
                 },
             ]
         }
