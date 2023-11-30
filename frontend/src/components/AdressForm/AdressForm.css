@@ -189,6 +189,7 @@
   }
 
 .close {
+    cursor: pointer;
     z-index: 3000000;
 }
 

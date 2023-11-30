@@ -10,7 +10,7 @@ import expand_more_2 from './img/expand_more_2.png';
 import filter_icon from './img/Group_11.png';
 import filter_active_icon from './img/active_fiter.png';
 
-function Beer( {currentItem, showSortBlock, onShowSorts, onShowCountry, showCountryBlock,  onShowProduct, onShowAddButtons, showAddButtons, onLink, onReColour, showRecoloredButton, onShowMenuBlock, showMenuBlock, images, onClickSnackButton, selectedSnackButton, profileName}  ) {
+function Beer( {currentItem, showSortBlock, onShowSorts, onShowCountry, showCountryBlock,  onShowProduct, onLink, onReColour, showRecoloredButton, onShowMenuBlock, showMenuBlock, images, onClickSnackButton, selectedSnackButton, profileName}  ) {
 
     const[activeBeerFilter, setActiveBeerFilter] = useState(false)
 
@@ -98,7 +98,7 @@ function Beer( {currentItem, showSortBlock, onShowSorts, onShowCountry, showCoun
                 </div>
                 <div className="card-container">
                 {products.map((product) => (
-                    <Card key={product.id} product={product} onLink = {onLink} showAddButtons={showAddButtons} onShowAddButtons={onShowAddButtons} onShowProduct={onShowProduct}/>
+                    <Card key={product.id} product={product} onLink = {onLink} onShowProduct={onShowProduct}/>
                 ))}
                 </div>
             </div>
@@ -130,6 +130,18 @@ function Beer( {currentItem, showSortBlock, onShowSorts, onShowCountry, showCoun
                                 </div>
                             </div>
                             )}
+                    </div>
+                </div>
+                <div className="card-container"><Card /><Card /><Card /><Card /><Card /><Card onShowProduct = {onShowProduct} /></div>
+            </div>
+
+            <div className="beer-block">
+                <div className="beer-header">
+                    <div className="position2">
+                        <div className="menu-header">
+                            <div className="beer-title">Б/a напитки</div>
+                                
+                            </div>
                     </div>
                 </div>
                 <div className="card-container"><Card /><Card /><Card /><Card /><Card /><Card onShowProduct = {onShowProduct} /></div>

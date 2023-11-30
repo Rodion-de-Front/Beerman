@@ -21,6 +21,15 @@
     align-items: center;
 }
 
+.position2 {
+    position: absolute;
+    width: 90.5vw;
+    top: -22%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
 .title-sort {
     display: flex;
     gap: 59px;
@@ -173,7 +182,11 @@
     background: color(display-p3 0.5843 0.5137 0.4314);
 }
 
+
+
 @media (max-width: 800px) {
+
+
 
     .beer-block {
         margin-top: 25px;
@@ -198,6 +211,11 @@
     .position {
         width: 85vw;
         top: -35%;
+    }
+
+    .position2 {
+        width: 85vw;
+        top: -25%;
     }
 
     .card-container {
