@@ -455,6 +455,15 @@ def create_cart(db: Session, user_id: int = None) -> int:
 
 def add_to_cart(db: Session, cartItem: request_schemas.AddCartItem) -> Union[response_schemas.CartItem, None]:
     try:
+        if (
+            db.query(db_models.CartItems)
+            .filter(
+                db_models.CartItems.cart_id == cartItem.cart_id,
+                db_models.CartItems.product_id == cartItem.product_id,
+            )
+            .first()
+        ):
+            return None
         db_cart_item = db_models.CartItems(
             cart_id=cartItem.cart_id,
             product_id=cartItem.product_id,

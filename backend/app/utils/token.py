@@ -98,6 +98,8 @@ async def get_current_soft_client(
 async def get_current_active_admin(
     current_user: Annotated[User, Depends(get_current_user)]
 ):
+    if current_user is None:
+        raise no_token_exception
     if current_user.role != "admin":
         raise HTTPException(
             status_code=status.HTTP_403_FORBIDDEN,
