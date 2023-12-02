@@ -41,6 +41,7 @@ class FullItem(Item):
     price: int
     description: str
     image: str
+    available: bool
 
 class AllItems(BaseModel):
     model_config = ConfigDict(from_attributes=True)

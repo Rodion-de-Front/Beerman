@@ -118,6 +118,7 @@ def get_item(db: Session, item_id: int) -> Union[response_schemas.FullItem, None
                 db_models.Products.price.label("price"),
                 db_models.Products.description.label("description"),
                 db_models.Products.image.label("image"),
+                db_models.Products.available.label("available"),
             )
             .filter(
                 db_models.Products.id == item_id,
