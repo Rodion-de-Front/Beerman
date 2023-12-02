@@ -66,7 +66,7 @@ async def add_to_cart(
 
     if cart_item is None:
         raise HTTPException(
-            status_code=status.HTTP_404_NOT_FOUND,
+            status_code=status.HTTP_409_CONFLICT,
             detail="Could not add to cart",
         )
 

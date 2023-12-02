@@ -28,6 +28,7 @@ router = APIRouter(
 async def create_user(
     user: request_schemas.UserCreate,
     db: Session = Depends(get_db),
+    cart_id: int = None,
 ):
     """
     Create a new user
@@ -48,7 +49,7 @@ async def create_user(
             detail="Email is not valid",
         )
 
-    return crud.create_user(db=db, user=user)
+    return crud.create_user(db=db, user=user, cart_id=cart_id)
 
 
 @router.post("/token", response_model=response_schemas.Token)

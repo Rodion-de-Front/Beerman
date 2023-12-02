@@ -42,7 +42,7 @@ def check_if_user_admin(db: Session, user: response_schemas.User) -> bool:
     except NoResultFound:
         return False
 
-def create_user(db: Session, user: request_schemas.UserCreate) -> response_schemas.User:
+def create_user(db: Session, user: request_schemas.UserCreate, cart_id: int = None) -> response_schemas.User:
     db_user = db_models.Users(
         email=user.email,
         phone=user.phone,
@@ -50,6 +50,8 @@ def create_user(db: Session, user: request_schemas.UserCreate) -> response_schem
         username=user.username,
         hashed_password=get_password_hash(user.password),
     )
+    if cart_id is not None:
+        db_user.cart_id = cart_id
     db.add(db_user)
     db.commit()
     db.refresh(db_user)
