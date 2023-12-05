@@ -44,7 +44,7 @@ class UserRoles(Base):
 class Products(Base):
     __tablename__ = "products"
     id = Column(Integer, primary_key=True)
-    name = Column(String(50), nullable=False)
+    name = Column(TEXT, nullable=False)
     price = Column(Integer, nullable=False)
     description = Column(TEXT, nullable=False)
     image = Column(TEXT, nullable=False)
