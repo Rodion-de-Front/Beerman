@@ -24,19 +24,60 @@ function Beer( {currentItem, showSortBlock, onShowSorts, onShowCountry, showCoun
         setActiveSnacksFilter(!activeSnacksFilter)
     }
 
-    const [products, setProducts] = useState([]);
+    const [Beer, setBeer] = useState([]);
+    const [Snacks, setSnacks] = useState([]);
+    const [SnacksFilters, setSnacksFilters] = useState([]);
+    const [Drinks, setDrinks] = useState([]);
 
     useEffect(() => {
-        // Ваш запрос к серверу для получения массива данных
-        fetch('https://biermann-api.onixx.ru/api/items/all')
-          .then(response => response.json())
-          .then(data => {
-            setProducts(data.items);
-          })
-          .catch(error => console.error('Ошибка при запросе данных:', error));
+        const fetchData = async () => {
+          try {
+            // Первый запрос
+            const response1 = await fetch('https://biermann-api.onixx.ru/api/items/all?category_id=4');
+            const data1 = await response1.json();
+
+            // Второй запрос
+            const response2 = await fetch('https://biermann-api.onixx.ru/api/items/all?category_id=5');
+            const data2 = await response2.json();
+
+            // Третий запрос
+            const response3 = await fetch('https://biermann-api.onixx.ru/api/items/all?category_id=7');
+            const data3 = await response3.json();
+
+            // Объединение результатов
+            const combinedData = [...data1.items, ...data2.items, ...data3.items];
+
+            // Установка объединенных данных в состояние
+            setBeer(combinedData);
+
+            // Первый запрос
+            const response4 = await fetch('https://biermann-api.onixx.ru/api/items/all?category_id=6');
+            const snacks = await response4.json();
+
+            setSnacks(snacks.items)
+
+            // Первый запрос
+            const response5 = await fetch('https://biermann-api.onixx.ru/api/items/all?category_id=7');
+            const drinks = await response5.json();
+
+            setDrinks(drinks.items)
+
+            // Первый запрос
+            const response6 = await fetch('https://biermann-api.onixx.ru/api/items/category/6/types');
+            const snacksFilters = await response6.json();
+
+            setSnacksFilters(snacksFilters.types)
+
+          } catch (error) {
+            console.error('Ошибка при запросе данных:', error);
+          }
+        };
+
+        // Вызов функции fetchData
+        fetchData();
       }, []);
 
-      console.log(products)
+      console.log(Beer)
 
     return (
         <div>
@@ -51,9 +92,11 @@ function Beer( {currentItem, showSortBlock, onShowSorts, onShowCountry, showCoun
                             <div className="menu-header">
                                 <div className="beer-title">ПИВО И СИДРЫ</div>
                                 {activeBeerFilter ? (
-                                    <div className="">
-                                    <button onClick = {onFilterBeer} className="active-mobile-filter-btn"><img alt="" src={filter_active_icon} /></button>
-                                    <div className=""></div>
+                                    <div>
+                                        <button onClick = {onFilterBeer} className="active-mobile-filter-btn"><img alt="" src={filter_active_icon} /></button>
+                                        <div className="mobile-filters-block">
+                                            <FilterSortBlock/>
+                                        </div>
                                     </div>
 
                                 ):(
@@ -97,8 +140,8 @@ function Beer( {currentItem, showSortBlock, onShowSorts, onShowCountry, showCoun
                     </div>
                 </div>
                 <div className="card-container">
-                {products.map((product) => (
-                    <Card key={product.id} product={product} onLink = {onLink} onShowProduct={onShowProduct}/>
+                {Beer.map((beer) => (
+                    <Card key={beer.id} product={beer} onLink = {onLink} onShowProduct={onShowProduct}/>
                 ))}
                 </div>
             </div>
@@ -112,7 +155,16 @@ function Beer( {currentItem, showSortBlock, onShowSorts, onShowCountry, showCoun
                                 {activeSnacksFilter ? (
                                     <div>
                                         <button onClick = {onFilterSnacks} className="active-mobile-filter-btn"><img alt="" src={filter_active_icon} /></button>
-                                        <div className=""></div>
+                                        {SnacksFilters.map((snacksFilters, index) => (
+                                            <div key={index} className="filter-snacks-block">
+                                                {Array.from({ length: SnacksFilters.length }).map((_, fieldIndex) => (
+                                                <div key={fieldIndex} className="filter-type">
+                                                    <input id={`checkbox${index}-${fieldIndex}`} type="checkbox" />
+                                                    <div className="filter-name">{SnacksFilters[fieldIndex].name}</div>
+                                                </div>
+                                                ))}
+                                            </div>
+                                        ))}
                                     </div>
                                 ):(
                                     <button onClick = {onFilterSnacks} className="mobile-filter-btn"><img alt="" src={filter_icon} /></button>
@@ -121,18 +173,27 @@ function Beer( {currentItem, showSortBlock, onShowSorts, onShowCountry, showCoun
                             ):(
                             <div className="title-sort">
                                 <div className="beer-title">Закуски</div>
-                                <div className="btns">
-                                    <button className={selectedSnackButton === 1 ? 'selected' : 'type-btn'} onClick={() => onClickSnackButton(1)}>Всё</button>
-                                    <button className={selectedSnackButton === 2 ? 'selected' : 'type-btn'} onClick={() => onClickSnackButton(2)}>Мясные</button>
-                                    <button className={selectedSnackButton === 3 ? 'selected' : 'type-btn'} onClick={() => onClickSnackButton(3)}>Сырные</button>
-                                    <button className={selectedSnackButton === 4 ? 'selected' : 'type-btn'} onClick={() => onClickSnackButton(4)}>Рыбные</button>
-                                    <button className={selectedSnackButton === 4 ? 'selected' : 'type-btn'} onClick={() => onClickSnackButton(4)}>Орешки</button>
-                                </div>
+                                    <div className="btns">
+                                        <button className={selectedSnackButton === 0 ? 'selected' : 'type-btn'} onClick={() => onClickSnackButton(0)}>Всё</button>
+                                        {SnacksFilters.map((snacksFilters, index) => (
+                                            <button
+                                            key={index} // добавляем ключ для уникальной идентификации каждой кнопки
+                                            className={selectedSnackButton === index + 1 ? 'selected' : 'type-btn'}
+                                            onClick={() => onClickSnackButton(index + 1)}
+                                            >
+                                            {snacksFilters.name}
+                                            </button>
+                                        ))}
+                                    </div>
                             </div>
                             )}
                     </div>
                 </div>
-                <div className="card-container"><Card /><Card /><Card /><Card /><Card /><Card onShowProduct = {onShowProduct} /></div>
+                <div className="card-container">
+                {Snacks.map((snacks) => (
+                    <Card key={snacks.id} product={snacks} onLink = {onLink} onShowProduct={onShowProduct}/>
+                ))}
+                </div>
             </div>
 
             <div className="beer-block">
@@ -144,7 +205,11 @@ function Beer( {currentItem, showSortBlock, onShowSorts, onShowCountry, showCoun
                             </div>
                     </div>
                 </div>
-                <div className="card-container"><Card /><Card /><Card /><Card /><Card /><Card onShowProduct = {onShowProduct} /></div>
+                <div className="card-container">
+                {Drinks.map((drinks) => (
+                    <Card key={drinks.id} product={drinks} onLink = {onLink} onShowProduct={onShowProduct}/>
+                ))}
+                </div>
             </div>
         </div>
     );

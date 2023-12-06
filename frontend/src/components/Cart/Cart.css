@@ -64,6 +64,11 @@
     cursor: pointer;
 }
 
+.open {
+    margin-bottom: 24px;
+    cursor: pointer;
+}
+
 .change-input {
     width: 310px;
     height: 60px;
@@ -241,15 +246,16 @@ body.no-scroll {
     overflow: hidden;
 }
 
-.lol {
-    width: 100%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-direction: column;
-}
-
 @media (max-width: 800px) {
+
+    .cart-paper {
+        width: 100%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+    }
+
     .cart {
         flex-direction: column;
         padding: 0 20px 18px 20px;
