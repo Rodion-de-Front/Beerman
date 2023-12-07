@@ -178,31 +178,40 @@ def item_update(db: Session, item: request_schemas.ItemUpdate) -> Union[response
         return None
 
 def get_all_items(db: Session, category_id: int = None, type_id: int = None, country_id: int = None) -> Union[response_schemas.AllItems, None]:
-    # get all itmes with category_id, type_id, country_id
+    # get all items filtered by category, type and country
     try:
+        query = db.query(db_models.Products)
+
+        if category_id is not None:
+            query = query.join(
+                db_models.ProductCategories,
+                db_models.ProductCategories.product_id == db_models.Products.id,
+            ).filter(
+                db_models.ProductCategories.category_id == category_id,
+            )
+
+        if type_id is not None:
+            query = query.join(
+                db_models.ProductTypes,
+                db_models.ProductTypes.product_id == db_models.Products.id,
+            ).filter(
+                db_models.ProductTypes.type_id == type_id,
+            )
+
+        if country_id is not None:
+            query = query.join(
+                db_models.ProductCountries,
+                db_models.ProductCountries.product_id == db_models.Products.id,
+            ).filter(
+                db_models.ProductCountries.country_id == country_id,
+            )
+
+        products = query.all()
+
         return response_schemas.AllItems(
             items=[
-                response_schemas.Item.model_validate(item)
-                for item in db.query(
-                    db_models.Products.id.label("id"),
-                    db_models.Products.name.label("name"),
-                    db_models.Products.price.label("price"),
-                    db_models.Products.available.label("available"),
-                    db_models.Products.image.label("image"),
-                ).join(
-                    db_models.ProductCategories,
-                    db_models.ProductCategories.product_id == db_models.Products.id,
-                ).join(
-                    db_models.ProductTypes,
-                    db_models.ProductTypes.product_id == db_models.Products.id,
-                ).join(
-                    db_models.ProductCountries,
-                    db_models.ProductCountries.product_id == db_models.Products.id,
-                ).filter(
-                    db_models.ProductCategories.category_id == category_id if category_id is not None else True,
-                    db_models.ProductTypes.type_id == type_id if type_id is not None else True,
-                    db_models.ProductCountries.country_id == country_id if country_id is not None else True,
-                ).all()
+                response_schemas.Item.model_validate(product)
+                for product in products
             ],
         )
     except NoResultFound:
