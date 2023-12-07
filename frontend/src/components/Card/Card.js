@@ -21,9 +21,7 @@ function Card({ onShowProduct, onShowAddButtons, showAddButtons, onLink, product
   const { id, price, name, description, image } = product;
 
   const cardStyle = {
-    backgroundImage: `url(data:image/png;base64, ${image})`,
-    borderRadius: '5px 5px 0 0',
-    backgroundSize: 'cover',
+    // backgroundImage: `url(${image})`,
   };
 
   const deleteData = async () => {
@@ -247,8 +245,8 @@ function Card({ onShowProduct, onShowAddButtons, showAddButtons, onLink, product
   }
 
   return (
-    <div id={id} className="card" onClick={onShowProduct}>
-      <div className="card-photo" style={cardStyle}></div>
+    <div id={id} className="card" onClick={() => onShowProduct(id)}>
+      <div className="card-photo" style={cardStyle}><img src={image} /></div>
       <div className="card-text">
         <div className="price">{price + ' ₽'}</div>
         <div className="name">{name}</div>

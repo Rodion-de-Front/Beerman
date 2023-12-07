@@ -1,30 +1,30 @@
+import React, { useState, useEffect } from 'react';
 import './FilterCountryBlock.css';
 
 function FilterCountryBlock() {
-    return (
-        <div className="filter-country-block">
-            <div className="filter-type">
-                <input id="" className="checkbox" type="checkbox" />
-                <div className="filter-name">Россия</div>
-            </div>
-            <div className="filter-type">
-                <input id="" type="checkbox" />
-                <div className="filter-name">Бельгий</div>
-            </div>
-            <div className="filter-type">
-                <input id="" type="checkbox" />
-                <div className="filter-name">Германия</div>
-            </div>
-            <div className="filter-type">
-                <input id="" type="checkbox" />
-                <div className="filter-name">Чехия</div>
-            </div>
-            <div className="filter-type">
-                <input id="" type="checkbox" />
-                <div className="filter-name">Англия</div>
-            </div>
+  const [countries, setCountries] = useState([]);
+
+  useEffect(() => {
+    // Ваш запрос к серверу для получения данных о странах
+    fetch('https://biermann-api.onixx.ru/api/items/countries')
+      .then(response => response.json())
+      .then(data => {
+        // Установка данных в состояние
+        setCountries(data.countries);
+      })
+      .catch(error => console.error('Ошибка при запросе данных:', error));
+  }, []); // Пустой массив зависимостей означает, что эффект будет выполнен только один раз после монтирования компонента
+
+  return (
+    <div className="filter-country-block">
+      {countries.map((country, index) => (
+        <div key={index} className="filter-type">
+          <input id={`checkbox${index}`} className="checkbox" type="checkbox" />
+          <div className="filter-name">{country.name}</div>
         </div>
-    );
+      ))}
+    </div>
+  );
 }
 
-export default FilterCountryBlock
+export default FilterCountryBlock;
