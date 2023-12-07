@@ -182,7 +182,30 @@
     background: color(display-p3 0.5843 0.5137 0.4314);
 }
 
+.mobile-filters-block {
+    position: absolute;
+    top: 110%;
+    right: 61.5%;
+    z-index: 30;
+}
 
+.filter-snacks-block {
+    position: absolute;
+    top: 110%;
+    right: 0%;
+    z-index: 30;
+    display: flex;
+    width: 185px;
+    padding: 16px;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 12px;
+    border-radius: 10px;
+    background: #FFF;
+    background: color(display-p3 1 1 1);
+    box-shadow: 0px 4px 12px 0px rgba(0, 0, 0, 0.12);
+    box-shadow: 0px 4px 12px 0px color(display-p3 0 0 0 / 0.12);
+}
 
 @media (max-width: 800px) {
 

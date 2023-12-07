@@ -4,17 +4,25 @@ import SelectedGoods from '../SelectedGoods/SelectedGoods';
 import './Cart.css';
 import pen from './img/Rectangle.png';
 import Metka from './img/metka.png';
+import open from './img/Vector.png';
 import { NavLink } from 'react-router-dom';
 import { MapContainer, TileLayer, useMapEvents } from 'react-leaflet';
 import close from './img/Frame_57.png';
 
 function Cart({ currentItem, onShowMenuBlock, showMenuBlock, beforeSecondSpace, afterSecondSpace, profileName }) {
   const [changedAddress, setChangedAddress] = useState(false);
+  const [wayOfPay, setWayOfPay] = useState(false);
   const [auth, setAuth] = useState(false);
   const [mapCenter, setMapCenter] = useState([55.616981, 37.323904]);
   const [address, setAddress] = useState({ settlement: '', street: '', house: '' });
   const [showOverlay, setShowOverlay] = useState(false);
   const [invalidAdress, setInvalidAdress] = useState(false);
+
+
+
+  function changeWayofPay() {
+    setWayOfPay(!wayOfPay)
+  }
 
   function showChangeAddress() {
     setChangedAddress(!changedAddress);
@@ -83,7 +91,7 @@ function Cart({ currentItem, onShowMenuBlock, showMenuBlock, beforeSecondSpace, 
   return (
     <div>
       <Navbar profileName={profileName} onShowMenuBlock={onShowMenuBlock} showMenuBlock={showMenuBlock} currentItem={currentItem} />
-      <div className='lol'>
+      <div className='cart-paper'>
       <div className="cart-title">Корзина</div>
       <div className={`cart ${changedAddress ? 'cart-blur' : ''}`}>
         <div className="goods-container">
@@ -103,10 +111,22 @@ function Cart({ currentItem, onShowMenuBlock, showMenuBlock, beforeSecondSpace, 
               {beforeSecondSpace && afterSecondSpace ? `КП 'Бристоль' ${beforeSecondSpace} ${afterSecondSpace}` : 'Вам необходимо авторизоваться'}
             </div>
           </div>
-          <div className="delivery-block">
-            <div className="payment delivery-tittle">Оплата наличными</div>
-            <input id="change" className="change-input" placeholder="Сдача с..." />
-          </div>
+          {/* <div className="delivery-block">
+            {!wayOfPay ? (
+              <div>
+              <div className="del-row">
+                <div className="payment delivery-tittle">Оплата наличными</div>
+                <img alt="" className="open" src={open} onClick={changeWayofPay}/>
+              </div>
+              <input id="change" className="change-input" placeholder="Сдача с..." />
+              </div>
+            ):(
+              <div className="del-row">
+                <div className="payment delivery-tittle">Оплата картой</div>
+                <img alt="" className="open" src={open} onClick={changeWayofPay}/>
+              </div>
+            )}
+          </div> */}
           {window.innerWidth < 800 ? (
             <div>
               <div className="delivery-block">

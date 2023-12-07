@@ -117,7 +117,7 @@ function App() {
     }
 
     // функция для филтров закусок
-    const [selectedSnackButton, setSelectedSnackButton] = useState(1);
+    const [selectedSnackButton, setSelectedSnackButton] = useState(0);
 
     const handleSnackButtonClick = (buttonId) => {
 
@@ -219,6 +219,7 @@ function App() {
                     setInvalidAdress(false)
                     document.getElementById("final_sign_up").click()
                     localStorage.setItem("token", responseData.access_token)
+                    window.location.reload()
                 })
                 .catch(error => {
                     console.error('Ошибка:', error);
@@ -339,7 +340,7 @@ function App() {
                 </Routes>
             </HashRouter>
             {showProductBlock &&
-                <Product onShowProduct = {toggleProductBlock}/>
+                <Product onLink = {handleClickLink} onShowProduct = {toggleProductBlock}/>
             }
         </div>
     )
