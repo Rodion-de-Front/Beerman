@@ -92,8 +92,26 @@ function App() {
 
     // показ блока описания товара
     const [showProductBlock, setShowProductBlock] = useState(false);
+    const [items, setItems] = useState([]);
 
-    const toggleProductBlock = () => {
+    const toggleProductBlock = (id) => {
+
+        fetch(`https://biermann-api.onixx.ru/api/items/get/${id}`, {
+            method: "GET",
+            headers: {
+                'Authorization': 'Bearer ' + localStorage.getItem("token")
+            },
+        })
+        .then((response) => response.json())
+        .then((data) => {
+            console.log(data);
+            setItems(data)
+
+        })
+        .catch((error) => {
+            console.log(error);
+        });
+
         setShowProductBlock(!showProductBlock);
         if (!showProductBlock) {
             document.documentElement.style.overflow = 'hidden'; // Запретить прокрутку
@@ -340,7 +358,7 @@ function App() {
                 </Routes>
             </HashRouter>
             {showProductBlock &&
-                <Product onLink = {handleClickLink} onShowProduct = {toggleProductBlock}/>
+                <Product items = {items} onLink = {handleClickLink} onShowProduct = {toggleProductBlock}/>
             }
         </div>
     )

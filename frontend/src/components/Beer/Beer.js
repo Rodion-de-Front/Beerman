@@ -33,15 +33,15 @@ function Beer( {currentItem, showSortBlock, onShowSorts, onShowCountry, showCoun
         const fetchData = async () => {
           try {
             // Первый запрос
-            const response1 = await fetch('https://biermann-api.onixx.ru/api/items/all?category_id=4');
+            const response1 = await fetch('https://biermann-api.onixx.ru/api/items/all?category_id=15');
             const data1 = await response1.json();
 
             // Второй запрос
-            const response2 = await fetch('https://biermann-api.onixx.ru/api/items/all?category_id=5');
+            const response2 = await fetch('https://biermann-api.onixx.ru/api/items/all?category_id=16');
             const data2 = await response2.json();
 
             // Третий запрос
-            const response3 = await fetch('https://biermann-api.onixx.ru/api/items/all?category_id=7');
+            const response3 = await fetch('https://biermann-api.onixx.ru/api/items/all?category_id=17');
             const data3 = await response3.json();
 
             // Объединение результатов
@@ -51,13 +51,13 @@ function Beer( {currentItem, showSortBlock, onShowSorts, onShowCountry, showCoun
             setBeer(combinedData);
 
             // Первый запрос
-            const response4 = await fetch('https://biermann-api.onixx.ru/api/items/all?category_id=6');
+            const response4 = await fetch('https://biermann-api.onixx.ru/api/items/all?category_id=13');
             const snacks = await response4.json();
 
             setSnacks(snacks.items)
 
             // Первый запрос
-            const response5 = await fetch('https://biermann-api.onixx.ru/api/items/all?category_id=7');
+            const response5 = await fetch('https://biermann-api.onixx.ru/api/items/all?category_id=14');
             const drinks = await response5.json();
 
             setDrinks(drinks.items)

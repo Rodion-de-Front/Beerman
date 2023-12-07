@@ -14,9 +14,17 @@
 }
 
 .card-photo {
-    background: url("img/image_20.png"), lightgray 50%;
+    display: flex;
+    justify-content: center;
     width: 310px;
     height: 205px;
+    border-radius: 5px 5px 0 0;
+}
+
+.card-photo img {
+    max-width: 100%; /* Сохраняет пропорции изображения и предотвращает искажение */
+    height: 100%; /* Позволяет изображению сохранять пропорции при изменении ширины */
+    display: block;
 }
 
 .price {
