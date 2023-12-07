@@ -46,9 +46,15 @@ class Products(Base):
     id = Column(Integer, primary_key=True)
     name = Column(TEXT, nullable=False)
     price = Column(Integer, nullable=False)
-    description = Column(TEXT, nullable=False)
+    description = Column(TEXT, nullable=True)
+    taste = Column(TEXT, nullable=True)
+    aroma = Column(TEXT, nullable=True)
+    combination = Column(TEXT, nullable=True)
+    color = Column(TEXT, nullable=True)
     image = Column(TEXT, nullable=False)
+    iiko_id = Column(String(50), nullable=True)
     available = Column(Boolean, nullable=False)
+
     created_at = Column(DateTime, default=datetime.now())
 
     cart_items = relationship("CartItems", backref="product", lazy="joined", cascade="all, delete-orphan")
@@ -80,6 +86,19 @@ class ProductTypes(Base):
     id = Column(Integer, primary_key=True)
     product_id = Column(Integer, ForeignKey("products.id"))
     type_id = Column(Integer, ForeignKey("types.id"))
+    created_at = Column(DateTime, default=datetime.now())
+
+class Countries(Base):
+    __tablename__ = "countries"
+    id = Column(Integer, primary_key=True)
+    name = Column(String(50), nullable=False)
+    created_at = Column(DateTime, default=datetime.now())
+
+class ProductCountries(Base):
+    __tablename__ = "product_countries"
+    id = Column(Integer, primary_key=True)
+    product_id = Column(Integer, ForeignKey("products.id"))
+    country_id = Column(Integer, ForeignKey("countries.id"))
     created_at = Column(DateTime, default=datetime.now())
 
 class OrderStatus(enum.Enum):

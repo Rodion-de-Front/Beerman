@@ -39,7 +39,11 @@ class FullItem(Item):
     id: int | None = None
     name: str
     price: int
-    description: str
+    description: str | None = None
+    color: str | None = None
+    aroma: str | None = None
+    combination: str | None = None
+    taste: str | None = None
     image: str
     available: bool
 
@@ -89,3 +93,14 @@ class Cart(BaseModel):
     items_price: int
     delivery_price: int
     total_price: int
+
+class Country(BaseModel):
+    model_config = ConfigDict(from_attributes=True)
+
+    id: int
+    name: str
+
+class AllCountries(BaseModel):
+    model_config = ConfigDict(from_attributes=True)
+
+    countries: List[Country]

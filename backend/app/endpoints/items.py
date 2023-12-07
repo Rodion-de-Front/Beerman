@@ -26,13 +26,14 @@ router = APIRouter(
 async def get_all_items(
     category_id: int = None,
     type_id: int = None,
+    country_id: int = None,
     db: Session = Depends(get_db),
 ):
     """
     Get all items
     """
-    print(f"category_id: {category_id}, type_id: {type_id}")
-    items = crud.get_all_items(db=db, category_id=category_id, type_id=type_id)
+    print(f"category_id: {category_id}, type_id: {type_id}, country_id: {country_id}")
+    items = crud.get_all_items(db=db, category_id=category_id, type_id=type_id, country_id=country_id)
 
     if items is None:
         raise HTTPException(
@@ -184,6 +185,24 @@ async def update_type(
             detail="No type found",
         )
     return result
+
+@router.get("/countries", response_model=response_schemas.AllCountries)
+@cache(expire=settings.CACHE_EXPIRE)
+async def get_countries(
+    db: Session = Depends(get_db),
+):
+    """
+    Get all countries
+    """
+    countries = crud.get_all_countries(db=db)
+
+    if countries is None:
+        raise HTTPException(
+            status_code=status.HTTP_404_NOT_FOUND,
+            detail="No countries found",
+        )
+
+    return countries
 
 @router.post("/create", response_model=None)
 async def create_item(

@@ -121,6 +121,10 @@ def get_item(db: Session, item_id: int) -> Union[response_schemas.FullItem, None
                 db_models.Products.description.label("description"),
                 db_models.Products.image.label("image"),
                 db_models.Products.available.label("available"),
+                db_models.Products.color.label("color"),
+                db_models.Products.aroma.label("aroma"),
+                db_models.Products.combination.label("combination"),
+                db_models.Products.taste.label("taste"),
             )
             .filter(
                 db_models.Products.id == item_id,
@@ -173,62 +177,34 @@ def item_update(db: Session, item: request_schemas.ItemUpdate) -> Union[response
     except NoResultFound:
         return None
 
-def get_all_items(db: Session, category_id: int = None, type_id: int = None) -> Union[response_schemas.AllItems, None]:
+def get_all_items(db: Session, category_id: int = None, type_id: int = None, country_id: int = None) -> Union[response_schemas.AllItems, None]:
+    # get all itmes with category_id, type_id, country_id
     try:
-        if category_id:
-            if type_id:
-                return response_schemas.AllItems(
-                    items=[
-                        response_schemas.Item.model_validate(item)
-                        for item in db.query(
-                            db_models.Products.id.label("id"),
-                            db_models.Products.name.label("name"),
-                            db_models.Products.price.label("price"),
-                            db_models.Products.available.label("available"),
-                            db_models.Products.image.label("image"),
-                        ).join(
-                            db_models.ProductTypes,
-                            db_models.ProductTypes.product_id == db_models.Products.id,
-                        ).join(
-                            db_models.ProductCategories,
-                            db_models.ProductCategories.product_id == db_models.Products.id,
-                        ).filter(
-                            db_models.ProductTypes.type_id == type_id,
-                            db_models.ProductCategories.category_id == category_id,
-                        ).all()
-                    ],
-                )
-            else:
-                return response_schemas.AllItems(
-                    items=[
-                        response_schemas.Item.model_validate(item)
-                        for item in db.query(
-                            db_models.Products.id.label("id"),
-                            db_models.Products.name.label("name"),
-                            db_models.Products.price.label("price"),
-                            db_models.Products.available.label("available"),
-                            db_models.Products.image.label("image"),
-                        ).join(
-                            db_models.ProductCategories,
-                            db_models.ProductCategories.product_id == db_models.Products.id,
-                        ).filter(
-                            db_models.ProductCategories.category_id == category_id,
-                        ).all()
-                    ],
-                )
-        else:
-            return response_schemas.AllItems(
-                items=[
-                    response_schemas.Item.model_validate(item)
-                    for item in db.query(
-                        db_models.Products.id.label("id"),
-                        db_models.Products.name.label("name"),
-                        db_models.Products.price.label("price"),
-                        db_models.Products.available.label("available"),
-                        db_models.Products.image.label("image"),
-                    ).all()
-                ],
-            )
+        return response_schemas.AllItems(
+            items=[
+                response_schemas.Item.model_validate(item)
+                for item in db.query(
+                    db_models.Products.id.label("id"),
+                    db_models.Products.name.label("name"),
+                    db_models.Products.price.label("price"),
+                    db_models.Products.available.label("available"),
+                    db_models.Products.image.label("image"),
+                ).join(
+                    db_models.ProductCategories,
+                    db_models.ProductCategories.product_id == db_models.Products.id,
+                ).join(
+                    db_models.ProductTypes,
+                    db_models.ProductTypes.product_id == db_models.Products.id,
+                ).join(
+                    db_models.ProductCountries,
+                    db_models.ProductCountries.product_id == db_models.Products.id,
+                ).filter(
+                    db_models.ProductCategories.category_id == category_id if category_id is not None else True,
+                    db_models.ProductTypes.type_id == type_id if type_id is not None else True,
+                    db_models.ProductCountries.country_id == country_id if country_id is not None else True,
+                ).all()
+            ],
+        )
     except NoResultFound:
         return None
 
@@ -384,6 +360,20 @@ def get_all_category_types(db: Session, category_id: int) -> Union[response_sche
                     db_models.Types.category_id.label("category_id"),
                 ).filter(
                     db_models.Types.category_id == category_id,
+                ).all()
+            ],
+        )
+    except NoResultFound:
+        return None
+
+def get_all_countries(db: Session) -> Union[response_schemas.AllCountries, None]:
+    try:
+        return response_schemas.AllCountries(
+            countries=[
+                response_schemas.Country.model_validate(country)
+                for country in db.query(
+                    db_models.Countries.id.label("id"),
+                    db_models.Countries.name.label("name"),
                 ).all()
             ],
         )
