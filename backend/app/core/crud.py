@@ -94,6 +94,14 @@ def user_update(db: Session,
     except NoResultFound:
         return None
 
+def user_cart_id(db: Session, user_id: int) -> Union[int, None]:
+    try:
+        return db.query(db_models.Users).filter(
+                db_models.Users.id == user_id,
+            ).one().cart_id
+    except NoResultFound:
+        return None
+
 def create_item(db: Session, item: request_schemas.ItemCreate) -> response_schemas.Item:
     db_item = db_models.Products(
         name=item.name,
@@ -544,5 +552,53 @@ def update_cart_item(db: Session, cart_item_id: int, cart_item: request_schemas.
 
         log.info(f"Updated cart item: {cart_item}")
         return cart_item
+    except NoResultFound:
+        return None
+
+def create_order(db: Session, order: request_schemas.CreateOrder, current_user_id: int, cart_id: int) -> response_schemas.Order:
+    # create order from cart
+    try:
+        total_price = float(db.query(db_models.Cart).filter(
+            db_models.Cart.id == cart_id,
+        ).first().total_price)
+
+        db_order = db_models.Orders(
+            user_id=current_user_id,
+            total_price=total_price,
+            comment=order.comment,
+            user_cash=order.user_cash,
+        )
+        db.add(db_order)
+        db.commit()
+        db.refresh(db_order)
+
+        for cart_item in db.query(db_models.CartItems).filter(
+            db_models.CartItems.cart_id == cart_id,
+        ).all():
+            db_order_item = db_models.OrderItems(
+                order_id=db_order.id,
+                product_id=cart_item.product_id,
+                quantity=cart_item.quantity,
+            )
+            db.add(db_order_item)
+            db.commit()
+            db.refresh(db_order_item)
+
+        db.delete(db.query(db_models.Cart).filter(
+            db_models.Cart.id == cart_id,
+        ).one())
+        db.commit()
+
+        db_order = response_schemas.Order(
+            id=db_order.id,
+            user_id=db_order.user_id,
+            total_price=db_order.total_price,
+            comment=db_order.comment,
+            user_cash=db_order.user_cash,
+            status=db_order.status,
+        )
+
+        log.info(f"Created order: {db_order}")
+        return db_order
     except NoResultFound:
         return None

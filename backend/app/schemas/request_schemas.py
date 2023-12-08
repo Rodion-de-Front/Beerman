@@ -166,3 +166,11 @@ class UpdateCartItem(BaseModel):
     """
 
     quantity: int
+
+class CreateOrder(BaseModel):
+    """
+    Create order schema
+    """
+
+    comment: Optional[str] = None
+    user_cash: Optional[int] = None

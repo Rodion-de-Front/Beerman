@@ -104,3 +104,13 @@ class AllCountries(BaseModel):
     model_config = ConfigDict(from_attributes=True)
 
     countries: List[Country]
+
+class Order(BaseModel):
+    model_config = ConfigDict(from_attributes=True)
+
+    id: int | None = None
+    user_id: int
+    total_price: int
+    comment: str | None = None
+    user_cash: int | None = None
+    status: str | None = None
