@@ -214,7 +214,7 @@ def get_all_items(db: Session, category_id: int = None, type_id: int = None, cou
                 db_models.ProductCountries.country_id == country_id,
             )
 
-        products = query.all()
+        products = query.order_by(db_models.Products.name).all()
 
         return response_schemas.AllItems(
             items=[
