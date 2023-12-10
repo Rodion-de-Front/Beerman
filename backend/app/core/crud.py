@@ -94,11 +94,21 @@ def user_update(db: Session,
     except NoResultFound:
         return None
 
-def user_cart_id(db: Session, user_id: int) -> Union[int, None]:
+
+def set_user_cart_id(db: Session, user_id: int, cart_id: int) -> Union[int, None]:
     try:
-        return db.query(db_models.Users).filter(
+        db_user = (
+            db.query(db_models.Users)
+            .filter(
                 db_models.Users.id == user_id,
-            ).one().cart_id
+            )
+            .one()
+        )
+        db_user.cart_id = cart_id
+        db.commit()
+        db.refresh(db_user)
+
+        return db_user.cart_id
     except NoResultFound:
         return None
 
