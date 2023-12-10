@@ -15,6 +15,7 @@ function App() {
     const [menuItem, setMenuItem] = useState('Главная');
 
     useEffect(()=>{
+        localStorage.removeItem("cart_id")
         if (localStorage.getItem("token") !== null) {
             setMenuItem('Профиль');
         } else {
@@ -35,7 +36,7 @@ function App() {
         })
         .then((response) => response.json())
         .then((data) => {
-            console.log(data);
+            // console.log(data);
 
             // Разделяем строку по пробелам
             var myString = data.address;
@@ -104,7 +105,7 @@ function App() {
         })
         .then((response) => response.json())
         .then((data) => {
-            console.log(data);
+            // console.log(data);
             setItems(data)
 
         })
@@ -123,24 +124,6 @@ function App() {
     // параметр для открытия ссылки в без карточки
     const handleClickLink = (e) => {
         e.stopPropagation();
-    }
-
-    // функция для филтров пива
-    const [selectedButton, setSelectedButton] = useState(1);
-
-    const handleButtonClick = (buttonId) => {
-
-        setSelectedButton(buttonId);
-
-    }
-
-    // функция для филтров закусок
-    const [selectedSnackButton, setSelectedSnackButton] = useState(0);
-
-    const handleSnackButtonClick = (buttonId) => {
-
-        setSelectedSnackButton(buttonId);
-
     }
 
     // показ блока со странами пива
@@ -215,9 +198,15 @@ function App() {
                 address: fullAdress
             };
 
-            console.log(data)
+            // console.log(data)
+            let url = ""
+            if (localStorage.getItem("cart_id" !== null)) {
+                url = `https://biermann-api.onixx.ru/api/user/create?cart_id=${localStorage.getItem("cart_id")}`
+            } else {
+                url = 'https://biermann-api.onixx.ru/api/user/create'
+            }
 
-            fetch('https://biermann-api.onixx.ru/api/user/create', {
+            fetch(url, {
                 method: 'POST',
                 headers: {
                 'Content-Type': 'application/json',
@@ -232,7 +221,7 @@ function App() {
                 })
                 .then(responseData => {
                     // Обработка успешного ответа
-                    console.log(responseData);
+                    // console.log(responseData);
                     setMenuItem('Профиль');
                     setInvalidAdress(false)
                     document.getElementById("final_sign_up").click()
@@ -262,7 +251,7 @@ function App() {
                 password: password
             };
 
-            console.log(data)
+            // console.log(data)
 
             var formBody = [];
             for (var property in data) {
@@ -287,7 +276,7 @@ function App() {
             })
             .then(responseData => {
                 // Обработка успешного ответа
-                console.log(responseData);
+                // console.log(responseData);
                 localStorage.setItem("token", responseData.access_token)
                 setMenuItem('Профиль');
                 document.getElementById("login").click()
@@ -322,7 +311,7 @@ function App() {
         address: newAddress,
     };
 
-    console.log(requestData)
+    // console.log(requestData)
 
     fetch("https://biermann-api.onixx.ru/api/user/update", {
         method: "PUT",
@@ -334,7 +323,7 @@ function App() {
       })
       .then((response) => response.json())
       .then((responseData) => {
-        console.log(responseData);
+        // console.log(responseData);
         setUpdate(true)
       })
       .catch((error) => {
@@ -348,7 +337,7 @@ function App() {
         <div>
             <HashRouter>
                 <Routes>
-                    <Route path="/" element={<Beer profileName = {profileName} images={images} onShowMenuBlock = {toggleMenuBlock} showMenuBlock = {showMenuBlock} showRecoloredButton = {selectedButton} onReColour = {handleButtonClick} onLink = {handleClickLink}  onShowProduct = {toggleProductBlock} onShowCountry = {toggleCountryBlock} showCountryBlock = {showCountryBlock} onShowSorts={toggleSortBlock} showSortBlock={showSortBlock} currentItem={menuItem} onClickSnackButton = {handleSnackButtonClick} selectedSnackButton = {selectedSnackButton} />} />
+                    <Route path="/" element={<Beer profileName = {profileName} images={images} onShowMenuBlock = {toggleMenuBlock} showMenuBlock = {showMenuBlock} onLink = {handleClickLink}  onShowProduct = {toggleProductBlock} onShowCountry = {toggleCountryBlock} showCountryBlock = {showCountryBlock} onShowSorts={toggleSortBlock} showSortBlock={showSortBlock} currentItem={menuItem} />} />
                     <Route path="/login" element={<Login noExistence = {noExistence} onShowMenuBlock = {toggleMenuBlock} showMenuBlock = {showMenuBlock} currentItem={menuItem} login={login} />} />
                     <Route path="/signup" element={<SignUp setAlreadyExiste = {setAlreadyExiste} misMatch = {misMatch} sign_up_step1 = {sign_up_step1} onShowMenuBlock = {toggleMenuBlock} showMenuBlock = {showMenuBlock} currentItem={menuItem} />} />
                     <Route path="/address" element={<AdressForm setInvalidAdress = {setInvalidAdress} alreadyExiste = {alreadyExiste} invalidAdress = {invalidAdress} final_sign_up = {final_sign_up} onShowMenuBlock = {toggleMenuBlock} showMenuBlock = {showMenuBlock} currentItem={menuItem}/>} />

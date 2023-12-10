@@ -3,7 +3,7 @@ import Icon from './img/Icon_Fill.png';
 import { NavLink } from 'react-router-dom';
 import { useState } from 'react';
 
-function Card({ onShowProduct, onShowAddButtons, showAddButtons, onLink, product }) {
+function Card({ onShowProduct, onLink, product }) {
 
   const [addProduct, setAddProduct] = useState(false);
   const [divQuantity, setDivQuantity] = useState(1);
@@ -48,11 +48,21 @@ function Card({ onShowProduct, onShowAddButtons, showAddButtons, onLink, product
     e.stopPropagation();
     setAddProduct(!addProduct);
     setDivQuantity(divQuantity + 1)
+    let data = {}
 
-    const data = {
-      "product_id": id,
-      "quantity": divQuantity,
-    };
+    if (localStorage.getItem("cart_id") !== null) {
+      data = {
+        "product_id": id,
+        "quantity": divQuantity,
+        "cart_id": localStorage.getItem("cart_id")
+      };
+
+    } else {
+      data = {
+        "product_id": id,
+        "quantity": divQuantity,
+      };
+    }
 
     console.log(JSON.stringify(data))
 
@@ -74,6 +84,10 @@ function Card({ onShowProduct, onShowAddButtons, showAddButtons, onLink, product
       .then(responseData => {
           // Обработка успешного ответа
           console.log(responseData);
+          setCartItemId(responseData.id)
+          if (localStorage.getItem("cart_id") === null) {
+            localStorage.setItem("cart_id", responseData.cart_id)
+          }
       })
       .catch(error => {
           console.error('Ошибка:', error);
@@ -98,6 +112,7 @@ function Card({ onShowProduct, onShowAddButtons, showAddButtons, onLink, product
           .then(responseData => {
               // Обработка успешного ответа
               console.log(responseData);
+              setCartItemId(responseData.id)
           })
           .catch(error => {
               console.error('Ошибка:', error);
@@ -115,18 +130,18 @@ function Card({ onShowProduct, onShowAddButtons, showAddButtons, onLink, product
     setCountForDiv(countForDiv + 1)
 
     const data = {
-      "product_id": id,
       "quantity": divQuantity,
+      'cart_id': localStorage.getItem("cart_id")
     };
 
     console.log(JSON.stringify(data))
 
     if (localStorage.getItem("token") === null) {
 
-      fetch('https://biermann-api.onixx.ru/api/cart/add', {
-        method: 'POST',
+      fetch(`https://biermann-api.onixx.ru/api/cart/update/${cartItemId}`, {
+        method: 'PUT',
         headers: {
-          'Content-Type': 'application/json'
+          'Content-Type': 'application/json',
         },
         body: JSON.stringify(data),
       })
@@ -139,6 +154,7 @@ function Card({ onShowProduct, onShowAddButtons, showAddButtons, onLink, product
       .then(responseData => {
           // Обработка успешного ответа
           console.log(responseData);
+          setCartItemId(responseData.id)
       })
       .catch(error => {
           console.error('Ошибка:', error);
@@ -146,11 +162,11 @@ function Card({ onShowProduct, onShowAddButtons, showAddButtons, onLink, product
 
     } else {
 
-      fetch('https://biermann-api.onixx.ru/api/cart/add', {
-            method: 'POST',
+      fetch(`https://biermann-api.onixx.ru/api/cart/update/${cartItemId}`, {
+            method: 'PUT',
             headers: {
               'Content-Type': 'application/json',
-              'Authorization': 'Bearer ' + localStorage.getItem("token")
+              'Authorization': 'Bearer ' + localStorage.getItem("token"),
             },
             body: JSON.stringify(data),
           })
@@ -187,7 +203,7 @@ function Card({ onShowProduct, onShowAddButtons, showAddButtons, onLink, product
     setCountForDiv(countForDiv - 1)
 
     let data = {
-      "product_id": id,
+      "cart_id": localStorage.getItem("cart_id"),
       "quantity": count,
     };
 
@@ -195,8 +211,8 @@ function Card({ onShowProduct, onShowAddButtons, showAddButtons, onLink, product
 
     if (localStorage.getItem("token") === null) {
 
-      fetch('https://biermann-api.onixx.ru/api/cart/add', {
-        method: 'POST',
+      fetch(`https://biermann-api.onixx.ru/api/cart/update/${cartItemId}`, {
+        method: 'PUT',
         headers: {
           'Content-Type': 'application/json'
         },
@@ -219,8 +235,8 @@ function Card({ onShowProduct, onShowAddButtons, showAddButtons, onLink, product
 
     } else {
 
-      fetch('https://biermann-api.onixx.ru/api/cart/add', {
-            method: 'POST',
+      fetch(`https://biermann-api.onixx.ru/api/cart/update/${cartItemId}`, {
+            method: 'PUT',
             headers: {
               'Content-Type': 'application/json',
               'Authorization': 'Bearer ' + localStorage.getItem("token")
@@ -246,7 +262,7 @@ function Card({ onShowProduct, onShowAddButtons, showAddButtons, onLink, product
 
   return (
     <div id={id} className="card" onClick={() => onShowProduct(id)}>
-      <div className="card-photo" style={cardStyle}><img src={image} /></div>
+      <div className="card-photo" style={cardStyle}><img alt="" src={image} /></div>
       <div className="card-text">
         <div className="price">{price + ' ₽'}</div>
         <div className="name">{name}</div>
