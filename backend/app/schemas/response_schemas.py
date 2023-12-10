@@ -84,6 +84,7 @@ class CartItem(BaseModel):
     name: str
     price: int
     quantity: int
+    image: str
 
 class Cart(BaseModel):
     model_config = ConfigDict(from_attributes=True)

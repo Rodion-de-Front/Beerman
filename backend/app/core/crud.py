@@ -427,6 +427,7 @@ def get_cart(db: Session, cart_id: int) -> Union[response_schemas.Cart, None]:
                     db_models.CartItems.product_id.label("product_id"),
                     db_models.Products.name.label("name"),
                     db_models.Products.price.label("price"),
+                    db_models.Products.image.label("image"),
                     db_models.CartItems.quantity.label("quantity"),
                 ).join(
                     db_models.Products,
@@ -503,6 +504,7 @@ def add_to_cart(db: Session, cartItem: request_schemas.AddCartItem) -> Union[res
             name=db_cart_item.product.name,
             price=db_cart_item.product.price,
             quantity=db_cart_item.quantity,
+            image=db_cart_item.product.image,
         )
 
         log.info(f"Added to cart: {cart_item}")
@@ -527,6 +529,7 @@ def del_from_cart (db: Session, cart_item_id: int) -> Union[response_schemas.Car
             name=db_cart_item.product.name,
             price=db_cart_item.product.price,
             quantity=db_cart_item.quantity,
+            image=db_cart_item.product.image,
         )
         db.delete(db_cart_item)
         db.commit()
@@ -558,6 +561,7 @@ def update_cart_item(db: Session, cart_item_id: int, cart_item: request_schemas.
             name=db_cart_item.product.name,
             price=db_cart_item.product.price,
             quantity=db_cart_item.quantity,
+            image=db_cart_item.product.image,
         )
 
         log.info(f"Updated cart item: {cart_item}")
