@@ -5,6 +5,8 @@ import './Cart.css';
 import pen from './img/Rectangle.png';
 import Metka from './img/metka.png';
 import open from './img/Vector.png';
+import pic_1 from './img/Vector1.png';
+import pic_2 from './img/Vector2.png';
 import { NavLink } from 'react-router-dom';
 import { MapContainer, TileLayer, useMapEvents } from 'react-leaflet';
 import close from './img/Frame_57.png';
@@ -88,15 +90,97 @@ function Cart({ currentItem, onShowMenuBlock, showMenuBlock, beforeSecondSpace, 
     return null;
   };
 
+  const [cart, setCart] = useState([])
+  const [cartItems, setCartItems] = useState([])
+  let url = ""
+
+  useEffect(() => {
+    if (localStorage.getItem("token") === null) {
+
+      fetch(`https://biermann-api.onixx.ru/api/cart/all?cart_id=${localStorage.getItem("cart_id")}`, {
+      method: "GET",
+      })
+      .then((response) => response.json())
+      .then((data) => {
+          console.log(data);
+          setCart(data)
+          setCartItems(data.items)
+      })
+      .catch((error) => {
+          console.log(error);
+      });
+
+    } else {
+
+      fetch('https://biermann-api.onixx.ru/api/cart/all', {
+        method: "GET",
+        headers: {
+          'Authorization': 'Bearer ' + localStorage.getItem("token")
+        },
+      })
+      .then((response) => response.json())
+      .then((data) => {
+          console.log(data);
+          setCart(data)
+          setCartItems(data.items)
+      })
+      .catch((error) => {
+          console.log(error);
+      });
+    }
+
+  }, []);
+
+  const [offered, setOffer] = useState(false)
+  function makeOffer() {
+
+    setOffer(true)
+
+    const data = {
+        "comment": document.getElementById("comment").value,
+        "user_cash": 0
+    }
+
+    fetch('https://biermann-api.onixx.ru/api/order/create', {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+              'Authorization': 'Bearer ' + localStorage.getItem("token")
+            },
+            body: JSON.stringify(data),
+          })
+          .then(response => {
+              if (!response.ok) {
+                  throw new Error('Ошибка при отправке запроса');
+              }
+              return response.json();
+          })
+          .then(responseData => {
+              // Обработка успешного ответа
+              console.log(responseData);
+          })
+          .catch(error => {
+              console.error('Ошибка:', error);
+          });
+  }
   return (
+
     <div>
+    {!offered ? (
+      <div>
       <Navbar profileName={profileName} onShowMenuBlock={onShowMenuBlock} showMenuBlock={showMenuBlock} currentItem={currentItem} />
       <div className='cart-paper'>
       <div className="cart-title">Корзина</div>
       <div className={`cart ${changedAddress ? 'cart-blur' : ''}`}>
-        <div className="goods-container">
-          <SelectedGoods />
-        </div>
+      <div className="goods-container">
+        {cartItems ? (
+          cartItems.map((cartItem) => (
+            <SelectedGoods key={cartItem.id} cartItem={cartItem} />
+          ))
+        ) : (
+          <div className="delivery-adress">Ваша корзина пуста</div>
+        )}
+      </div>
         <div className="delivery-data">
           <div className="delivery-block">
             <div className="del-row">
@@ -131,18 +215,18 @@ function Cart({ currentItem, onShowMenuBlock, showMenuBlock, beforeSecondSpace, 
             <div>
               <div className="delivery-block">
                 <div className="delivery-tittle">Комментарий</div>
-                <textarea placeholder="Напишите сюда свои пожелания"></textarea>
+                <textarea id = "comment" placeholder="Напишите сюда свои пожелания"></textarea>
               </div>
               <div className="delivery-block">
                 <div className="delivery-row">
                   <div className="delivery-description">Товары (1)</div>
-                  <div className="delivery-price">8 700 ₽</div>
+                  <div className="delivery-price">{cart.items_price} ₽</div>
                 </div>
               </div>
               <div className="delivery-block">
                 <div className="delivery-row">
                   <div className="delivery-description">Доставка</div>
-                  <div className="delivery-price">300 ₽</div>
+                  <div className="delivery-price">{cart.delivery_price} ₽</div>
                 </div>
               </div>
               <div className="delivery-block">
@@ -151,7 +235,7 @@ function Cart({ currentItem, onShowMenuBlock, showMenuBlock, beforeSecondSpace, 
                     <b>Итого</b>
                   </div>
                   <div className="final-price">
-                    <b>8 850 ₽</b>
+                    <b>{cart.total_price} ₽</b>
                   </div>
                 </div>
               </div>
@@ -161,24 +245,24 @@ function Cart({ currentItem, onShowMenuBlock, showMenuBlock, beforeSecondSpace, 
               <div className="delivery-block">
                 <div className="delivery-row">
                   <div className="delivery-description">Товары (1)</div>
-                  <div className="delivery-price">8 700 ₽</div>
+                  <div className="delivery-price">{cart.items_price} ₽</div>
                 </div>
               </div>
               <div className="delivery-block">
                 <div className="delivery-row">
                   <div className="delivery-description">Доставка</div>
-                  <div className="delivery-price">300 ₽</div>
+                  <div className="delivery-price">{cart.delivery_price} ₽</div>
                 </div>
               </div>
               <div className="delivery-block">
                 <div className="delivery-row">
                   <div className="total delivery-tittle">Итого</div>
-                  <div className="final-price">8 850 ₽</div>
+                  <div className="final-price">{cart.total_price} ₽</div>
                 </div>
               </div>
               <div className="delivery-block">
                 <div className="delivery-tittle">Комментарий</div>
-                <textarea placeholder="Можем оставить у двери или предварительно позвонить"></textarea>
+                <textarea id = "comment" placeholder="Можем оставить у двери или предварительно позвонить"></textarea>
               </div>
             </div>
           )}
@@ -187,7 +271,7 @@ function Cart({ currentItem, onShowMenuBlock, showMenuBlock, beforeSecondSpace, 
               <button className="order-btn">Авторизоваться</button>
             </NavLink>
           ) : (
-            <button className="order-btn">Заказать</button>
+            <button className="order-btn" onClick={makeOffer}>Заказать</button>
           )}
         </div>
       </div>
@@ -277,6 +361,41 @@ function Cart({ currentItem, onShowMenuBlock, showMenuBlock, beforeSecondSpace, 
         </div>
       )}
     </div>
+    </div>
+      ):(
+        <div>
+          <Navbar profileName={profileName} onShowMenuBlock={onShowMenuBlock} showMenuBlock={showMenuBlock} currentItem={currentItem} />
+          {window.innerWidth < 800 ? (
+            <div className="offered-block">
+                <div className="offered-info">
+                  <div className="offered-info-text">
+                    ЗАКАЗ ПРИЕДЕТ<br></br>В ТЕЧЕНИЕ 30 МИНУТ
+                  </div>
+                  <div className="offered-info-number-title">
+                    По всем вопросам
+                  </div>
+                  <div className="offered-info-number">
+                    8 (915) 327-56-83
+                  </div>
+                </div>
+            </div>
+          ):(
+            <div className="offered-block">
+                  <div className="offered-info">
+                      <div className="offered-info-text">
+                        ЗАКАЗ ПРИЕДЕТ<br></br>В ТЕЧЕНИЕ 30 МИНУТ
+                      </div>
+                      <div className="offered-info-number-title">
+                        По всем вопросам
+                      </div>
+                      <div className="offered-info-number">
+                        8 (915) 327-56-83
+                      </div>
+                  </div>
+            </div>
+          )}
+        </div>
+    )}
     </div>
   );
 }

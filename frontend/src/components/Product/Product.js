@@ -256,9 +256,9 @@ function Product( {onShowProduct, onLink, items} ) {
                     <div className="product-card-description">{items.description}</div>
                     <div className="product-card-price">{items.price} ₽</div>
                     <div className="product-card-about-title">О пиве</div>
-                    <div className="product-card-about-text">{items.color} {items.aroma}</div>
+                    <div className="product-card-about-text"><p>{items.color}</p> <p>{items.aroma}</p> <p>{items.taste}</p></div>
                     <div className="product-card-name-taste-title">Вкусовые сочетания</div>
-                    <div className="product-card-taste-text">{items.combination} {items.taste}</div>
+                    <div className="product-card-taste-text">{items.combination}</div>
                     {!addProduct ? (
           <button className="card-product-btn" onClick={toggleAddButtons}>
             В корзину

@@ -10,7 +10,7 @@ import expand_more_2 from './img/expand_more_2.png';
 import filter_icon from './img/Group_11.png';
 import filter_active_icon from './img/active_fiter.png';
 
-function Beer( {currentItem, showSortBlock, onShowSorts, onShowCountry, showCountryBlock,  onShowProduct, onLink, onReColour, showRecoloredButton, onShowMenuBlock, showMenuBlock, images, onClickSnackButton, selectedSnackButton, profileName}  ) {
+function Beer( {currentItem, showSortBlock, onShowSorts, onShowCountry, showCountryBlock,  onShowProduct, onLink, onShowMenuBlock, showMenuBlock, images, profileName}  ) {
 
     const[activeBeerFilter, setActiveBeerFilter] = useState(false)
 
@@ -63,7 +63,7 @@ function Beer( {currentItem, showSortBlock, onShowSorts, onShowCountry, showCoun
             setDrinks(drinks.items)
 
             // Первый запрос
-            const response6 = await fetch('https://biermann-api.onixx.ru/api/items/category/6/types');
+            const response6 = await fetch('https://biermann-api.onixx.ru/api/items/category/13/types');
             const snacksFilters = await response6.json();
 
             setSnacksFilters(snacksFilters.types)
@@ -77,7 +77,94 @@ function Beer( {currentItem, showSortBlock, onShowSorts, onShowCountry, showCoun
         fetchData();
       }, []);
 
-      console.log(Beer)
+    //   console.log(Beer)
+
+    // функция для филтров пива
+    const [showRecoloredButton, setSelectedButton] = useState(1);
+
+    const onReColour = (buttonId) => {
+
+        setSelectedButton(buttonId);
+
+        if(buttonId === 1) {
+            const fetchData = async () => {
+                try {
+                  // Первый запрос
+                  const response1 = await fetch('https://biermann-api.onixx.ru/api/items/all?category_id=15');
+                  const data1 = await response1.json();
+
+                  // Второй запрос
+                  const response2 = await fetch('https://biermann-api.onixx.ru/api/items/all?category_id=16');
+                  const data2 = await response2.json();
+
+                  // Третий запрос
+                  const response3 = await fetch('https://biermann-api.onixx.ru/api/items/all?category_id=17');
+                  const data3 = await response3.json();
+
+                  // Объединение результатов
+                  const combinedData = [...data1.items, ...data2.items, ...data3.items];
+
+                  // Установка объединенных данных в состояние
+                  setBeer(combinedData);
+                } catch (error) {
+                    console.error('Ошибка при запросе данных:', error);
+                }
+            }
+            fetchData();
+        } else {
+
+            fetch(`https://biermann-api.onixx.ru/api/items/all?category_id=${buttonId}`, {
+            method: "GET",
+            })
+            .then((response) => response.json())
+            .then((data) => {
+                console.log(data);
+                setBeer(data.items)
+            })
+            .catch((error) => {
+                console.log(error);
+            });
+
+        }
+
+    }
+
+    // функция для филтров закусок
+    const [selectedSnackButton, setSelectedSnackButton] = useState(0);
+
+    const onClickSnackButton = (buttonId) => {
+
+        setSelectedSnackButton(buttonId);
+
+        if (buttonId === 0) {
+
+            fetch(`https://biermann-api.onixx.ru/api/items/all?category_id=13`, {
+            method: "GET",
+            })
+            .then((response) => response.json())
+            .then((data) => {
+                console.log(data);
+                setSnacks(data.items)
+            })
+            .catch((error) => {
+                console.log(error);
+            });
+
+        } else {
+            fetch(`https://biermann-api.onixx.ru/api/items/all?category_id=13&type_id=${buttonId}`, {
+            method: "GET",
+            })
+            .then((response) => response.json())
+            .then((data) => {
+                console.log(data);
+                setSnacks(data.items)
+            })
+            .catch((error) => {
+                console.log(error);
+            });
+        }
+
+    }
 
     return (
         <div>
@@ -111,8 +198,8 @@ function Beer( {currentItem, showSortBlock, onShowSorts, onShowCountry, showCoun
                             <div className="beer-title">ПИВО И СИДРЫ</div>
                             <div className="btns">
                                 <button className={showRecoloredButton === 1 ? 'selected' : 'type-btn'} onClick={() => onReColour(1)}>Всё</button>
-                                <button className={showRecoloredButton === 2 ? 'selected' : 'type-btn'} onClick={() => onReColour(2)}>Бутылочное</button>
-                                <button className={showRecoloredButton === 3 ? 'selected' : 'type-btn'} onClick={() => onReColour(3)}>Разливное</button>
+                                <button className={showRecoloredButton === 16 ? 'selected' : 'type-btn'} onClick={() => onReColour(16)}>Бутылочное</button>
+                                <button className={showRecoloredButton === 15 ? 'selected' : 'type-btn'} onClick={() => onReColour(15)}>Разливное</button>
                             </div>
                         </div>
 
@@ -175,11 +262,12 @@ function Beer( {currentItem, showSortBlock, onShowSorts, onShowCountry, showCoun
                                 <div className="beer-title">Закуски</div>
                                     <div className="btns">
                                         <button className={selectedSnackButton === 0 ? 'selected' : 'type-btn'} onClick={() => onClickSnackButton(0)}>Всё</button>
-                                        {SnacksFilters.map((snacksFilters, index) => (
+                                        {SnacksFilters.map((snacksFilters) => (
                                             <button
-                                            key={index} // добавляем ключ для уникальной идентификации каждой кнопки
-                                            className={selectedSnackButton === index + 1 ? 'selected' : 'type-btn'}
-                                            onClick={() => onClickSnackButton(index + 1)}
+                                            id={snacksFilters.id}
+                                            key={snacksFilters.id} // добавляем ключ для уникальной идентификации каждой кнопки
+                                            className={selectedSnackButton === snacksFilters.id ? 'selected' : 'type-btn'}
+                                            onClick={() => onClickSnackButton(snacksFilters.id)}
                                             >
                                             {snacksFilters.name}
                                             </button>

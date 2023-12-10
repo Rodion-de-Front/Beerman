@@ -103,11 +103,11 @@
     color: #000;
     color: color(display-p3 0 0 0);
     font-family: Roboto Flex;
-    font-size: 12px;
+    font-size: 14px;
     font-style: normal;
     font-weight: 500;
     line-height: 120%; /* 14.4px */
-    margin-bottom: 35px;
+    margin-bottom: 15px;
 }
 
 .product-card-name-taste-title {
@@ -126,10 +126,10 @@
     color: #000;
     color: color(display-p3 0 0 0);
     font-family: Roboto Flex;
-    font-size: 12px;
+    font-size: 14px;
     font-style: normal;
     font-weight: 500;
-    line-height: 100%; /* 12px */
+    line-height: 120%;
 }
 
 .add-btn {
