@@ -72,7 +72,8 @@ async def login_for_access_token(
     access_token = create_access_token(
         data={"email": user.email}, expires_delta=access_token_expires
     )
-    crud.set_user_cart_id(db=db, user_id=user.id, cart_id=cart_id)
+    if cart_id is not None:
+        crud.set_user_cart_id(db=db, user_id=user.id, cart_id=cart_id)
     return {"access_token": access_token, "token_type": "bearer"}
 
 @router.get("/profile", response_model=response_schemas.User)
