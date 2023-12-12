@@ -5,3 +5,5 @@ venv/
 /storage/*
 data/
 node_modules/
+__pycache__/
+```

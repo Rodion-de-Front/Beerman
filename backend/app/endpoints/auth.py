@@ -28,6 +28,7 @@ router = APIRouter(
 async def create_user(
     user: request_schemas.UserCreate,
     db: Session = Depends(get_db),
+    cart_id: int = None,
 ):
     """
     Create a new user
@@ -48,13 +49,14 @@ async def create_user(
             detail="Email is not valid",
         )
 
-    return crud.create_user(db=db, user=user)
+    return crud.create_user(db=db, user=user, cart_id=cart_id)
 
 
 @router.post("/token", response_model=response_schemas.Token)
 async def login_for_access_token(
     form_data: Annotated[OAuth2PasswordRequestForm, Depends()],
     db: Session = Depends(get_db),
+    cart_id: int = None,
 ):
     """
     we use username in OAuth2PasswordRequestForm as email
@@ -70,6 +72,8 @@ async def login_for_access_token(
     access_token = create_access_token(
         data={"email": user.email}, expires_delta=access_token_expires
     )
+    if cart_id is not None:
+        crud.set_user_cart_id(db=db, user_id=user.id, cart_id=cart_id)
     return {"access_token": access_token, "token_type": "bearer"}
 
 @router.get("/profile", response_model=response_schemas.User)

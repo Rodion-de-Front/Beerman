@@ -14,3 +14,7 @@ Requests
 SQLAlchemy
 uvicorn
 python-multipart
+alembic
+bcrypt
+pandas
+openpyxl

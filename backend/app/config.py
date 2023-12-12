@@ -17,6 +17,8 @@ class Settings(BaseSettings):
     SECRET_KEY: str
     HUNTER_API: str
     HUNTER_URI: str = "https://api.hunter.io/v2/email-verifier"
+    LOGGING_LEVEL: str = "DEBUG"
+    SERVICE_NAME: str
 
     @validator("BACKEND_CORS_ORIGINS", pre=True)
     def assemble_cors_origins(cls, v: Union[str, List[str]]) -> Union[List[str], str]:
@@ -49,7 +51,7 @@ class Settings(BaseSettings):
         )
 
     ALGORITHM: str = "HS256"
-    ACCESS_TOKEN_EXPIRE_MINUTES: int = 3 #10080
+    ACCESS_TOKEN_EXPIRE_MINUTES: int = 60 #10080
 
     class Config:
         case_sensitive = True
