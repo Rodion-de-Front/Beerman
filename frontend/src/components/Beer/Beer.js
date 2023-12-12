@@ -28,20 +28,56 @@ function Beer( {currentItem, showSortBlock, onShowSorts, onShowCountry, showCoun
     const [Snacks, setSnacks] = useState([]);
     const [SnacksFilters, setSnacksFilters] = useState([]);
     const [Drinks, setDrinks] = useState([]);
+    const [CartItems, setCartItems] = useState([]);
+    const [productList, setProductList] = useState([])
+
+    function getCart() {
+        if (localStorage.getItem("token") === null) {
+
+            fetch(`https://biermann-api.onixx.ru/api/cart/all?cart_id=${localStorage.getItem("cart_id")}`, {
+            method: "GET",
+            })
+            .then((response) => response.json())
+            .then((data) => {
+                console.log(data)
+                setCartItems(data.items)
+            })
+            .catch((error) => {
+                console.log(error);
+            });
+
+        } else {
+
+            fetch('https://biermann-api.onixx.ru/api/cart/all', {
+            method: "GET",
+            headers: {
+                'Authorization': 'Bearer ' + localStorage.getItem("token")
+            },
+            })
+            .then((response) => response.json())
+            .then((data) => {
+                console.log(data);
+                setCartItems(data.items)
+            })
+            .catch((error) => {
+                console.log(error);
+            });
+        }
+    }
 
     useEffect(() => {
         const fetchData = async () => {
           try {
             // Первый запрос
-            const response1 = await fetch('https://biermann-api.onixx.ru/api/items/all?category_id=15');
+            const response1 = await fetch('https://biermann-api.onixx.ru/api/items/all?category_ids=15');
             const data1 = await response1.json();
 
             // Второй запрос
-            const response2 = await fetch('https://biermann-api.onixx.ru/api/items/all?category_id=16');
+            const response2 = await fetch('https://biermann-api.onixx.ru/api/items/all?category_ids=16');
             const data2 = await response2.json();
 
             // Третий запрос
-            const response3 = await fetch('https://biermann-api.onixx.ru/api/items/all?category_id=17');
+            const response3 = await fetch('https://biermann-api.onixx.ru/api/items/all?category_ids=17');
             const data3 = await response3.json();
 
             // Объединение результатов
@@ -51,18 +87,18 @@ function Beer( {currentItem, showSortBlock, onShowSorts, onShowCountry, showCoun
             setBeer(combinedData);
 
             // Первый запрос
-            const response4 = await fetch('https://biermann-api.onixx.ru/api/items/all?category_id=13');
+            const response4 = await fetch('https://biermann-api.onixx.ru/api/items/all?category_ids=13');
             const snacks = await response4.json();
 
             setSnacks(snacks.items)
 
             // Первый запрос
-            const response5 = await fetch('https://biermann-api.onixx.ru/api/items/all?category_id=14');
+            const response5 = await fetch('https://biermann-api.onixx.ru/api/items/all?category_ids=14');
             const drinks = await response5.json();
 
             setDrinks(drinks.items)
 
-            // Первый запрос
+            //запрос на получение данных из корзины если они есть
             const response6 = await fetch('https://biermann-api.onixx.ru/api/items/category/13/types');
             const snacksFilters = await response6.json();
 
@@ -75,6 +111,7 @@ function Beer( {currentItem, showSortBlock, onShowSorts, onShowCountry, showCoun
 
         // Вызов функции fetchData
         fetchData();
+        getCart();
       }, []);
 
     //   console.log(Beer)
@@ -85,20 +122,22 @@ function Beer( {currentItem, showSortBlock, onShowSorts, onShowCountry, showCoun
     const onReColour = (buttonId) => {
 
         setSelectedButton(buttonId);
+        setSelectedCountries([]);
+        setSelectedSorts([]);
 
         if(buttonId === 1) {
             const fetchData = async () => {
                 try {
                   // Первый запрос
-                  const response1 = await fetch('https://biermann-api.onixx.ru/api/items/all?category_id=15');
+                  const response1 = await fetch('https://biermann-api.onixx.ru/api/items/all?category_ids=15');
                   const data1 = await response1.json();
 
                   // Второй запрос
-                  const response2 = await fetch('https://biermann-api.onixx.ru/api/items/all?category_id=16');
+                  const response2 = await fetch('https://biermann-api.onixx.ru/api/items/all?category_ids=16');
                   const data2 = await response2.json();
 
                   // Третий запрос
-                  const response3 = await fetch('https://biermann-api.onixx.ru/api/items/all?category_id=17');
+                  const response3 = await fetch('https://biermann-api.onixx.ru/api/items/all?category_ids=17');
                   const data3 = await response3.json();
 
                   // Объединение результатов
@@ -113,7 +152,7 @@ function Beer( {currentItem, showSortBlock, onShowSorts, onShowCountry, showCoun
             fetchData();
         } else {
 
-            fetch(`https://biermann-api.onixx.ru/api/items/all?category_id=${buttonId}`, {
+            fetch(`https://biermann-api.onixx.ru/api/items/all?category_ids=${buttonId}`, {
             method: "GET",
             })
             .then((response) => response.json())
@@ -129,6 +168,301 @@ function Beer( {currentItem, showSortBlock, onShowSorts, onShowCountry, showCoun
 
     }
 
+    const [checked, setCheckInput] = useState([])
+    const [url, setUrl] = useState("https://biermann-api.onixx.ru/api/items/all?")
+    const [urlWithCategoryBottle, setUrlWithCategoryBottle] = useState(`https://biermann-api.onixx.ru/api/items/all?category_ids=16`)
+    const [urlWithCategoryDraft, setUrlWithCategoryDraft] = useState(`https://biermann-api.onixx.ru/api/items/all?category_ids=15`)
+    const [selectedSorts, setSelectedSorts] = useState([])
+    const [selectedCountries, setSelectedCountries] = useState([])
+
+    function onFilterCountry(sortId) {
+
+        let checkCountry = document.getElementById(`country${sortId}`)
+
+        if (checkCountry.checked) {
+
+            setSelectedCountries([...selectedCountries, sortId])
+
+            if (showRecoloredButton === 1) {
+
+                setUrl(url + `&country_ids=${sortId}`)
+                console.log(url)
+                fetch(url + `&country_ids=${sortId}`, {
+                    method: "GET",
+                    })
+                    .then((response) => response.json())
+                    .then((data) => {
+                        console.log(data);
+                        setBeer(data.items)
+                    })
+                    .catch((error) => {
+                        console.log(error);
+                    });
+            }
+            if (showRecoloredButton === 16) {
+                setUrlWithCategoryBottle(urlWithCategoryBottle + `&country_ids=${sortId}`)
+                console.log(urlWithCategoryBottle)
+                fetch(urlWithCategoryBottle + `&country_ids=${sortId}`, {
+                    method: "GET",
+                    })
+                    .then((response) => response.json())
+                    .then((data) => {
+                        console.log(data);
+                        setBeer(data.items)
+                    })
+                    .catch((error) => {
+                        console.log(error);
+                    });
+            }
+            if (showRecoloredButton === 15) {
+                setUrlWithCategoryDraft(urlWithCategoryDraft + `&country_ids=${sortId}`)
+                console.log(urlWithCategoryDraft)
+                fetch(urlWithCategoryDraft + `&country_ids=${sortId}`, {
+                    method: "GET",
+                    })
+                    .then((response) => response.json())
+                    .then((data) => {
+                        console.log(data);
+                        setBeer(data.items)
+                    })
+                    .catch((error) => {
+                        console.log(error);
+                    });
+            }
+
+        } else {
+
+            setSelectedCountries(selectedCountries.filter((id) => id !== sortId));
+
+            console.log(url)
+            let suburl = '&country_ids=' + sortId;
+            if (url.replace(new RegExp(suburl, 'g'), '') === "https://biermann-api.onixx.ru/api/items/all?" && showRecoloredButton === 1) {
+                const fetchData = async () => {
+                    try {
+                      // Первый запрос
+                      const response1 = await fetch('https://biermann-api.onixx.ru/api/items/all?category_ids=15');
+                      const data1 = await response1.json();
+
+                      // Второй запрос
+                      const response2 = await fetch('https://biermann-api.onixx.ru/api/items/all?category_ids=16');
+                      const data2 = await response2.json();
+
+                      // Третий запрос
+                      const response3 = await fetch('https://biermann-api.onixx.ru/api/items/all?category_ids=17');
+                      const data3 = await response3.json();
+
+                      // Объединение результатов
+                      const combinedData = [...data1.items, ...data2.items, ...data3.items];
+
+                      // Установка объединенных данных в состояние
+                      setBeer(combinedData);
+                    } catch (error) {
+                        console.error('Ошибка при запросе данных:', error);
+                    }
+                }
+                fetchData();
+            }
+            if (url.replace(new RegExp(suburl, 'g'), '') !== "https://biermann-api.onixx.ru/api/items/all?") {
+                let suburl = '&country_ids=' + sortId;
+                console.log(suburl);
+                setUrl(url.replace(new RegExp(suburl, 'g'), ''))
+                fetch(url.replace(new RegExp(suburl, 'g'), ''), {
+                    method: "GET",
+                    })
+                    .then((response) => response.json())
+                    .then((data) => {
+                        console.log(data);
+                        setBeer(data.items)
+                    })
+                    .catch((error) => {
+                        console.log(error);
+                });
+            }
+
+            if (showRecoloredButton === 16) {
+                    let suburl = '&country_ids=' + sortId;
+                    console.log(suburl);
+                    setUrlWithCategoryBottle(urlWithCategoryBottle.replace(new RegExp(suburl, 'g'), ''))
+                    fetch(urlWithCategoryBottle.replace(new RegExp(suburl, 'g'), ''), {
+                        method: "GET",
+                        })
+                        .then((response) => response.json())
+                        .then((data) => {
+                            console.log(data);
+                            setBeer(data.items)
+                        })
+                        .catch((error) => {
+                            console.log(error);
+                    });
+            }
+
+            if (showRecoloredButton === 15) {
+                let suburl = '&country_ids=' + sortId;
+                console.log(suburl);
+                setUrlWithCategoryDraft(urlWithCategoryDraft.replace(new RegExp(suburl, 'g'), ''))
+                fetch(urlWithCategoryDraft.replace(new RegExp(suburl, 'g'), ''), {
+                    method: "GET",
+                    })
+                    .then((response) => response.json())
+                    .then((data) => {
+                        console.log(data);
+                        setBeer(data.items)
+                    })
+                    .catch((error) => {
+                        console.log(error);
+                });
+            }
+        }
+
+    }
+
+    function onFilter(sortId) {
+
+        console.log(showRecoloredButton)
+
+        let checkSort = document.getElementById(`sort${sortId}`)
+
+        if (checkSort.checked) {
+
+            setSelectedSorts([...selectedSorts, sortId])
+
+            if (showRecoloredButton === 1) {
+
+                setUrl(url + `&brewing_type_ids=${sortId}`)
+                console.log(url)
+                fetch(url + `&brewing_type_ids=${sortId}`, {
+                    method: "GET",
+                    })
+                    .then((response) => response.json())
+                    .then((data) => {
+                        console.log(data);
+                        setBeer(data.items)
+                    })
+                    .catch((error) => {
+                        console.log(error);
+                    });
+            }
+            if (showRecoloredButton === 16) {
+                setUrlWithCategoryBottle(urlWithCategoryBottle + `&brewing_type_ids=${sortId}`)
+                console.log(urlWithCategoryBottle)
+                fetch(urlWithCategoryBottle + `&brewing_type_ids=${sortId}`, {
+                    method: "GET",
+                    })
+                    .then((response) => response.json())
+                    .then((data) => {
+                        console.log(data);
+                        setBeer(data.items)
+                    })
+                    .catch((error) => {
+                        console.log(error);
+                    });
+            }
+            if (showRecoloredButton === 15) {
+
+                setUrlWithCategoryDraft(urlWithCategoryDraft + `&brewing_type_ids=${sortId}`)
+                console.log(urlWithCategoryDraft)
+                fetch(urlWithCategoryDraft + `&brewing_type_ids=${sortId}`, {
+                    method: "GET",
+                    })
+                    .then((response) => response.json())
+                    .then((data) => {
+                        console.log(data);
+                        setBeer(data.items)
+                    })
+                    .catch((error) => {
+                        console.log(error);
+                    });
+            }
+
+        } else {
+
+            setSelectedSorts(selectedSorts.filter((id) => id !== sortId));
+
+            console.log(url)
+            let suburl = '&brewing_type_ids=' + sortId;
+            if (url.replace(new RegExp(suburl, 'g'), '') === "https://biermann-api.onixx.ru/api/items/all?" && showRecoloredButton === 1) {
+                const fetchData = async () => {
+                    try {
+                      // Первый запрос
+                      const response1 = await fetch('https://biermann-api.onixx.ru/api/items/all?category_ids=15');
+                      const data1 = await response1.json();
+
+                      // Второй запрос
+                      const response2 = await fetch('https://biermann-api.onixx.ru/api/items/all?category_ids=16');
+                      const data2 = await response2.json();
+
+                      // Третий запрос
+                      const response3 = await fetch('https://biermann-api.onixx.ru/api/items/all?category_ids=17');
+                      const data3 = await response3.json();
+
+                      // Объединение результатов
+                      const combinedData = [...data1.items, ...data2.items, ...data3.items];
+
+                      // Установка объединенных данных в состояние
+                      setBeer(combinedData);
+                    } catch (error) {
+                        console.error('Ошибка при запросе данных:', error);
+                    }
+                }
+                fetchData();
+            }
+            if (url.replace(new RegExp(suburl, 'g'), '') !== "https://biermann-api.onixx.ru/api/items/all?") {
+                let suburl = '&brewing_type_ids=' + sortId;
+                console.log(suburl);
+                setUrl(url.replace(new RegExp(suburl, 'g'), ''))
+                console.log(url.replace(new RegExp(suburl, 'g'), ''))
+                fetch(url.replace(new RegExp(suburl, 'g'), ''), {
+                    method: "GET",
+                    })
+                    .then((response) => response.json())
+                    .then((data) => {
+                        console.log(data);
+                        setBeer(data.items)
+                    })
+                    .catch((error) => {
+                        console.log(error);
+                });
+            }
+
+            if (showRecoloredButton === 16) {
+                console.log(urlWithCategoryBottle)
+                    let suburl = '&brewing_type_ids=' + sortId;
+                    console.log(suburl);
+                    console.log(urlWithCategoryBottle.replace(suburl, ""))
+                    setUrlWithCategoryBottle(urlWithCategoryBottle.replace(new RegExp(suburl, 'g'), ''))
+                    fetch(urlWithCategoryBottle.replace(suburl, ""), {
+                        method: "GET",
+                        })
+                        .then((response) => response.json())
+                        .then((data) => {
+                            console.log(data);
+                            setBeer(data.items)
+                        })
+                        .catch((error) => {
+                            console.log(error);
+                    });
+            }
+
+            if (showRecoloredButton === 15) {
+                let suburl = '&brewing_type_ids=' + sortId;
+                console.log(suburl);
+                setUrlWithCategoryDraft(urlWithCategoryDraft.replace(new RegExp(suburl, 'g'), ''))
+                fetch(urlWithCategoryDraft.replace(suburl, ""), {
+                    method: "GET",
+                    })
+                    .then((response) => response.json())
+                    .then((data) => {
+                        console.log(data);
+                        setBeer(data.items)
+                    })
+                    .catch((error) => {
+                        console.log(error);
+                });
+            }
+        }
+
+    }
+
     // функция для филтров закусок
     const [selectedSnackButton, setSelectedSnackButton] = useState(0);
 
@@ -138,7 +472,7 @@ function Beer( {currentItem, showSortBlock, onShowSorts, onShowCountry, showCoun
 
         if (buttonId === 0) {
 
-            fetch(`https://biermann-api.onixx.ru/api/items/all?category_id=13`, {
+            fetch(`https://biermann-api.onixx.ru/api/items/all?category_ids=13`, {
             method: "GET",
             })
             .then((response) => response.json())
@@ -151,7 +485,7 @@ function Beer( {currentItem, showSortBlock, onShowSorts, onShowCountry, showCoun
             });
 
         } else {
-            fetch(`https://biermann-api.onixx.ru/api/items/all?category_id=13&type_id=${buttonId}`, {
+            fetch(`https://biermann-api.onixx.ru/api/items/all?category_ids=13&type_ids=${buttonId}`, {
             method: "GET",
             })
             .then((response) => response.json())
@@ -182,7 +516,7 @@ function Beer( {currentItem, showSortBlock, onShowSorts, onShowCountry, showCoun
                                     <div>
                                         <button onClick = {onFilterBeer} className="active-mobile-filter-btn"><img alt="" src={filter_active_icon} /></button>
                                         <div className="mobile-filters-block">
-                                            <FilterSortBlock/>
+                                            <FilterSortBlock onFilterCountry={onFilterCountry} selectedCountries={selectedCountries} selectedSorts={selectedSorts} onFilter={onFilter}/>
                                         </div>
                                     </div>
 
@@ -210,7 +544,7 @@ function Beer( {currentItem, showSortBlock, onShowSorts, onShowCountry, showCoun
                                 <button className="togled-fillter-btn" onClick={onShowSorts}>Сорт<img alt="" src={expand_more_2}/></button>
                         )}
                         {showSortBlock &&
-                                <FilterSortBlock/>
+                                <FilterSortBlock onFilterCountry={onFilterCountry} selectedCountries={selectedCountries} selectedSorts={selectedSorts} onFilter={onFilter}/>
                         }
                         {!showCountryBlock ? (
                                 <button className="fillter-btn" onClick={onShowCountry}>Страна<img alt="" src={expand_more}/></button>
@@ -218,7 +552,7 @@ function Beer( {currentItem, showSortBlock, onShowSorts, onShowCountry, showCoun
                                 <button className="togled-fillter-btn" onClick={onShowCountry}>Страна<img alt="" src={expand_more_2}/></button>
                             )}
                         {showCountryBlock &&
-                            <FilterCountryBlock/>
+                            <FilterCountryBlock selectedCountries={selectedCountries} onFilterCountry={onFilterCountry}/>
                         }
                         </div>
 
@@ -227,9 +561,19 @@ function Beer( {currentItem, showSortBlock, onShowSorts, onShowCountry, showCoun
                     </div>
                 </div>
                 <div className="card-container">
-                {Beer.map((beer) => (
-                    <Card key={beer.id} product={beer} onLink = {onLink} onShowProduct={onShowProduct}/>
-                ))}
+                {Beer.map((beer) => {
+                    const isInCart = CartItems && CartItems.some(item => item.product_id === beer.id);
+                    return (
+                    <Card
+                        key={beer.id}
+                        product={beer}
+                        onLink={onLink}
+                        onShowProduct={onShowProduct}
+                        extraVariable={isInCart}
+                        CartItems={CartItems}
+                    />
+                    );
+                })}
                 </div>
             </div>
 
@@ -279,7 +623,7 @@ function Beer( {currentItem, showSortBlock, onShowSorts, onShowCountry, showCoun
                 </div>
                 <div className="card-container">
                 {Snacks.map((snacks) => (
-                    <Card key={snacks.id} product={snacks} onLink = {onLink} onShowProduct={onShowProduct}/>
+                    <Card CartItems={CartItems} key={snacks.id} product={snacks} onLink = {onLink}/>
                 ))}
                 </div>
             </div>
@@ -295,7 +639,7 @@ function Beer( {currentItem, showSortBlock, onShowSorts, onShowCountry, showCoun
                 </div>
                 <div className="card-container">
                 {Drinks.map((drinks) => (
-                    <Card key={drinks.id} product={drinks} onLink = {onLink} onShowProduct={onShowProduct}/>
+                    <Card CartItems={CartItems} key={drinks.id} product={drinks} onLink = {onLink}/>
                 ))}
                 </div>
             </div>

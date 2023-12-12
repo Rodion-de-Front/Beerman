@@ -5,8 +5,6 @@ import './Cart.css';
 import pen from './img/Rectangle.png';
 import Metka from './img/metka.png';
 import open from './img/Vector.png';
-import pic_1 from './img/Vector1.png';
-import pic_2 from './img/Vector2.png';
 import { NavLink } from 'react-router-dom';
 import { MapContainer, TileLayer, useMapEvents } from 'react-leaflet';
 import close from './img/Frame_57.png';
@@ -92,9 +90,8 @@ function Cart({ currentItem, onShowMenuBlock, showMenuBlock, beforeSecondSpace, 
 
   const [cart, setCart] = useState([])
   const [cartItems, setCartItems] = useState([])
-  let url = ""
 
-  useEffect(() => {
+  function fetchData() {
     if (localStorage.getItem("token") === null) {
 
       fetch(`https://biermann-api.onixx.ru/api/cart/all?cart_id=${localStorage.getItem("cart_id")}`, {
@@ -128,7 +125,10 @@ function Cart({ currentItem, onShowMenuBlock, showMenuBlock, beforeSecondSpace, 
           console.log(error);
       });
     }
+  }
 
+  useEffect(() => {
+    fetchData()
   }, []);
 
   const [offered, setOffer] = useState(false)
@@ -175,7 +175,7 @@ function Cart({ currentItem, onShowMenuBlock, showMenuBlock, beforeSecondSpace, 
       <div className="goods-container">
         {cartItems ? (
           cartItems.map((cartItem) => (
-            <SelectedGoods key={cartItem.id} cartItem={cartItem} />
+            <SelectedGoods fetchData={fetchData} key={cartItem.id} cartItem={cartItem} />
           ))
         ) : (
           <div className="delivery-adress">Ваша корзина пуста</div>

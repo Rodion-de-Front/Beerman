@@ -1,9 +1,10 @@
 import './Card.css';
 import Icon from './img/Icon_Fill.png';
-import { NavLink } from 'react-router-dom';
-import { useState } from 'react';
+import { NavLink, createRoutesFromChildren } from 'react-router-dom';
+import { useState, useEffect } from 'react';
+import Beer from '../Beer/Beer';
 
-function Card({ onShowProduct, onLink, product }) {
+function Card({ onShowProduct, onLink, product, extraVariable, CartItems }) {
 
   const [addProduct, setAddProduct] = useState(false);
   const [divQuantity, setDivQuantity] = useState(1);
@@ -12,6 +13,13 @@ function Card({ onShowProduct, onLink, product }) {
   const [cartItemId, setCartItemId] = useState(0);
   let quantity = 1
 
+  useEffect(()=>{
+  if (extraVariable) {
+    setAddProduct(true)
+    console.log(CartItems.id)
+  }
+}, [])
+
   // Проверка, что product определен
   if (!product) {
     return <div>Product is undefined</div>;
@@ -19,10 +27,6 @@ function Card({ onShowProduct, onLink, product }) {
 
   // Деструктурирование свойств после проверки
   const { id, price, name, description, image } = product;
-
-  const cardStyle = {
-    // backgroundImage: `url(${image})`,
-  };
 
   const deleteData = async () => {
     try {
@@ -261,13 +265,13 @@ function Card({ onShowProduct, onLink, product }) {
   }
 
   return (
-    <div id={id} className="card" onClick={() => onShowProduct(id)}>
-      <div className="card-photo" style={cardStyle}><img alt="" src={image} /></div>
+    <div id={id} className="card" onClick={onShowProduct && (() => onShowProduct(id))}>
+      <div className="card-photo"><img alt="" src={image} /></div>
       <div className="card-text">
         <div className="price">{price + ' ₽'}</div>
         <div className="name">{name}</div>
         <div className="description">{description}</div>
-        {!addProduct ? (
+        {!addProduct && !extraVariable ? (
           <button className="card-btn" onClick={toggleAddButtons}>
             В корзину
           </button>
