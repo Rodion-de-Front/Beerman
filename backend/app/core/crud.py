@@ -9,6 +9,8 @@ from app.schemas import response_schemas, request_schemas
 from app.config import log
 from app.utils.token import get_password_hash
 
+from typing import List
+
 
 def get_user(db: Session, email: Union[str, None]) -> Union[models.UserInDB, None]:
     try:
@@ -195,33 +197,41 @@ def item_update(db: Session, item: request_schemas.ItemUpdate) -> Union[response
     except NoResultFound:
         return None
 
-def get_all_items(db: Session, category_id: int = None, type_id: int = None, country_id: int = None) -> Union[response_schemas.AllItems, None]:
+def get_all_items(db: Session, category_ids: List[int] = [], type_ids: List[int] = [], country_ids: List[int] = [], brewing_type_ids: List[int] = []) -> Union[response_schemas.AllItems, None]:
     # get all items filtered by category, type and country
     try:
         query = db.query(db_models.Products)
 
-        if category_id is not None:
+        if category_ids:
             query = query.join(
                 db_models.ProductCategories,
                 db_models.ProductCategories.product_id == db_models.Products.id,
             ).filter(
-                db_models.ProductCategories.category_id == category_id,
+                db_models.ProductCategories.category_id.in_(category_ids),
             )
 
-        if type_id is not None:
+        if type_ids:
             query = query.join(
                 db_models.ProductTypes,
                 db_models.ProductTypes.product_id == db_models.Products.id,
             ).filter(
-                db_models.ProductTypes.type_id == type_id,
+                db_models.ProductTypes.type_id.in_(type_ids),
             )
 
-        if country_id is not None:
+        if country_ids:
             query = query.join(
                 db_models.ProductCountries,
                 db_models.ProductCountries.product_id == db_models.Products.id,
             ).filter(
-                db_models.ProductCountries.country_id == country_id,
+                db_models.ProductCountries.country_id.in_(country_ids),
+            )
+
+        if brewing_type_ids:
+            query = query.join(
+                db_models.ProductBrewTypes,
+                db_models.ProductBrewTypes.product_id == db_models.Products.id,
+            ).filter(
+                db_models.ProductBrewTypes.brew_type_id.in_(brewing_type_ids),
             )
 
         products = query.order_by(db_models.Products.name).all()
@@ -230,6 +240,20 @@ def get_all_items(db: Session, category_id: int = None, type_id: int = None, cou
             items=[
                 response_schemas.Item.model_validate(product)
                 for product in products
+            ],
+        )
+    except NoResultFound:
+        return None
+
+def get_all_brewing_types(db: Session) -> Union[response_schemas.AllBrewingTypes, None]:
+    try:
+        return response_schemas.AllBrewingTypes(
+            brewing_types=[
+                response_schemas.BrewingType.model_validate(brewing_type)
+                for brewing_type in db.query(
+                    db_models.BrewTypes.id.label("id"),
+                    db_models.BrewTypes.name.label("name"),
+                ).all()
             ],
         )
     except NoResultFound:

@@ -106,6 +106,17 @@ class AllCountries(BaseModel):
 
     countries: List[Country]
 
+class BrewingType(BaseModel):
+    model_config = ConfigDict(from_attributes=True)
+
+    id: int
+    name: str
+
+class AllBrewingTypes(BaseModel):
+    model_config = ConfigDict(from_attributes=True)
+
+    brewing_types: List[BrewingType]
+
 class Order(BaseModel):
     model_config = ConfigDict(from_attributes=True)
 

@@ -101,6 +101,19 @@ class ProductCountries(Base):
     country_id = Column(Integer, ForeignKey("countries.id"))
     created_at = Column(DateTime, default=datetime.now())
 
+class BrewTypes(Base):
+    __tablename__ = "brew_types"
+    id = Column(Integer, primary_key=True)
+    name = Column(String(50), nullable=False)
+    created_at = Column(DateTime, default=datetime.now())
+
+class ProductBrewTypes(Base):
+    __tablename__ = "product_brew_types"
+    id = Column(Integer, primary_key=True)
+    product_id = Column(Integer, ForeignKey("products.id"))
+    brew_type_id = Column(Integer, ForeignKey("brew_types.id"))
+    created_at = Column(DateTime, default=datetime.now())
+
 class OrderStatus(enum.Enum):
     pending = "pending"
     processing = "processing"

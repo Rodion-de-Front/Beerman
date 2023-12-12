@@ -1,4 +1,4 @@
-from fastapi import APIRouter, Depends, HTTPException, status
+from fastapi import APIRouter, Depends, HTTPException, status, Query
 from sqlalchemy import CursorResult
 
 from sqlalchemy.orm import Session
@@ -11,6 +11,7 @@ from app.config import settings
 from app.utils.token import get_current_active_user, get_current_active_admin
 
 from fastapi_cache.decorator import cache
+from typing import List
 
 import time
 
@@ -24,16 +25,17 @@ router = APIRouter(
 @router.get("/all", response_model=response_schemas.AllItems)
 @cache(expire=settings.CACHE_EXPIRE)
 async def get_all_items(
-    category_id: int = None,
-    type_id: int = None,
-    country_id: int = None,
+    category_ids: List[int] = Query(None),
+    brewing_type_ids: List[int] = Query(None),
+    type_ids: List[int] = Query(None),
+    country_ids: List[int] = Query(None),
     db: Session = Depends(get_db),
 ):
     """
     Get all items
     """
-    print(f"category_id: {category_id}, type_id: {type_id}, country_id: {country_id}")
-    items = crud.get_all_items(db=db, category_id=category_id, type_id=type_id, country_id=country_id)
+    print(f"category_id: {category_ids}, type_id: {type_ids}, country_id: {country_ids}, brewing_type_id: {brewing_type_ids}")
+    items = crud.get_all_items(db=db, category_ids=category_ids, type_ids=type_ids, country_ids=country_ids, brewing_type_ids=brewing_type_ids)
 
     if items is None:
         raise HTTPException(
@@ -203,6 +205,24 @@ async def get_countries(
         )
 
     return countries
+
+@router.get("/brewing_types", response_model=response_schemas.AllBrewingTypes)
+@cache(expire=settings.CACHE_EXPIRE)
+async def get_brewing_types(
+    db: Session = Depends(get_db),
+):
+    """
+    Get all brewing types
+    """
+    brewing_types = crud.get_all_brewing_types(db=db)
+
+    if brewing_types is None:
+        raise HTTPException(
+            status_code=status.HTTP_404_NOT_FOUND,
+            detail="No brewing types found",
+        )
+
+    return brewing_types
 
 @router.post("/create", response_model=None)
 async def create_item(
