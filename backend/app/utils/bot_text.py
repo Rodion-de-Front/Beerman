@@ -13,7 +13,7 @@ def change_text(user_cash: int, total_price: int) -> str:
     # return string for MarkdownV2 telegram message
     if user_cash is None:
         return ""
-    return f"*Сдача:* {user_cash - total_price} руб.\n (c {user_cash} руб.)\n)"
+    return f"*Сдача:* {user_cash - total_price} руб.\n (c {user_cash} руб.)"
 
 def order_text(order: response_schemas.FullOrder) -> str:
     # return string for MarkdownV2 telegram message
