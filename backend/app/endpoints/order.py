@@ -9,8 +9,10 @@ from app.core.dependencies import get_db
 from app.core import crud
 from app.config import settings
 from app.utils.token import get_current_active_user, get_current_active_admin
+from app.utils.bot_text import order_text
 
 from fastapi_cache.decorator import cache
+from app.bot.send_update import send_update
 
 import time
 
@@ -43,4 +45,7 @@ async def create_order(
             detail="Cart not found",
         )
 
-    return crud.create_order(db=db, order=order, current_user_id=current_user.id, cart_id=cart_id)
+    result = crud.create_order(db=db, order=order, current_user_id=current_user.id, cart_id=cart_id)
+    full_order = crud.get_order(db=db, order_id=result.id)
+    await send_update(order_text(full_order))
+    return result
