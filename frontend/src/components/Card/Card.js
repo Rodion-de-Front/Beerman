@@ -4,33 +4,44 @@ import { NavLink, createRoutesFromChildren } from 'react-router-dom';
 import { useState, useEffect } from 'react';
 import Beer from '../Beer/Beer';
 
-function Card({ onShowProduct, onLink, product, extraVariable, CartItems }) {
+function Card({ onShowProduct, onLink, product, extraVariable, CartItems, setAcrossQuantity, acrossQuantity}) {
+
+  // Деструктурирование свойств после проверки
+  const { id, price, name, description, image } = product;
 
   const [addProduct, setAddProduct] = useState(false);
   const [divQuantity, setDivQuantity] = useState(1);
   const [count, setCount] = useState(0);
   const [countForDiv, setCountForDiv] = useState(1);
-  const [cartItemId, setCartItemId] = useState(0);
   let quantity = 1
 
   useEffect(()=>{
-  if (extraVariable) {
-    setAddProduct(true)
-    console.log(CartItems.id)
-  }
-}, [])
+    if (extraVariable) {
+      console.log("ll")
+      setAddProduct(true)
+      console.log(CartItems)
+      const productIds = CartItems.map(item => item.product_id);
+      const quantities = CartItems.map(item => item.quantity);
+      if (productIds.includes(id)) {
+        setAddProduct(!addProduct)
+        setCountForDiv(quantities[productIds.indexOf(id)])
+        setDivQuantity(quantities[productIds.indexOf(id)] + 1)
+        setAcrossQuantity(quantities[productIds.indexOf(id)])
+        setCount(quantities[productIds.indexOf(id)]-1)
+      }
+    } else {
+      setAddProduct(false)
+    }
+  }, [extraVariable])
 
   // Проверка, что product определен
   if (!product) {
     return <div>Product is undefined</div>;
   }
 
-  // Деструктурирование свойств после проверки
-  const { id, price, name, description, image } = product;
-
   const deleteData = async () => {
     try {
-      const response = await fetch(`https://biermann-api.onixx.ru/api/cart/delete/${cartItemId}`, {
+      const response = await fetch(`https://biermann-api.onixx.ru/api/cart/delete/${localStorage.getItem(id)}`, {
         method: 'DELETE',
         headers: {
           'Content-Type': 'application/json',
@@ -46,6 +57,7 @@ function Card({ onShowProduct, onLink, product, extraVariable, CartItems }) {
     } catch (error) {
       console.error('Ошибка:', error);
     }
+    localStorage.removeItem(id)
   };
 
   const toggleAddButtons = (e) => {
@@ -88,7 +100,7 @@ function Card({ onShowProduct, onLink, product, extraVariable, CartItems }) {
       .then(responseData => {
           // Обработка успешного ответа
           console.log(responseData);
-          setCartItemId(responseData.id)
+          localStorage.setItem(id, responseData.id)
           if (localStorage.getItem("cart_id") === null) {
             localStorage.setItem("cart_id", responseData.cart_id)
           }
@@ -116,7 +128,7 @@ function Card({ onShowProduct, onLink, product, extraVariable, CartItems }) {
           .then(responseData => {
               // Обработка успешного ответа
               console.log(responseData);
-              setCartItemId(responseData.id)
+              localStorage.setItem(id, responseData.id)
           })
           .catch(error => {
               console.error('Ошибка:', error);
@@ -131,6 +143,7 @@ function Card({ onShowProduct, onLink, product, extraVariable, CartItems }) {
     quantity += 1
     setDivQuantity(divQuantity + 1)
     setCount(count + 1)
+    setAcrossQuantity(acrossQuantity + 1)
     setCountForDiv(countForDiv + 1)
 
     const data = {
@@ -142,7 +155,7 @@ function Card({ onShowProduct, onLink, product, extraVariable, CartItems }) {
 
     if (localStorage.getItem("token") === null) {
 
-      fetch(`https://biermann-api.onixx.ru/api/cart/update/${cartItemId}`, {
+      fetch(`https://biermann-api.onixx.ru/api/cart/update/${localStorage.getItem(id)}`, {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json',
@@ -158,7 +171,7 @@ function Card({ onShowProduct, onLink, product, extraVariable, CartItems }) {
       .then(responseData => {
           // Обработка успешного ответа
           console.log(responseData);
-          setCartItemId(responseData.id)
+          localStorage.setItem(id, responseData.id)
       })
       .catch(error => {
           console.error('Ошибка:', error);
@@ -166,7 +179,7 @@ function Card({ onShowProduct, onLink, product, extraVariable, CartItems }) {
 
     } else {
 
-      fetch(`https://biermann-api.onixx.ru/api/cart/update/${cartItemId}`, {
+      fetch(`https://biermann-api.onixx.ru/api/cart/update/${localStorage.getItem(id)}`, {
             method: 'PUT',
             headers: {
               'Content-Type': 'application/json',
@@ -194,7 +207,7 @@ function Card({ onShowProduct, onLink, product, extraVariable, CartItems }) {
 
     e.stopPropagation();
 
-    if (countForDiv === 1) {
+    if (acrossQuantity === 1) {
       deleteData();
       setAddProduct(!addProduct);
       setDivQuantity(divQuantity - 1)
@@ -204,6 +217,7 @@ function Card({ onShowProduct, onLink, product, extraVariable, CartItems }) {
     quantity -= 1
     setDivQuantity(divQuantity - 1)
     setCount(count - 1)
+    setAcrossQuantity(acrossQuantity - 1)
     setCountForDiv(countForDiv - 1)
 
     let data = {
@@ -215,7 +229,7 @@ function Card({ onShowProduct, onLink, product, extraVariable, CartItems }) {
 
     if (localStorage.getItem("token") === null) {
 
-      fetch(`https://biermann-api.onixx.ru/api/cart/update/${cartItemId}`, {
+      fetch(`https://biermann-api.onixx.ru/api/cart/update/${localStorage.getItem(id)}`, {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json'
@@ -231,7 +245,7 @@ function Card({ onShowProduct, onLink, product, extraVariable, CartItems }) {
       .then(responseData => {
           // Обработка успешного ответа
           console.log(responseData);
-          setCartItemId(responseData.id)
+          localStorage.setItem(id, responseData.id)
       })
       .catch(error => {
           console.error('Ошибка:', error);
@@ -239,7 +253,7 @@ function Card({ onShowProduct, onLink, product, extraVariable, CartItems }) {
 
     } else {
 
-      fetch(`https://biermann-api.onixx.ru/api/cart/update/${cartItemId}`, {
+      fetch(`https://biermann-api.onixx.ru/api/cart/update/${localStorage.getItem(id)}`, {
             method: 'PUT',
             headers: {
               'Content-Type': 'application/json',
@@ -256,7 +270,7 @@ function Card({ onShowProduct, onLink, product, extraVariable, CartItems }) {
           .then(responseData => {
               // Обработка успешного ответа
               console.log(responseData);
-              setCartItemId(responseData.id)
+              localStorage.setItem(id, responseData.id)
           })
           .catch(error => {
               console.error('Ошибка:', error);
@@ -265,26 +279,26 @@ function Card({ onShowProduct, onLink, product, extraVariable, CartItems }) {
   }
 
   return (
-    <div id={id} className="card" onClick={onShowProduct && (() => onShowProduct(id))}>
+    <div id={id} className="card" onClick={(() => onShowProduct(id))}>
       <div className="card-photo"><img alt="" src={image} /></div>
       <div className="card-text">
         <div className="price">{price + ' ₽'}</div>
         <div className="name">{name}</div>
         <div className="description">{description}</div>
-        {!addProduct && !extraVariable ? (
+        {!addProduct ? (
           <button className="card-btn" onClick={toggleAddButtons}>
             В корзину
           </button>
         ) : (
           <div className="add-btns">
             <button className="cart-btn" onClick={minusProduct}>-</button>
-            <div className="added-quantity">{countForDiv}</div>
+            <div className="added-quantity">{acrossQuantity}</div>
             <button className="cart-btn" onClick={addProductCart}>+</button>
-            <NavLink exact="true" to="/cart">
+            {/* <NavLink exact="true" to="/cart">
               <button className="add-to-cart-btn" onClick={onLink}>
                 <img alt="" src={Icon} />
               </button>
-            </NavLink>
+            </NavLink> */}
           </div>
         )}
       </div>

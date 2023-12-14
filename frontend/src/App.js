@@ -3,7 +3,6 @@ import Delivery from "./components/Delivery/Delivery";
 import Beer from "./components/Beer/Beer";
 import SignUp from "./components/SignUp/SignUp";
 import Profile from "./components/Profile/Profile";
-import Product from "./components/Product/Product";
 import Cart from "./components/Cart/Cart";
 import AdressForm from "./components/AdressForm/AdressForm";
 import  { HashRouter, Routes, Route } from "react-router-dom";
@@ -337,7 +336,7 @@ function App() {
         <div>
             <HashRouter>
                 <Routes>
-                    <Route path="/" element={<Beer profileName = {profileName} images={images} onShowMenuBlock = {toggleMenuBlock} showMenuBlock = {showMenuBlock} onLink = {handleClickLink}  onShowProduct = {toggleProductBlock} onShowCountry = {toggleCountryBlock} showCountryBlock = {showCountryBlock} onShowSorts={toggleSortBlock} showSortBlock={showSortBlock} currentItem={menuItem} />} />
+                    <Route path="/" element={<Beer items = {items} onLink = {handleClickLink} showProductBlock={showProductBlock} profileName = {profileName} images={images} onShowMenuBlock = {toggleMenuBlock} showMenuBlock = {showMenuBlock} onShowProduct = {toggleProductBlock} onShowCountry = {toggleCountryBlock} showCountryBlock = {showCountryBlock} onShowSorts={toggleSortBlock} showSortBlock={showSortBlock} currentItem={menuItem} />} />
                     <Route path="/login" element={<Login noExistence = {noExistence} onShowMenuBlock = {toggleMenuBlock} showMenuBlock = {showMenuBlock} currentItem={menuItem} login={login} />} />
                     <Route path="/signup" element={<SignUp setAlreadyExiste = {setAlreadyExiste} misMatch = {misMatch} sign_up_step1 = {sign_up_step1} onShowMenuBlock = {toggleMenuBlock} showMenuBlock = {showMenuBlock} currentItem={menuItem} />} />
                     <Route path="/address" element={<AdressForm setInvalidAdress = {setInvalidAdress} alreadyExiste = {alreadyExiste} invalidAdress = {invalidAdress} final_sign_up = {final_sign_up} onShowMenuBlock = {toggleMenuBlock} showMenuBlock = {showMenuBlock} currentItem={menuItem}/>} />
@@ -346,9 +345,6 @@ function App() {
                     <Route path="/cart" element={<Cart invalidAdress = {invalidAdress} profileName={profileName} afterSecondSpace = {afterSecondSpace} beforeSecondSpace = {beforeSecondSpace} onShowMenuBlock = {toggleMenuBlock} showMenuBlock = {showMenuBlock} currentItem={menuItem} />} />
                 </Routes>
             </HashRouter>
-            {showProductBlock &&
-                <Product items = {items} onLink = {handleClickLink} onShowProduct = {toggleProductBlock}/>
-            }
         </div>
     )
 }

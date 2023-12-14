@@ -3,242 +3,274 @@ import close from './img/Vector.png';
 import mob_close from './img/Vector-2.png';
 import Icon from './img/Icon_Fill.png';
 import { NavLink } from 'react-router-dom';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 
-function Product( {onShowProduct, onLink, items} ) {
+function Product( {getCart, onShowProduct, onLink, items, CartItems, setAcrossQuantity, acrossQuantity} ) {
 
-    const [addProduct, setAddProduct] = useState(false);
-    const [divQuantity, setDivQuantity] = useState(1);
-    const [count, setCount] = useState(0);
-    const [countForDiv, setCountForDiv] = useState(1);
-    const [cartItemId, setCartItemId] = useState(0);
-    let quantity = 1
+    // Деструктурирование свойств после проверки
+  const { id, price, name, description, image } = items;
 
-    // const cardStyle = {
-    //   backgroundImage: `url(data:image/png;base64, ${image})`,
-    //   borderRadius: '5px 5px 0 0',
-    //   backgroundSize: 'cover',
-    // };
+  const [addProduct, setAddProduct] = useState(false);
+  const [divQuantity, setDivQuantity] = useState(1);
+  const [count, setCount] = useState(0);
+  const [countForDiv, setCountForDiv] = useState(1);
+  let quantity = 1
 
-    // const deleteData = async () => {
-    //   try {
-    //     const response = await fetch(`https://biermann-api.onixx.ru/api/cart/delete/${cartItemId}`, {
-    //       method: 'DELETE',
-    //       headers: {
-    //         'Content-Type': 'application/json',
-    //         // Дополнительные заголовки, если необходимо
-    //       },
-    //     });
+  useEffect(()=>{
+    if (localStorage.getItem(id) !== null) {
+      setAddProduct(!addProduct)
+      console.log(localStorage.getItem(id))
+        setCountForDiv(acrossQuantity)
+        setDivQuantity(acrossQuantity + 1)
+        setCount(acrossQuantity - 1)
+    }
+  }, [localStorage.getItem(id)])
 
-    //     if (!response.ok) {
-    //       throw new Error('Ошибка при удалении данных');
-    //     }
 
-    //     console.log('Данные успешно удалены');
-    //   } catch (error) {
-    //     console.error('Ошибка:', error);
-    //   }
-    // };
+  // Проверка, что product определен
+  if (!items) {
+    return <div>Product is undefined</div>;
+  }
 
-    const toggleAddButtons = (e) => {
-    //   e.stopPropagation();
-    //   setAddProduct(!addProduct);
-    //   setDivQuantity(divQuantity + 1)
+  const deleteData = async () => {
+    try {
+      const response = await fetch(`https://biermann-api.onixx.ru/api/cart/delete/${localStorage.getItem(id)}`, {
+        method: 'DELETE',
+        headers: {
+          'Content-Type': 'application/json',
+          // Дополнительные заголовки, если необходимо
+        },
+      });
 
-    //   const data = {
-    //     "product_id": id,
-    //     "quantity": divQuantity,
-    //   };
+      if (!response.ok) {
+        throw new Error('Ошибка при удалении данных');
+      }
 
-    //   console.log(JSON.stringify(data))
+      console.log('Данные успешно удалены');
+    } catch (error) {
+      console.error('Ошибка:', error);
+    }
+    localStorage.removeItem(id)
+    getCart()
+  };
 
-    //   if (localStorage.getItem("token") === null) {
+  const toggleAddButtons = (e) => {
+    e.stopPropagation();
+    setAddProduct(!addProduct);
+    setDivQuantity(divQuantity + 1)
+    let data = {}
 
-    //     fetch('https://biermann-api.onixx.ru/api/cart/add', {
-    //       method: 'POST',
-    //       headers: {
-    //         'Content-Type': 'application/json'
-    //       },
-    //       body: JSON.stringify(data),
-    //     })
-    //     .then(response => {
-    //         if (!response.ok) {
-    //             throw new Error('Ошибка при отправке запроса');
-    //         }
-    //         return response.json();
-    //     })
-    //     .then(responseData => {
-    //         // Обработка успешного ответа
-    //         console.log(responseData);
-    //     })
-    //     .catch(error => {
-    //         console.error('Ошибка:', error);
-        // });
+    if (localStorage.getItem("cart_id") !== null) {
+      data = {
+        "product_id": id,
+        "quantity": divQuantity,
+        "cart_id": localStorage.getItem("cart_id")
+      };
 
-    //   } else {
+    } else {
+      data = {
+        "product_id": id,
+        "quantity": divQuantity,
+      };
+    }
 
-    //     fetch('https://biermann-api.onixx.ru/api/cart/add', {
-    //           method: 'POST',
-    //           headers: {
-    //             'Content-Type': 'application/json',
-    //             'Authorization': 'Bearer ' + localStorage.getItem("token")
-    //           },
-    //           body: JSON.stringify(data),
-    //         })
-    //         .then(response => {
-    //             if (!response.ok) {
-    //                 throw new Error('Ошибка при отправке запроса');
-    //             }
-    //             return response.json();
-    //         })
-    //         .then(responseData => {
-    //             // Обработка успешного ответа
-    //             console.log(responseData);
-    //         })
-    //         .catch(error => {
-    //             console.error('Ошибка:', error);
-    //         });
-    //   }
+    console.log(JSON.stringify(data))
+
+    if (localStorage.getItem("token") === null) {
+
+      fetch('https://biermann-api.onixx.ru/api/cart/add', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(data),
+      })
+      .then(response => {
+          if (!response.ok) {
+              throw new Error('Ошибка при отправке запроса');
+          }
+          return response.json();
+      })
+      .then(responseData => {
+          // Обработка успешного ответа
+          console.log(responseData);
+          localStorage.setItem(id, responseData.id)
+          if (localStorage.getItem("cart_id") === null) {
+            localStorage.setItem("cart_id", responseData.cart_id)
+          }
+      })
+      .catch(error => {
+          console.error('Ошибка:', error);
+      });
+
+    } else {
+
+      fetch('https://biermann-api.onixx.ru/api/cart/add', {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+              'Authorization': 'Bearer ' + localStorage.getItem("token")
+            },
+            body: JSON.stringify(data),
+          })
+          .then(response => {
+              if (!response.ok) {
+                  throw new Error('Ошибка при отправке запроса');
+              }
+              return response.json();
+          })
+          .then(responseData => {
+              // Обработка успешного ответа
+              console.log(responseData);
+              localStorage.setItem(id, responseData.id)
+          })
+          .catch(error => {
+              console.error('Ошибка:', error);
+          });
+    }
+  };
+
+  const addProductCart = (e) => {
+
+    e.stopPropagation();
+
+    quantity += 1
+    setDivQuantity(divQuantity + 1)
+    setCount(count + 1)
+    setAcrossQuantity(acrossQuantity + 1)
+    setCountForDiv(countForDiv + 1)
+
+    const data = {
+      "quantity": divQuantity,
+      'cart_id': localStorage.getItem("cart_id")
     };
 
-    const addProductCart = (e) => {
+    console.log(JSON.stringify(data))
 
-    //   e.stopPropagation();
+    if (localStorage.getItem("token") === null) {
 
-    //   quantity += 1
-    //   setDivQuantity(divQuantity + 1)
-    //   setCount(count + 1)
-    //   setCountForDiv(countForDiv + 1)
+      fetch(`https://biermann-api.onixx.ru/api/cart/update/${localStorage.getItem(id)}`, {
+        method: 'PUT',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(data),
+      })
+      .then(response => {
+          if (!response.ok) {
+              throw new Error('Ошибка при отправке запроса');
+          }
+          return response.json();
+      })
+      .then(responseData => {
+          // Обработка успешного ответа
+          console.log(responseData);
+          localStorage.setItem(id, responseData.id)
+      })
+      .catch(error => {
+          console.error('Ошибка:', error);
+      });
 
-    //   const data = {
-    //     "product_id": id,
-    //     "quantity": divQuantity,
-    //   };
+    } else {
 
-    //   console.log(JSON.stringify(data))
+      fetch(`https://biermann-api.onixx.ru/api/cart/update/${localStorage.getItem(id)}`, {
+            method: 'PUT',
+            headers: {
+              'Content-Type': 'application/json',
+              'Authorization': 'Bearer ' + localStorage.getItem("token"),
+            },
+            body: JSON.stringify(data),
+          })
+          .then(response => {
+              if (!response.ok) {
+                  throw new Error('Ошибка при отправке запроса');
+              }
+              return response.json();
+          })
+          .then(responseData => {
+              // Обработка успешного ответа
+              console.log(responseData);
+          })
+          .catch(error => {
+              console.error('Ошибка:', error);
+          });
+    }
+  }
 
-    //   if (localStorage.getItem("token") === null) {
+  const minusProduct = (e) => {
 
-    //     fetch('https://biermann-api.onixx.ru/api/cart/add', {
-    //       method: 'POST',
-    //       headers: {
-    //         'Content-Type': 'application/json'
-    //       },
-    //       body: JSON.stringify(data),
-    //     })
-    //     .then(response => {
-    //         if (!response.ok) {
-    //             throw new Error('Ошибка при отправке запроса');
-    //         }
-    //         return response.json();
-    //     })
-    //     .then(responseData => {
-    //         // Обработка успешного ответа
-    //         console.log(responseData);
-    //     })
-    //     .catch(error => {
-    //         console.error('Ошибка:', error);
-    //     });
+    e.stopPropagation();
 
-    //   } else {
-
-    //     fetch('https://biermann-api.onixx.ru/api/cart/add', {
-    //           method: 'POST',
-    //           headers: {
-    //             'Content-Type': 'application/json',
-    //             'Authorization': 'Bearer ' + localStorage.getItem("token")
-    //           },
-    //           body: JSON.stringify(data),
-    //         })
-    //         .then(response => {
-    //             if (!response.ok) {
-    //                 throw new Error('Ошибка при отправке запроса');
-    //             }
-    //             return response.json();
-    //         })
-    //         .then(responseData => {
-    //             // Обработка успешного ответа
-    //             console.log(responseData);
-    //         })
-    //         .catch(error => {
-    //             console.error('Ошибка:', error);
-    //         });
-    //   }
+    if (acrossQuantity === 1) {
+      deleteData();
+      setAddProduct(!addProduct);
+      setDivQuantity(divQuantity - 1)
+      return
     }
 
-    const minusProduct = (e) => {
+    quantity -= 1
+    setDivQuantity(divQuantity - 1)
+    setCount(count - 1)
+    setAcrossQuantity(acrossQuantity - 1)
+    setCountForDiv(countForDiv - 1)
 
-    //   e.stopPropagation();
+    let data = {
+      "cart_id": localStorage.getItem("cart_id"),
+      "quantity": count,
+    };
 
-    //   if (countForDiv === 1) {
-    //     deleteData();
-    //     setAddProduct(!addProduct);
-    //     setDivQuantity(divQuantity - 1)
-    //     return
-    //   }
+    console.log(JSON.stringify(data))
 
-    //   quantity -= 1
-    //   setDivQuantity(divQuantity - 1)
-    //   setCount(count - 1)
-    //   setCountForDiv(countForDiv - 1)
+    if (localStorage.getItem("token") === null) {
 
-    //    let data = {
-    //     "product_id": id,
-    //     "quantity": count,
-    //   };
+      fetch(`https://biermann-api.onixx.ru/api/cart/update/${localStorage.getItem(id)}`, {
+        method: 'PUT',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(data),
+      })
+      .then(response => {
+          if (!response.ok) {
+              throw new Error('Ошибка при отправке запроса');
+          }
+          return response.json();
+      })
+      .then(responseData => {
+          // Обработка успешного ответа
+          console.log(responseData);
+          localStorage.setItem(id, responseData.id)
+      })
+      .catch(error => {
+          console.error('Ошибка:', error);
+      });
 
-    //   console.log(JSON.stringify(data))
+    } else {
 
-    //   if (localStorage.getItem("token") === null) {
-
-    //     fetch('https://biermann-api.onixx.ru/api/cart/add', {
-    //       method: 'POST',
-    //       headers: {
-    //         'Content-Type': 'application/json'
-    //       },
-    //       body: JSON.stringify(data),
-    //     })
-    //     .then(response => {
-    //         if (!response.ok) {
-    //             throw new Error('Ошибка при отправке запроса');
-    //         }
-    //         return response.json();
-    //     })
-    //     .then(responseData => {
-    //         // Обработка успешного ответа
-    //         console.log(responseData);
-    //         setCartItemId(responseData.id)
-    //     })
-    //     .catch(error => {
-    //         console.error('Ошибка:', error);
-    //     });
-
-    //    } else {
-
-    //     fetch('https://biermann-api.onixx.ru/api/cart/add', {
-    //           method: 'POST',
-    //           headers: {
-    //             'Content-Type': 'application/json',
-    //             'Authorization': 'Bearer ' + localStorage.getItem("token")
-    //           },
-    //           body: JSON.stringify(data),
-    //         })
-    //         .then(response => {
-    //             if (!response.ok) {
-    //                 throw new Error('Ошибка при отправке запроса');
-    //             }
-    //             return response.json();
-    //         })
-    //         .then(responseData => {
-    //             // Обработка успешного ответа
-    //             console.log(responseData);
-    //             setCartItemId(responseData.id)
-    //         })
-    //         .catch(error => {
-    //             console.error('Ошибка:', error);
-    //         });
-    //   }
+      fetch(`https://biermann-api.onixx.ru/api/cart/update/${localStorage.getItem(id)}`, {
+            method: 'PUT',
+            headers: {
+              'Content-Type': 'application/json',
+              'Authorization': 'Bearer ' + localStorage.getItem("token")
+            },
+            body: JSON.stringify(data),
+          })
+          .then(response => {
+              if (!response.ok) {
+                  throw new Error('Ошибка при отправке запроса');
+              }
+              return response.json();
+          })
+          .then(responseData => {
+              // Обработка успешного ответа
+              console.log(responseData);
+              localStorage.setItem(id, responseData.id)
+          })
+          .catch(error => {
+              console.error('Ошибка:', error);
+          });
     }
+  }
 
 
     return (
@@ -260,21 +292,21 @@ function Product( {onShowProduct, onLink, items} ) {
                     <div className="product-card-name-taste-title">Вкусовые сочетания</div>
                     <div className="product-card-taste-text">{items.combination}</div>
                     {!addProduct ? (
-          <button className="card-product-btn" onClick={toggleAddButtons}>
-            В корзину
-          </button>
-        ) : (
-          <div className="add-btns">
-            <button className="cart-btn" onClick={minusProduct}>-</button>
-            <div className="added-quantity">{countForDiv}</div>
-            <button className="cart-btn" onClick={addProductCart}>+</button>
-            <NavLink exact="true" to="/cart">
-              <button className="add-to-cart-btn" onClick={onLink}>
-                <img alt="" src={Icon} />
-              </button>
-            </NavLink>
-          </div>
-        )}
+                        <button className="card-product-btn" onClick={toggleAddButtons}>
+                          В корзину
+                        </button>
+                      ) : (
+                        <div className="add-btns">
+                          <button className="cart-btn" onClick={minusProduct}>-</button>
+                          <div className="added-quantity">{acrossQuantity}</div>
+                          <button className="cart-btn" onClick={addProductCart}>+</button>
+                          {/* <NavLink exact="true" to="/cart">
+                            <button className="add-to-cart-btn" onClick={onLink}>
+                              <img alt="" src={Icon} />
+                            </button>
+                          </NavLink> */}
+                        </div>
+                      )}
                 </div>
             </div>
         </div>

@@ -96,6 +96,10 @@
     bottom: 30px;
 }
 
+.update {
+    display: none;
+}
+
 .cart-btn {
     display: flex;
     width: 30px;

@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import Card from '../Card/Card';
+import Product from "../Product/Product";
 import Carusel from '../Carousel/Carousel';
 import Navbar from '../Navbar/Navbar';
 import FilterSortBlock from '../FilterSortBlock/FilterSortBlock';
@@ -9,8 +10,7 @@ import expand_more from './img/expand_more.png';
 import expand_more_2 from './img/expand_more_2.png';
 import filter_icon from './img/Group_11.png';
 import filter_active_icon from './img/active_fiter.png';
-
-function Beer( {currentItem, showSortBlock, onShowSorts, onShowCountry, showCountryBlock,  onShowProduct, onLink, onShowMenuBlock, showMenuBlock, images, profileName}  ) {
+function Beer( {items, handleClickLink, currentItem, showSortBlock, onShowSorts, onShowCountry, showCountryBlock,  onShowProduct, onLink, onShowMenuBlock, showMenuBlock, images, profileName, showProductBlock}  ) {
 
     const[activeBeerFilter, setActiveBeerFilter] = useState(false)
 
@@ -500,6 +500,9 @@ function Beer( {currentItem, showSortBlock, onShowSorts, onShowCountry, showCoun
 
     }
 
+    const [acrossQuantity, setAcrossQuantity] = useState(1)
+    const [lol, setLol] = useState(0)
+
     return (
         <div>
             <Navbar onShowMenuBlock = {onShowMenuBlock} showMenuBlock = {showMenuBlock} currentItem={currentItem} profileName={profileName} />
@@ -571,6 +574,9 @@ function Beer( {currentItem, showSortBlock, onShowSorts, onShowCountry, showCoun
                         onShowProduct={onShowProduct}
                         extraVariable={isInCart}
                         CartItems={CartItems}
+                        acrossQuantity={acrossQuantity}
+                        setAcrossQuantity={setAcrossQuantity}
+                        lol={lol}
                     />
                     );
                 })}
@@ -633,7 +639,7 @@ function Beer( {currentItem, showSortBlock, onShowSorts, onShowCountry, showCoun
                     <div className="position2">
                         <div className="menu-header">
                             <div className="beer-title">Б/a напитки</div>
-                                
+
                             </div>
                     </div>
                 </div>
@@ -643,6 +649,9 @@ function Beer( {currentItem, showSortBlock, onShowSorts, onShowCountry, showCoun
                 ))}
                 </div>
             </div>
+            {showProductBlock &&
+                <Product getCart={getCart} acrossQuantity={acrossQuantity} setAcrossQuantity={setAcrossQuantity} CartItems={CartItems} items = {items} onLink = {handleClickLink} onShowProduct = {onShowProduct}/>
+            }
         </div>
     );
 }
