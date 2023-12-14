@@ -9,6 +9,12 @@ def order_items_text(items: List[response_schemas.OrderItem]) -> str:
         result += f"*{item.product_name}* - {item.price} руб. *x* {item.quantity} шт. = {item.price * item.quantity} руб.\n"
     return result
 
+def change_text(user_cash: int, total_price: int) -> str:
+    # return string for MarkdownV2 telegram message
+    if user_cash is None:
+        return ""
+    return f"*Сдача:* {user_cash - total_price} руб.\n (c {user_cash} руб.)\n)"
+
 def order_text(order: response_schemas.FullOrder) -> str:
     # return string for MarkdownV2 telegram message
     text = f"""*Новый заказ!*
@@ -20,7 +26,7 @@ def order_text(order: response_schemas.FullOrder) -> str:
 
 *Сумма заказа:* {order.total_price} руб.
 *Комментарий:* {order.comment if order.comment else "нет"}
-{"*Сдача с:* "+str(order.user_cash) if order.user_cash else ""}
+{change_text(order.user_cash, order.total_price)}
 
 *Заказ:*
 {order_items_text(order.items)}
