@@ -87,6 +87,29 @@
     margin-bottom: 24px;
 }
 
+.card-btn-veiw {
+    position: absolute;
+    bottom: 0px;
+    right: 20px;
+    display: flex;
+    padding: 12px 16px;
+    justify-content: center;
+    align-items: center;
+    gap: 4px;
+    border-radius: 10px;
+    background: #99826B;
+    background: color(display-p3 0.5843 0.5137 0.4314);
+    color: #FFF;
+    color: color(display-p3 1 1 1);
+    font-family: Roboto Flex;
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+    cursor: pointer;
+    margin-bottom: 24px;
+}
+
 
 .add-btns {
     display: flex;
@@ -141,6 +164,14 @@
     background: #99826B;
     background: color(display-p3 0.5843 0.5137 0.4314);
     cursor: pointer;
+}
+
+.question {
+    position: absolute;
+    top: 8px;
+    right: 5px;
+    width: 15px;
+    height: 15px;
 }
 
 @media (max-width: 800px) {
@@ -249,6 +280,13 @@
         background: #99826B;
         background: color(display-p3 0.5843 0.5137 0.4314);
         margin-left: 0;
+    }
+
+    .add-btns {
+        gap: 20px;
+        width: 80%;
+        justify-content: center;
+        bottom: 5px;
     }
 
 }

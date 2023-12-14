@@ -4,7 +4,7 @@ import './FilterCountryBlock.css';
 function FilterCountryBlock({onFilterCountry, selectedCountries}) {
   const [countries, setCountries] = useState([]);
 
-  console.log(selectedCountries)
+  //console.log(selectedCountries)
 
   useEffect(() => {
     // Ваш запрос к серверу для получения данных о странах

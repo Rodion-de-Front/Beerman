@@ -24,7 +24,7 @@ function SelectedGoods( {cartItem, fetchData} ) {
             throw new Error('Ошибка при удалении данных');
           }
 
-          console.log('Данные успешно удалены');
+          //console.log('Данные успешно удалены');
         } catch (error) {
           console.error('Ошибка:', error);
         }
@@ -46,7 +46,7 @@ function SelectedGoods( {cartItem, fetchData} ) {
           'cart_id': localStorage.getItem("cart_id")
         };
 
-        console.log(JSON.stringify(data))
+        //console.log(JSON.stringify(data))
 
         if (localStorage.getItem("token") === null) {
 
@@ -65,7 +65,7 @@ function SelectedGoods( {cartItem, fetchData} ) {
           })
           .then(responseData => {
               // Обработка успешного ответа
-              console.log(responseData);
+              //console.log(responseData);
               setCartItemId(responseData.id)
           })
           .catch(error => {
@@ -90,7 +90,7 @@ function SelectedGoods( {cartItem, fetchData} ) {
               })
               .then(responseData => {
                   // Обработка успешного ответа
-                  console.log(responseData);
+                  //console.log(responseData);
               })
               .catch(error => {
                   console.error('Ошибка:', error);
@@ -123,7 +123,7 @@ function SelectedGoods( {cartItem, fetchData} ) {
           "quantity": count,
         };
 
-        console.log(JSON.stringify(data))
+        //console.log(JSON.stringify(data))
 
         if (localStorage.getItem("token") === null) {
 
@@ -142,7 +142,7 @@ function SelectedGoods( {cartItem, fetchData} ) {
           })
           .then(responseData => {
               // Обработка успешного ответа
-              console.log(responseData);
+              //console.log(responseData);
               setCartItemId(responseData.id)
           })
           .catch(error => {
@@ -167,7 +167,7 @@ function SelectedGoods( {cartItem, fetchData} ) {
               })
               .then(responseData => {
                   // Обработка успешного ответа
-                  console.log(responseData);
+                  //console.log(responseData);
                   setCartItemId(responseData.id)
               })
               .catch(error => {

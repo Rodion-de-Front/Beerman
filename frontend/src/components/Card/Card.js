@@ -1,10 +1,11 @@
 import './Card.css';
 import Icon from './img/Icon_Fill.png';
+import question from './img/question.png';
 import { NavLink, createRoutesFromChildren } from 'react-router-dom';
 import { useState, useEffect } from 'react';
 import Beer from '../Beer/Beer';
 
-function Card({ onShowProduct, onLink, product, extraVariable, CartItems, setAcrossQuantity, acrossQuantity}) {
+function Card({ onShowProduct, onLink, product, extraVariable, CartItems}) {
 
   // Деструктурирование свойств после проверки
   const { id, price, name, description, image } = product;
@@ -17,16 +18,15 @@ function Card({ onShowProduct, onLink, product, extraVariable, CartItems, setAcr
 
   useEffect(()=>{
     if (extraVariable) {
-      console.log("ll")
+      //console.log("ll")
       setAddProduct(true)
-      console.log(CartItems)
+      //console.log(CartItems)
       const productIds = CartItems.map(item => item.product_id);
       const quantities = CartItems.map(item => item.quantity);
       if (productIds.includes(id)) {
         setAddProduct(!addProduct)
         setCountForDiv(quantities[productIds.indexOf(id)])
         setDivQuantity(quantities[productIds.indexOf(id)] + 1)
-        setAcrossQuantity(quantities[productIds.indexOf(id)])
         setCount(quantities[productIds.indexOf(id)]-1)
       }
     } else {
@@ -53,7 +53,7 @@ function Card({ onShowProduct, onLink, product, extraVariable, CartItems, setAcr
         throw new Error('Ошибка при удалении данных');
       }
 
-      console.log('Данные успешно удалены');
+      //console.log('Данные успешно удалены');
     } catch (error) {
       console.error('Ошибка:', error);
     }
@@ -80,7 +80,7 @@ function Card({ onShowProduct, onLink, product, extraVariable, CartItems, setAcr
       };
     }
 
-    console.log(JSON.stringify(data))
+    //console.log(JSON.stringify(data))
 
     if (localStorage.getItem("token") === null) {
 
@@ -99,7 +99,7 @@ function Card({ onShowProduct, onLink, product, extraVariable, CartItems, setAcr
       })
       .then(responseData => {
           // Обработка успешного ответа
-          console.log(responseData);
+          //console.log(responseData);
           localStorage.setItem(id, responseData.id)
           if (localStorage.getItem("cart_id") === null) {
             localStorage.setItem("cart_id", responseData.cart_id)
@@ -127,7 +127,7 @@ function Card({ onShowProduct, onLink, product, extraVariable, CartItems, setAcr
           })
           .then(responseData => {
               // Обработка успешного ответа
-              console.log(responseData);
+              //console.log(responseData);
               localStorage.setItem(id, responseData.id)
           })
           .catch(error => {
@@ -143,7 +143,6 @@ function Card({ onShowProduct, onLink, product, extraVariable, CartItems, setAcr
     quantity += 1
     setDivQuantity(divQuantity + 1)
     setCount(count + 1)
-    setAcrossQuantity(acrossQuantity + 1)
     setCountForDiv(countForDiv + 1)
 
     const data = {
@@ -151,7 +150,7 @@ function Card({ onShowProduct, onLink, product, extraVariable, CartItems, setAcr
       'cart_id': localStorage.getItem("cart_id")
     };
 
-    console.log(JSON.stringify(data))
+    //console.log(JSON.stringify(data))
 
     if (localStorage.getItem("token") === null) {
 
@@ -170,7 +169,7 @@ function Card({ onShowProduct, onLink, product, extraVariable, CartItems, setAcr
       })
       .then(responseData => {
           // Обработка успешного ответа
-          console.log(responseData);
+          //console.log(responseData);
           localStorage.setItem(id, responseData.id)
       })
       .catch(error => {
@@ -195,7 +194,7 @@ function Card({ onShowProduct, onLink, product, extraVariable, CartItems, setAcr
           })
           .then(responseData => {
               // Обработка успешного ответа
-              console.log(responseData);
+              //console.log(responseData);
           })
           .catch(error => {
               console.error('Ошибка:', error);
@@ -207,17 +206,9 @@ function Card({ onShowProduct, onLink, product, extraVariable, CartItems, setAcr
 
     e.stopPropagation();
 
-    if (acrossQuantity === 1) {
-      deleteData();
-      setAddProduct(!addProduct);
-      setDivQuantity(divQuantity - 1)
-      return
-    }
-
     quantity -= 1
     setDivQuantity(divQuantity - 1)
     setCount(count - 1)
-    setAcrossQuantity(acrossQuantity - 1)
     setCountForDiv(countForDiv - 1)
 
     let data = {
@@ -225,7 +216,7 @@ function Card({ onShowProduct, onLink, product, extraVariable, CartItems, setAcr
       "quantity": count,
     };
 
-    console.log(JSON.stringify(data))
+    //console.log(JSON.stringify(data))
 
     if (localStorage.getItem("token") === null) {
 
@@ -244,7 +235,7 @@ function Card({ onShowProduct, onLink, product, extraVariable, CartItems, setAcr
       })
       .then(responseData => {
           // Обработка успешного ответа
-          console.log(responseData);
+          //console.log(responseData);
           localStorage.setItem(id, responseData.id)
       })
       .catch(error => {
@@ -269,7 +260,7 @@ function Card({ onShowProduct, onLink, product, extraVariable, CartItems, setAcr
           })
           .then(responseData => {
               // Обработка успешного ответа
-              console.log(responseData);
+              //console.log(responseData);
               localStorage.setItem(id, responseData.id)
           })
           .catch(error => {
@@ -279,7 +270,7 @@ function Card({ onShowProduct, onLink, product, extraVariable, CartItems, setAcr
   }
 
   return (
-    <div id={id} className="card" onClick={(() => onShowProduct(id))}>
+    <div id={id} className="card" onClick={() => onShowProduct && onShowProduct(id)}>
       <div className="card-photo"><img alt="" src={image} /></div>
       <div className="card-text">
         <div className="price">{price + ' ₽'}</div>
@@ -292,7 +283,7 @@ function Card({ onShowProduct, onLink, product, extraVariable, CartItems, setAcr
         ) : (
           <div className="add-btns">
             <button className="cart-btn" onClick={minusProduct}>-</button>
-            <div className="added-quantity">{acrossQuantity}</div>
+            <div className="added-quantity">{countForDiv}</div>
             <button className="cart-btn" onClick={addProductCart}>+</button>
             {/* <NavLink exact="true" to="/cart">
               <button className="add-to-cart-btn" onClick={onLink}>
@@ -300,6 +291,17 @@ function Card({ onShowProduct, onLink, product, extraVariable, CartItems, setAcr
               </button>
             </NavLink> */}
           </div>
+        )}
+        {window.innerWidth < 800 && onShowProduct ? (
+            <img className="question" alt="" src={question} onClick={() => onShowProduct && onShowProduct(id)}/>
+        ):(
+        <div>
+          {onShowProduct &&
+            <button className="card-btn-veiw" onClick={(() => onShowProduct && onShowProduct(id))}>
+                Подробнее
+            </button>
+          }
+        </div>
         )}
       </div>
     </div>

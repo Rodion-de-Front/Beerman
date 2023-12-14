@@ -48,7 +48,7 @@ function Beer( {items, handleClickLink, currentItem, showSortBlock, onShowSorts,
 
         } else {
 
-            fetch('https://biermann-api.onixx.ru/api/cart/all', {
+            fetch(`https://biermann-api.onixx.ru/api/cart/all`, {
             method: "GET",
             headers: {
                 'Authorization': 'Bearer ' + localStorage.getItem("token")
@@ -500,9 +500,6 @@ function Beer( {items, handleClickLink, currentItem, showSortBlock, onShowSorts,
 
     }
 
-    const [acrossQuantity, setAcrossQuantity] = useState(1)
-    const [lol, setLol] = useState(0)
-
     return (
         <div>
             <Navbar onShowMenuBlock = {onShowMenuBlock} showMenuBlock = {showMenuBlock} currentItem={currentItem} profileName={profileName} />
@@ -574,9 +571,6 @@ function Beer( {items, handleClickLink, currentItem, showSortBlock, onShowSorts,
                         onShowProduct={onShowProduct}
                         extraVariable={isInCart}
                         CartItems={CartItems}
-                        acrossQuantity={acrossQuantity}
-                        setAcrossQuantity={setAcrossQuantity}
-                        lol={lol}
                     />
                     );
                 })}
@@ -628,9 +622,12 @@ function Beer( {items, handleClickLink, currentItem, showSortBlock, onShowSorts,
                     </div>
                 </div>
                 <div className="card-container">
-                {Snacks.map((snacks) => (
-                    <Card CartItems={CartItems} key={snacks.id} product={snacks} onLink = {onLink}/>
-                ))}
+                {Snacks.map((snacks) => {
+                    const isInCart = CartItems && CartItems.some(item => item.product_id === snacks.id);
+                    return (
+                        <Card extraVariable={isInCart} CartItems={CartItems} key={snacks.id} product={snacks} onLink={onLink} />
+                    );
+                })}
                 </div>
             </div>
 
@@ -644,13 +641,16 @@ function Beer( {items, handleClickLink, currentItem, showSortBlock, onShowSorts,
                     </div>
                 </div>
                 <div className="card-container">
-                {Drinks.map((drinks) => (
-                    <Card CartItems={CartItems} key={drinks.id} product={drinks} onLink = {onLink}/>
-                ))}
+                {Drinks.map((drinks) => {
+                    const isInCart = CartItems && CartItems.some(item => item.product_id === drinks.id);
+                    return (
+                        <Card extraVariable={isInCart} CartItems={CartItems} key={drinks.id} product={drinks} onLink={onLink} />
+                    );
+                })}
                 </div>
             </div>
             {showProductBlock &&
-                <Product getCart={getCart} acrossQuantity={acrossQuantity} setAcrossQuantity={setAcrossQuantity} CartItems={CartItems} items = {items} onLink = {handleClickLink} onShowProduct = {onShowProduct}/>
+                <Product items = {items} onShowProduct = {onShowProduct}/>
             }
         </div>
     );

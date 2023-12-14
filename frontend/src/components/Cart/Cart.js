@@ -99,15 +99,17 @@ function Cart({ currentItem, onShowMenuBlock, showMenuBlock, beforeSecondSpace, 
       })
       .then((response) => response.json())
       .then((data) => {
-          console.log(data);
+          //console.log(data);
           setCart(data)
           setCartItems(data.items)
       })
       .catch((error) => {
-          console.log(error);
+          //console.log(error);
       });
 
     } else {
+
+      //console.log(localStorage.getItem("token"))
 
       fetch('https://biermann-api.onixx.ru/api/cart/all', {
         method: "GET",
@@ -117,12 +119,12 @@ function Cart({ currentItem, onShowMenuBlock, showMenuBlock, beforeSecondSpace, 
       })
       .then((response) => response.json())
       .then((data) => {
-          console.log(data);
+          //console.log(data);
           setCart(data)
           setCartItems(data.items)
       })
       .catch((error) => {
-          console.log(error);
+          //console.log(error);
       });
     }
   }
@@ -157,12 +159,18 @@ function Cart({ currentItem, onShowMenuBlock, showMenuBlock, beforeSecondSpace, 
           })
           .then(responseData => {
               // Обработка успешного ответа
-              console.log(responseData);
+              //console.log(responseData);
+              localStorage.removeItem("cart_id")
+              const productIds = cartItems.map(item => item.product_id);
+              productIds.forEach(productId => {
+                localStorage.removeItem(productId);
+              });
           })
           .catch(error => {
               console.error('Ошибка:', error);
           });
   }
+
   return (
 
     <div>
@@ -314,7 +322,7 @@ function Cart({ currentItem, onShowMenuBlock, showMenuBlock, beforeSecondSpace, 
                 </div>
                 <NavLink id="final_sign_up" exact="true" to="/profile"></NavLink>
                 <div className="adress-btn" onClick={changeAddress}>Сохранить</div>
-                <div className="close"><NavLink exact="true" to="/"><img alt ="" src={close} /></NavLink></div>
+                <div className="close"><img alt ="" src={close} onClick={closeChangeAddress}/></div>
             </div>
         </div>
         ):(

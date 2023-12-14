@@ -18,6 +18,7 @@
     border-radius: 10px;
     background: #FFF;
     background: color(display-p3 1 1 1);
+    padding-bottom: 20px;
 }
 
 .close-product-card {
@@ -185,6 +186,7 @@
         width: 322px;
         height: 578px;
         flex-direction: column;
+        padding-bottom: 0;
     }
 
     .close-product-card {
@@ -215,6 +217,7 @@
     }
 
     .product-card-name {
+        width: 99%;
         height: 46px;
         margin-top: 25px;
         color: #000;
@@ -239,7 +242,8 @@
 
     .product-card-price {
         position: absolute;
-        right: 20px;
+        margin-top: 60px;
+        left: 20px;
         top: 42%;
         color: #000;
         color: color(display-p3 0 0 0);
@@ -286,6 +290,7 @@
     }
 
     .product-card-taste-text {
+        width: 90%;
         height: 14px;
         color: #000;
         color: color(display-p3 0 0 0);
@@ -296,10 +301,8 @@
         line-height: 100%;
     }
 
-
-
     .add-btn {
-        width: 134px;
+        width: 50%;
         height: 24px;
         display: flex;
         padding: 6px 41px;
