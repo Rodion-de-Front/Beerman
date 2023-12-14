@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import  { NavLink } from "react-router-dom";
 import Card from '../Card/Card';
 import Product from "../Product/Product";
 import Carusel from '../Carousel/Carousel';
@@ -10,6 +11,7 @@ import expand_more from './img/expand_more.png';
 import expand_more_2 from './img/expand_more_2.png';
 import filter_icon from './img/Group_11.png';
 import filter_active_icon from './img/active_fiter.png';
+import Cart from '../Cart/Cart';
 function Beer( {items, handleClickLink, currentItem, showSortBlock, onShowSorts, onShowCountry, showCountryBlock,  onShowProduct, onLink, onShowMenuBlock, showMenuBlock, images, profileName, showProductBlock}  ) {
 
     const[activeBeerFilter, setActiveBeerFilter] = useState(false)
@@ -28,6 +30,7 @@ function Beer( {items, handleClickLink, currentItem, showSortBlock, onShowSorts,
     const [Snacks, setSnacks] = useState([]);
     const [SnacksFilters, setSnacksFilters] = useState([]);
     const [Drinks, setDrinks] = useState([]);
+    const [Cart, setCart] = useState([]);
     const [CartItems, setCartItems] = useState([]);
     const [productList, setProductList] = useState([])
 
@@ -40,6 +43,7 @@ function Beer( {items, handleClickLink, currentItem, showSortBlock, onShowSorts,
             .then((response) => response.json())
             .then((data) => {
                 console.log(data)
+                setCart(data)
                 setCartItems(data.items)
             })
             .catch((error) => {
@@ -57,6 +61,7 @@ function Beer( {items, handleClickLink, currentItem, showSortBlock, onShowSorts,
             .then((response) => response.json())
             .then((data) => {
                 console.log(data);
+                setCart(data)
                 setCartItems(data.items)
             })
             .catch((error) => {
@@ -571,6 +576,7 @@ function Beer( {items, handleClickLink, currentItem, showSortBlock, onShowSorts,
                         onShowProduct={onShowProduct}
                         extraVariable={isInCart}
                         CartItems={CartItems}
+                        getCart={getCart}
                     />
                     );
                 })}
@@ -625,7 +631,7 @@ function Beer( {items, handleClickLink, currentItem, showSortBlock, onShowSorts,
                 {Snacks.map((snacks) => {
                     const isInCart = CartItems && CartItems.some(item => item.product_id === snacks.id);
                     return (
-                        <Card extraVariable={isInCart} CartItems={CartItems} key={snacks.id} product={snacks} onLink={onLink} />
+                        <Card getCart={getCart} extraVariable={isInCart} CartItems={CartItems} key={snacks.id} product={snacks} onLink={onLink} />
                     );
                 })}
                 </div>
@@ -644,7 +650,7 @@ function Beer( {items, handleClickLink, currentItem, showSortBlock, onShowSorts,
                 {Drinks.map((drinks) => {
                     const isInCart = CartItems && CartItems.some(item => item.product_id === drinks.id);
                     return (
-                        <Card extraVariable={isInCart} CartItems={CartItems} key={drinks.id} product={drinks} onLink={onLink} />
+                        <Card getCart={getCart} extraVariable={isInCart} CartItems={CartItems} key={drinks.id} product={drinks} onLink={onLink} />
                     );
                 })}
                 </div>
@@ -652,6 +658,11 @@ function Beer( {items, handleClickLink, currentItem, showSortBlock, onShowSorts,
             {showProductBlock &&
                 <Product items = {items} onShowProduct = {onShowProduct}/>
             }
+        {window.innerWidth < 800 &&
+            <NavLink exact="true" to="/cart">
+                <div className="beer-cart-btn">Корзина<div className="circle">{Cart.items_count}</div></div>
+            </NavLink>
+        }
         </div>
     );
 }

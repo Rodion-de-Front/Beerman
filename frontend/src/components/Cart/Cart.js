@@ -10,6 +10,8 @@ import { MapContainer, TileLayer, useMapEvents } from 'react-leaflet';
 import close from './img/Frame_57.png';
 
 function Cart({ currentItem, onShowMenuBlock, showMenuBlock, beforeSecondSpace, afterSecondSpace, profileName }) {
+
+
   const [changedAddress, setChangedAddress] = useState(false);
   const [wayOfPay, setWayOfPay] = useState(false);
   const [auth, setAuth] = useState(false);
@@ -17,7 +19,6 @@ function Cart({ currentItem, onShowMenuBlock, showMenuBlock, beforeSecondSpace, 
   const [address, setAddress] = useState({ settlement: '', street: '', house: '' });
   const [showOverlay, setShowOverlay] = useState(false);
   const [invalidAdress, setInvalidAdress] = useState(false);
-
 
 
   function changeWayofPay() {
@@ -99,17 +100,17 @@ function Cart({ currentItem, onShowMenuBlock, showMenuBlock, beforeSecondSpace, 
       })
       .then((response) => response.json())
       .then((data) => {
-          //console.log(data);
+          console.log(data);
           setCart(data)
           setCartItems(data.items)
       })
       .catch((error) => {
-          //console.log(error);
+          console.log(error);
       });
 
     } else {
 
-      //console.log(localStorage.getItem("token"))
+      console.log(localStorage.getItem("token"))
 
       fetch('https://biermann-api.onixx.ru/api/cart/all', {
         method: "GET",
@@ -119,12 +120,12 @@ function Cart({ currentItem, onShowMenuBlock, showMenuBlock, beforeSecondSpace, 
       })
       .then((response) => response.json())
       .then((data) => {
-          //console.log(data);
+          console.log(data);
           setCart(data)
           setCartItems(data.items)
       })
       .catch((error) => {
-          //console.log(error);
+          console.log(error);
       });
     }
   }
@@ -159,7 +160,7 @@ function Cart({ currentItem, onShowMenuBlock, showMenuBlock, beforeSecondSpace, 
           })
           .then(responseData => {
               // Обработка успешного ответа
-              //console.log(responseData);
+              console.log(responseData);
               localStorage.removeItem("cart_id")
               const productIds = cartItems.map(item => item.product_id);
               productIds.forEach(productId => {
@@ -227,7 +228,7 @@ function Cart({ currentItem, onShowMenuBlock, showMenuBlock, beforeSecondSpace, 
               </div>
               <div className="delivery-block">
                 <div className="delivery-row">
-                  <div className="delivery-description">Товары (1)</div>
+                  <div className="delivery-description">Товары ({cart.items_count})</div>
                   <div className="delivery-price">{cart.items_price} ₽</div>
                 </div>
               </div>
@@ -252,7 +253,7 @@ function Cart({ currentItem, onShowMenuBlock, showMenuBlock, beforeSecondSpace, 
             <div>
               <div className="delivery-block">
                 <div className="delivery-row">
-                  <div className="delivery-description">Товары (1)</div>
+                  <div className="delivery-description">Товары ({cart.items_count})</div>
                   <div className="delivery-price">{cart.items_price} ₽</div>
                 </div>
               </div>

@@ -2,7 +2,7 @@ import './FullForm.css';
 
 function FullForm( { misMatch, data } ) {
 
-    //console.log(data)
+    console.log(data)
 
     return (
         <div>

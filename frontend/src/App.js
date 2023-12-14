@@ -34,7 +34,7 @@ function App() {
         })
         .then((response) => response.json())
         .then((data) => {
-            // //console.log(data);
+            // console.log(data);
 
             // Разделяем строку по пробелам
             var myString = data.address;
@@ -48,14 +48,14 @@ function App() {
             var afterSecondSpace = words.slice(2).join('') || '';
             setAfterSecondSpace(afterSecondSpace);
 
-            //console.log("До второго пробела:", beforeSecondSpace);
-            //console.log("После второго пробела:", afterSecondSpace);
+            console.log("До второго пробела:", beforeSecondSpace);
+            console.log("После второго пробела:", afterSecondSpace);
 
             setProfileName(data.username)
 
         })
         .catch((error) => {
-            //console.log(error);
+            console.log(error);
             setMenuItem('Главная');
         });
     }, []);
@@ -102,12 +102,12 @@ function App() {
         })
         .then((response) => response.json())
         .then((data) => {
-            // //console.log(data);
+            // console.log(data);
             setItems(data)
 
         })
         .catch((error) => {
-            //console.log(error);
+            console.log(error);
         });
 
         setShowProductBlock(!showProductBlock);
@@ -150,7 +150,7 @@ function App() {
         if (password !== repeated_password) {
 
             setMisMatch(true);
-            //console.log(username, email, password, repeated_password, phone)
+            console.log(username, email, password, repeated_password, phone)
 
         }
 
@@ -158,7 +158,7 @@ function App() {
 
             document.getElementById("addressPage").click()
             setMisMatch(false);
-            //console.log(username, email, password, repeated_password, phone)
+            console.log(username, email, password, repeated_password, phone)
 
         }
     }
@@ -195,7 +195,7 @@ function App() {
                 address: fullAdress
             };
 
-            // //console.log(data)
+            // console.log(data)
             let url = ""
             if (localStorage.getItem("cart_id" !== null)) {
                 url = `https://biermann-api.onixx.ru/api/user/create?cart_id=${localStorage.getItem("cart_id")}`
@@ -218,7 +218,7 @@ function App() {
                 })
                 .then(responseData => {
                     // Обработка успешного ответа
-                    // //console.log(responseData);
+                    // console.log(responseData);
                     setMenuItem('Профиль');
                     setInvalidAdress(false)
                     document.getElementById("final_sign_up").click()
@@ -248,7 +248,7 @@ function App() {
                 password: password
             };
 
-            // //console.log(data)
+            // console.log(data)
 
             var formBody = [];
             for (var property in data) {
@@ -275,7 +275,7 @@ function App() {
                     })
                     .then(responseData => {
                         // Обработка успешного ответа
-                        // //console.log(responseData);
+                        // console.log(responseData);
                         localStorage.setItem("token", responseData.access_token)
                         setMenuItem('Профиль');
                         document.getElementById("login").click()
@@ -304,7 +304,7 @@ function App() {
             })
             .then(responseData => {
                 // Обработка успешного ответа
-                // //console.log(responseData);
+                // console.log(responseData);
                 localStorage.setItem("token", responseData.access_token)
                 setMenuItem('Профиль');
                 document.getElementById("login").click()
@@ -340,7 +340,7 @@ function App() {
         address: newAddress,
     };
 
-    // //console.log(requestData)
+    // console.log(requestData)
 
     fetch("https://biermann-api.onixx.ru/api/user/update", {
         method: "PUT",
@@ -352,7 +352,7 @@ function App() {
       })
       .then((response) => response.json())
       .then((responseData) => {
-        // //console.log(responseData);
+        // console.log(responseData);
         setUpdate(true)
       })
       .catch((error) => {

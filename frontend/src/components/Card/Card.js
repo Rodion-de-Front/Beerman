@@ -5,7 +5,7 @@ import { NavLink, createRoutesFromChildren } from 'react-router-dom';
 import { useState, useEffect } from 'react';
 import Beer from '../Beer/Beer';
 
-function Card({ onShowProduct, onLink, product, extraVariable, CartItems}) {
+function Card({ onShowProduct, onLink, product, extraVariable, CartItems, getCart}) {
 
   // Деструктурирование свойств после проверки
   const { id, price, name, description, image } = product;
@@ -18,13 +18,13 @@ function Card({ onShowProduct, onLink, product, extraVariable, CartItems}) {
 
   useEffect(()=>{
     if (extraVariable) {
-      //console.log("ll")
+      console.log("ll")
       setAddProduct(true)
-      //console.log(CartItems)
+      console.log(CartItems)
       const productIds = CartItems.map(item => item.product_id);
       const quantities = CartItems.map(item => item.quantity);
       if (productIds.includes(id)) {
-        setAddProduct(!addProduct)
+        setAddProduct(true)
         setCountForDiv(quantities[productIds.indexOf(id)])
         setDivQuantity(quantities[productIds.indexOf(id)] + 1)
         setCount(quantities[productIds.indexOf(id)]-1)
@@ -53,16 +53,17 @@ function Card({ onShowProduct, onLink, product, extraVariable, CartItems}) {
         throw new Error('Ошибка при удалении данных');
       }
 
-      //console.log('Данные успешно удалены');
+      console.log('Данные успешно удалены');
     } catch (error) {
       console.error('Ошибка:', error);
     }
     localStorage.removeItem(id)
+    getCart()
   };
 
   const toggleAddButtons = (e) => {
     e.stopPropagation();
-    setAddProduct(!addProduct);
+    setAddProduct(true);
     setDivQuantity(divQuantity + 1)
     let data = {}
 
@@ -80,7 +81,7 @@ function Card({ onShowProduct, onLink, product, extraVariable, CartItems}) {
       };
     }
 
-    //console.log(JSON.stringify(data))
+    console.log(JSON.stringify(data))
 
     if (localStorage.getItem("token") === null) {
 
@@ -99,7 +100,8 @@ function Card({ onShowProduct, onLink, product, extraVariable, CartItems}) {
       })
       .then(responseData => {
           // Обработка успешного ответа
-          //console.log(responseData);
+          console.log(responseData);
+          getCart()
           localStorage.setItem(id, responseData.id)
           if (localStorage.getItem("cart_id") === null) {
             localStorage.setItem("cart_id", responseData.cart_id)
@@ -127,7 +129,8 @@ function Card({ onShowProduct, onLink, product, extraVariable, CartItems}) {
           })
           .then(responseData => {
               // Обработка успешного ответа
-              //console.log(responseData);
+              console.log(responseData);
+              getCart()
               localStorage.setItem(id, responseData.id)
           })
           .catch(error => {
@@ -150,7 +153,7 @@ function Card({ onShowProduct, onLink, product, extraVariable, CartItems}) {
       'cart_id': localStorage.getItem("cart_id")
     };
 
-    //console.log(JSON.stringify(data))
+    console.log(JSON.stringify(data))
 
     if (localStorage.getItem("token") === null) {
 
@@ -169,7 +172,8 @@ function Card({ onShowProduct, onLink, product, extraVariable, CartItems}) {
       })
       .then(responseData => {
           // Обработка успешного ответа
-          //console.log(responseData);
+          console.log(responseData);
+          getCart()
           localStorage.setItem(id, responseData.id)
       })
       .catch(error => {
@@ -194,7 +198,8 @@ function Card({ onShowProduct, onLink, product, extraVariable, CartItems}) {
           })
           .then(responseData => {
               // Обработка успешного ответа
-              //console.log(responseData);
+              console.log(responseData);
+              getCart()
           })
           .catch(error => {
               console.error('Ошибка:', error);
@@ -206,6 +211,12 @@ function Card({ onShowProduct, onLink, product, extraVariable, CartItems}) {
 
     e.stopPropagation();
 
+    if (countForDiv === 1) {
+      deleteData()
+      setAddProduct(false)
+      return
+    }
+
     quantity -= 1
     setDivQuantity(divQuantity - 1)
     setCount(count - 1)
@@ -216,7 +227,7 @@ function Card({ onShowProduct, onLink, product, extraVariable, CartItems}) {
       "quantity": count,
     };
 
-    //console.log(JSON.stringify(data))
+    console.log(JSON.stringify(data))
 
     if (localStorage.getItem("token") === null) {
 
@@ -235,7 +246,8 @@ function Card({ onShowProduct, onLink, product, extraVariable, CartItems}) {
       })
       .then(responseData => {
           // Обработка успешного ответа
-          //console.log(responseData);
+          console.log(responseData);
+          getCart()
           localStorage.setItem(id, responseData.id)
       })
       .catch(error => {
@@ -260,7 +272,8 @@ function Card({ onShowProduct, onLink, product, extraVariable, CartItems}) {
           })
           .then(responseData => {
               // Обработка успешного ответа
-              //console.log(responseData);
+              console.log(responseData);
+              getCart()
               localStorage.setItem(id, responseData.id)
           })
           .catch(error => {
