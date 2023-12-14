@@ -22,7 +22,7 @@ function Profile( {currentItem, onShowMenuBlock, showMenuBlock, trimedStreet, tr
         })
         .then((response) => response.json())
         .then((data) => {
-            console.log(data);
+            //console.log(data);
             setData(data);
 
             // Разделяем строку по пробелам
@@ -45,7 +45,7 @@ function Profile( {currentItem, onShowMenuBlock, showMenuBlock, trimedStreet, tr
 
         })
         .catch((error) => {
-            console.log(error);
+            //console.log(error);
         });
     }, []);
 
