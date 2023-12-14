@@ -443,6 +443,9 @@ def get_cart(db: Session, cart_id: int) -> Union[response_schemas.Cart, None]:
     try:
         return response_schemas.Cart(
             cart_id=cart_id,
+            items_count=db.query(db_models.CartItems).filter(
+                db_models.CartItems.cart_id == cart_id,
+            ).count(),
             items=[
                 response_schemas.CartItem.model_validate(cart_item)
                 for cart_item in db.query(
@@ -598,7 +601,7 @@ def create_order(db: Session, order: request_schemas.CreateOrder, current_user_i
     try:
         total_price = float(db.query(db_models.Cart).filter(
             db_models.Cart.id == cart_id,
-        ).first().total_price)
+        ).first().total_price) + 300
 
         db_order = db_models.Orders(
             user_id=current_user_id,
@@ -638,5 +641,42 @@ def create_order(db: Session, order: request_schemas.CreateOrder, current_user_i
 
         log.info(f"Created order: {db_order}")
         return db_order
+    except NoResultFound:
+        return None
+
+def get_order(db: Session, order_id: int) -> Union[response_schemas.FullOrder, None]:
+    # return full order including order items and user info
+    try:
+        user = db.query(db_models.Users).filter(
+                db_models.Users.id == db.query(db_models.Orders).filter(
+                    db_models.Orders.id == order_id,
+                ).one().user_id,
+            ).one()
+        order = db.query(db_models.Orders).filter(
+                db_models.Orders.id == order_id,
+            ).one()
+        return response_schemas.FullOrder(
+            id=order.id,
+            user_name=user.username,
+            user_phone=user.phone,
+            user_email=user.email,
+            user_address=user.address,
+            total_price=order.total_price,
+            comment=order.comment,
+            user_cash=order.user_cash,
+            items=[
+                response_schemas.OrderItem.model_validate(order_item)
+                for order_item in db.query(
+                    db_models.Products.name.label("product_name"),
+                    db_models.OrderItems.quantity.label("quantity"),
+                    db_models.Products.price.label("price"),
+                ).join(
+                    db_models.Products,
+                    db_models.Products.id == db_models.OrderItems.product_id,
+                ).filter(
+                    db_models.OrderItems.order_id == order_id,
+                ).all()
+            ],
+        )
     except NoResultFound:
         return None

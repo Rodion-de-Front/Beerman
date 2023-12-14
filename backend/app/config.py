@@ -36,6 +36,8 @@ class Settings(BaseSettings):
     DATABASE_URI: Optional[PostgresDsn] = None
     MESSAGE_STREAM_DELAY: int = 1  # second
     MESSAGE_STREAM_RETRY_TIMEOUT: int = 15000  # milisecond
+    TELEGRAM_BOT_TOKEN: str
+    TELEGRAM_BOT_CHAT_ID: str = ""
 
     REDIS_URI: str = "redis://redis:6379"
     CACHE_EXPIRE: int = 30
