@@ -90,6 +90,7 @@ class Cart(BaseModel):
     model_config = ConfigDict(from_attributes=True)
 
     cart_id: int
+    items_count: int
     items: List[CartItem]
     items_price: int
     delivery_price: int

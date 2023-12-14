@@ -443,6 +443,9 @@ def get_cart(db: Session, cart_id: int) -> Union[response_schemas.Cart, None]:
     try:
         return response_schemas.Cart(
             cart_id=cart_id,
+            items_count=db.query(db_models.CartItems).filter(
+                db_models.CartItems.cart_id == cart_id,
+            ).count(),
             items=[
                 response_schemas.CartItem.model_validate(cart_item)
                 for cart_item in db.query(
