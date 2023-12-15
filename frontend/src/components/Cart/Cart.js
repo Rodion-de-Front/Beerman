@@ -308,14 +308,7 @@ function Cart({ currentItem, onShowMenuBlock, showMenuBlock, beforeSecondSpace, 
                             url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
                             attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
                             />
-                            {invalidAdress ? (
-                                <div className="message-container">
-                                <p className="message-text">Cюда нельзя заказать</p>
-                                <div className="message-triangle"></div>
-                              </div>
-                            ):(
-                                <img className="metka" src={Metka} alt="" style={{ maxWidth: '100%' }} />
-                            )}
+                            <img className="metka" src={Metka} alt="" style={{ maxWidth: '100%' }} />
                             <div className="nahuy-hohlov">Наведите метку на свой дом</div>
                             <HandlerComponent />
                         </MapContainer>
@@ -348,14 +341,7 @@ function Cart({ currentItem, onShowMenuBlock, showMenuBlock, beforeSecondSpace, 
                       url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
                       attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
                     />
-                    {invalidAdress ? (
-                      <div className="message-container">
-                        <p className="message-text">Cюда нельзя заказать</p>
-                        <div className="message-triangle"></div>
-                      </div>
-                    ) : (
-                      <img className="metka" src={Metka} alt="" style={{ maxWidth: '100%' }} />
-                    )}
+                    <img className="metka" src={Metka} alt="" style={{ maxWidth: '100%' }} />
                     <div className="nahuy-hohlov">Наведите метку на свой дом</div>
                     <HandlerComponent />
                   </MapContainer>

@@ -89,7 +89,7 @@ function AdressForm( { currentItem, onShowMenuBlock, showMenuBlock, invalidAdres
                             </MapContainer>
                         </div>
                     </div>
-                    <NavLink id="final_sign_up" exact="true" to="/profile"></NavLink>
+                    <NavLink id="final_sign_up" exact="true" to="/"></NavLink>
                     <div className="adress-btn" onClick={final_sign_up}>Завершить</div>
                 </div>
             </div>
@@ -113,7 +113,7 @@ function AdressForm( { currentItem, onShowMenuBlock, showMenuBlock, invalidAdres
                             <input className="input" id="house" type="text" placeholder="Дом" defaultValue={address.house}/>
                         </div>
                         )}
-                        <NavLink id="final_sign_up" exact="true" to="/profile"></NavLink>
+                        <NavLink id="final_sign_up" exact="true" to="/"></NavLink>
                         <div className="adress-btn" onClick={final_sign_up}>Завершить</div>
                     </div>
                     <div className="map">
@@ -128,14 +128,7 @@ function AdressForm( { currentItem, onShowMenuBlock, showMenuBlock, invalidAdres
                                 url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
                                 attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
                                 />
-                                {invalidAdress ? (
-                                    <div className="message-container">
-                                    <p className="message-text">Cюда нельзя заказать</p>
-                                    <div className="message-triangle"></div>
-                                  </div>
-                                ):(
-                                    <img className="metka" src={Metka} alt="" style={{ maxWidth: '100%' }} />
-                                )}
+                                <img className="metka" src={Metka} alt="" style={{ maxWidth: '100%' }} />
                                 <div className="nahuy-hohlov">Наведите метку на свой дом</div>
                                 <HandlerComponent />
                             </MapContainer>
