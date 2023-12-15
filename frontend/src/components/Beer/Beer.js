@@ -660,7 +660,8 @@ function Beer( {items, handleClickLink, currentItem, showSortBlock, onShowSorts,
             }
         {window.innerWidth < 800 &&
             <NavLink exact="true" to="/cart">
-                <div className="beer-cart-btn">Корзина<div className="circle">{Cart.items_count}</div></div>
+                <div className="beer-cart-btn">Корзина
+                <div className="circle">{Cart.items_count ? Cart.items_count : 0}</div></div>
             </NavLink>
         }
         </div>
