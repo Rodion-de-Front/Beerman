@@ -41,13 +41,13 @@ async def create_user(
             detail="Email already registered",
         )
 
-    is_valid_email = verify_email(user.email)
+    # # is_valid_email = verify_email(user.email)
 
-    if not is_valid_email:
-        raise HTTPException(
-            status_code=status.HTTP_400_BAD_REQUEST,
-            detail="Email is not valid",
-        )
+    # if not is_valid_email:
+    #     raise HTTPException(
+    #         status_code=status.HTTP_400_BAD_REQUEST,
+    #         detail="Email is not valid",
+    #     )
 
     return crud.create_user(db=db, user=user, cart_id=cart_id)
 
