@@ -18,7 +18,6 @@ function Card({ onShowProduct, onLink, product, extraVariable, CartItems, getCar
 
   useEffect(()=>{
     if (extraVariable) {
-      console.log("ll")
       setAddProduct(true)
       console.log(CartItems)
       const productIds = CartItems.map(item => item.product_id);
@@ -57,6 +56,9 @@ function Card({ onShowProduct, onLink, product, extraVariable, CartItems, getCar
     } catch (error) {
       console.error('Ошибка:', error);
     }
+    setCountForDiv(1)
+    setDivQuantity(1)
+    setCount(0)
     localStorage.removeItem(id)
     getCart()
   };
@@ -85,6 +87,8 @@ function Card({ onShowProduct, onLink, product, extraVariable, CartItems, getCar
 
     if (localStorage.getItem("token") === null) {
 
+      console.log("here")
+
       fetch('https://biermann-api.onixx.ru/api/cart/add', {
         method: 'POST',
         headers: {
@@ -101,11 +105,11 @@ function Card({ onShowProduct, onLink, product, extraVariable, CartItems, getCar
       .then(responseData => {
           // Обработка успешного ответа
           console.log(responseData);
-          getCart()
-          localStorage.setItem(id, responseData.id)
           if (localStorage.getItem("cart_id") === null) {
             localStorage.setItem("cart_id", responseData.cart_id)
           }
+          localStorage.setItem(id, responseData.id)
+          getCart()
       })
       .catch(error => {
           console.error('Ошибка:', error);
