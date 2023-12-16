@@ -53,7 +53,7 @@ class Settings(BaseSettings):
         )
 
     ALGORITHM: str = "HS256"
-    ACCESS_TOKEN_EXPIRE_MINUTES: int = 60 #10080
+    ACCESS_TOKEN_EXPIRE_MINUTES: int = 10080 #10080
 
     class Config:
         case_sensitive = True
