@@ -30,7 +30,7 @@ function Navbar({ currentItem, onShowMenuBlock, showMenuBlock, profileName}) {
         <div>
         {window.innerWidth < 800 ? (
                 <div className="navbar">
-                    <div className="navbar-title"><img alt="" src={Mob_Logo}/></div>
+                    <div className="navbar-title"><img alt="" src={Logo}/></div>
                     {!showMenuBlock ? (
                         <button className="menu-btn" onClick={onShowMenuBlock}><img alt="" src={Icon} /></button>
                     ) : (
