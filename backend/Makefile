@@ -8,7 +8,7 @@ run-db:
 migration:
 	alembic revision \
 	  --autogenerate \
-	  --rev-id $(shell python migrations/_get_next_revision_id.py) \
+	  --rev-id $(shell python alembic/_get_next_revision_id.py) \
 	  --message $(message)
 
 .PHONY: migrate
