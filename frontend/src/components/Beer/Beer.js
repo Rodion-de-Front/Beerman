@@ -506,7 +506,7 @@ function Beer( {items, handleClickLink, currentItem, showSortBlock, onShowSorts,
     }
 
     return (
-        <div>
+        <div style={{ marginBottom: "50px" }}>
             <Navbar onShowMenuBlock = {onShowMenuBlock} showMenuBlock = {showMenuBlock} currentItem={currentItem} profileName={profileName} />
             <Carusel images={images} />
             <div className="beer-block">
@@ -549,7 +549,7 @@ function Beer( {items, handleClickLink, currentItem, showSortBlock, onShowSorts,
                                 <button className="togled-fillter-btn" onClick={onShowSorts}>Сорт<img alt="" src={expand_more_2}/></button>
                         )}
                         {showSortBlock &&
-                                <FilterSortBlock onFilterCountry={onFilterCountry} selectedCountries={selectedCountries} selectedSorts={selectedSorts} onFilter={onFilter}/>
+                            <FilterSortBlock onFilterCountry={onFilterCountry} selectedCountries={selectedCountries} selectedSorts={selectedSorts} onFilter={onFilter}/>
                         }
                         {!showCountryBlock ? (
                                 <button className="fillter-btn" onClick={onShowCountry}>Страна<img alt="" src={expand_more}/></button>

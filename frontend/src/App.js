@@ -195,7 +195,6 @@ function App() {
                 address: fullAdress
             };
 
-            // console.log(data)
             let url = ""
             if (localStorage.getItem("cart_id" !== null)) {
                 url = `https://biermann-api.onixx.ru/api/user/create?cart_id=${localStorage.getItem("cart_id")}`
@@ -206,7 +205,7 @@ function App() {
             fetch(url, {
                 method: 'POST',
                 headers: {
-                'Content-Type': 'application/json',
+                    'Content-Type': 'application/json'
                 },
                 body: JSON.stringify(data),
             })
@@ -217,8 +216,6 @@ function App() {
                     return response.json();
                 })
                 .then(responseData => {
-                    // Обработка успешного ответа
-                    // console.log(responseData);
                     setMenuItem('Профиль');
                     setInvalidAdress(false)
                     document.getElementById("final_sign_up").click()

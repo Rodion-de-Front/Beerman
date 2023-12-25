@@ -66,6 +66,7 @@
 }
 
 .card-btn {
+    border: none;
     position: absolute;
     bottom: 0px;
     display: flex;
@@ -88,6 +89,7 @@
 }
 
 .card-btn-veiw {
+    border: none;
     position: absolute;
     bottom: 0px;
     right: 20px;
@@ -124,6 +126,7 @@
 }
 
 .cart-btn {
+    border: none;
     display: flex;
     width: 30px;
     height: 30px;
@@ -132,8 +135,10 @@
     align-items: center;
     gap: 4px;
     border-radius: 5px;
-    background: #E0E0E0;
-    background: color(display-p3 0.8792 0.8792 0.8792);
+    background: #99826B;
+    background: color(display-p3 0.5843 0.5137 0.4314);
+    color: #FFF;
+    color: color(display-p3 1 1 1);
     cursor: pointer;
 }
 
@@ -169,9 +174,9 @@
 .question {
     position: absolute;
     top: 8px;
-    right: 5px;
-    width: 15px;
-    height: 15px;
+    right: 3px;
+    width: 19px;
+    height: 19px;
 }
 
 @media (max-width: 800px) {
@@ -226,6 +231,7 @@
     }
 
     .card-btn {
+        border: none;
         width: 134px;
         height: 24px;
         display: flex;
@@ -255,8 +261,10 @@
         align-items: center;
         gap: 4px;
         border-radius: 5px;
-        background: #E0E0E0;
-        background: color(display-p3 0.8792 0.8792 0.8792);
+        background: #99826B;
+        background: color(display-p3 0.5843 0.5137 0.4314);
+        color: #FFF;
+        color: color(display-p3 1 1 1);
     }
 
     .added-quantity {
@@ -284,7 +292,7 @@
 
     .add-btns {
         gap: 20px;
-        width: 80%;
+        width: 88%;
         justify-content: center;
         bottom: 5px;
     }

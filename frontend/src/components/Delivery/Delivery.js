@@ -29,9 +29,7 @@ function Delivery( {currentItem, onShowMenuBlock, showMenuBlock, profileName} ) 
                                     </div>
                                 </div>
                                 <div className="delivery-places-map">
-                                    <div>
-                                        <iframe title={"map"} src="https://yandex.ru/map-widget/v1/?ll=37.322745%2C55.616488&mode=search&ol=geo&ouri=ymapsbm1%3A%2F%2Fgeo%3Fdata%3DCgg1MzIwNTIyORJ50KDQvtGB0YHQuNGPLCDQnNC-0YHQutCy0LAsINC_0L7RgdC10LvQtdC90LjQtSDQnNC-0YHQutC-0LLRgdC60LjQuSwg0LrQvtGC0YLQtdC00LbQvdGL0Lkg0L_QvtGB0ZHQu9C-0Log0JHRgNC40YHRgtC-0LvRjCIKDa5LFUIVyndeQg%2C%2C&z=15.88"></iframe>
-                                    </div>
+                                    <iframe title={"map"} src="https://yandex.ru/map-widget/v1/?ll=37.322745%2C55.616488&mode=search&ol=geo&ouri=ymapsbm1%3A%2F%2Fgeo%3Fdata%3DCgg1MzIwNTIyORJ50KDQvtGB0YHQuNGPLCDQnNC-0YHQutCy0LAsINC_0L7RgdC10LvQtdC90LjQtSDQnNC-0YHQutC-0LLRgdC60LjQuSwg0LrQvtGC0YLQtdC00LbQvdGL0Lkg0L_QvtGB0ZHQu9C-0Log0JHRgNC40YHRgtC-0LvRjCIKDa5LFUIVyndeQg%2C%2C&z=15.88"></iframe>
                                 </div>
                             </div>
                             <div className="delivery">
