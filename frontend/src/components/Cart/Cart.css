@@ -313,11 +313,11 @@ body.no-scroll {
     }
 
     .cart-title {
-        width: 76%;
+        width: 86%;
         display: flex;
         justify-content: flex-start;
         font-size: 20px;
-        padding: 0 0 24px 20px;
+        padding: 0px 20px 24px 20px;
         /* padding: 0 20px 24px 20px; */
     }
 
@@ -333,7 +333,6 @@ body.no-scroll {
     }
 
     textarea {
-        width: 320px;
         height: 60px;
         border-radius: 5px;
         border: 1px solid #E0E0E0;
@@ -366,6 +365,7 @@ body.no-scroll {
     }
 
     .order-btn {
+        border: none;
         margin-top: 50px;
         display: flex;
         width: 320px;
