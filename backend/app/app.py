@@ -37,10 +37,15 @@ def create_app() -> FastAPI:
     _app = FastAPI()
 
     # region middleware
-
+    origins = [
+    "https://biermann.onixx.ru",
+    "http://localhost",
+    "http://localhost:8080",
+    "https://biermann-api.onixx.ru"
+    ]
     _app.add_middleware(
         CORSMiddleware,
-        allow_origins=["*"],
+        allow_origins=origins,
         allow_credentials=True,
         allow_methods=["*"],
         allow_headers=["*"],
