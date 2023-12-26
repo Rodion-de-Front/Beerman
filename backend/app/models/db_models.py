@@ -23,7 +23,7 @@ class Users(Base):
     id = Column(Integer, primary_key=True)
     username = Column(String(50), nullable=False)
     email = Column(String(50), nullable=False)
-    phone = Column(String(12), nullable=False)
+    phone = Column(String(20), nullable=False)
     address = Column(String(500), nullable=False)
     cart_id = Column(Integer, ForeignKey("cart.id"), nullable=True)
     hashed_password = Column(String(100), nullable=False)

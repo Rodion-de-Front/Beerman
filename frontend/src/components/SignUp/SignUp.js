@@ -1,6 +1,5 @@
 import './SignUp.css';
 import  { NavLink } from "react-router-dom";
-import close from './img/Vector.png';
 import FullForm from '../FullForm/FullForm';
 import Navbar from '../Navbar/Navbar';
 
@@ -18,7 +17,6 @@ function SignUp({ currentItem, onShowMenuBlock, showMenuBlock, sign_up_step1, mi
                     <FullForm misMatch = {misMatch}/>
                     <NavLink exact="true" to="/address" id="addressPage"></NavLink>
                     <div className="reg-btn" onClick = {sign_up_step1}>Продолжить</div>
-                    <div className="close"><NavLink exact="true" to="/"><img alt ="" src={close} /></NavLink></div>
                 </div>
             </div>
         ):(
@@ -28,7 +26,6 @@ function SignUp({ currentItem, onShowMenuBlock, showMenuBlock, sign_up_step1, mi
                 <FullForm misMatch = {misMatch}/>
                 <NavLink exact="true" to="/address" id="addressPage"></NavLink>
                 <div className="reg-btn" onClick = {sign_up_step1}>Продолжить</div>
-                <div className="close"><NavLink exact="true" to="/"><img alt ="" src={close} /></NavLink></div>
             </div>
         </div>
         )}

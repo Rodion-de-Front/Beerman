@@ -56,7 +56,7 @@ function AdressForm( { currentItem, onShowMenuBlock, showMenuBlock, invalidAdres
                                 <input className="input" id="street" type="text" placeholder="Улица" defaultValue={address.street}/>
                                 <input className="input" id="house" type="text" placeholder="Дом" defaultValue={address.house}/>
                             </div>
-                            <div className="already-registrated">Пользватель с такой почтой уже зарегистрирован</div>
+                            <div className="already-registrated">Пользователь с такой почтой уже зарегистрирован</div>
                         </div>
                         ):(
                         <div className="row">
@@ -69,7 +69,7 @@ function AdressForm( { currentItem, onShowMenuBlock, showMenuBlock, invalidAdres
                             <MapContainer
                                 center={mapCenter}
                                 zoom={17}
-                                style={{ height: '500px', width: '320px' }}
+                                style={{ height: '500px', width: '335px' }}
                                 onMoveend={handleMoveEnd}
                             >
                                 <TileLayer
@@ -105,7 +105,7 @@ function AdressForm( { currentItem, onShowMenuBlock, showMenuBlock, invalidAdres
                                 <input className="input" id="street" type="text" placeholder="Улица" defaultValue={address.street}/>
                                 <input className="input" id="house" type="text" placeholder="Дом" defaultValue={address.house}/>
                             </div>
-                            <div className="already-registrated">Пользватель с такой почтой уже зарегистрирован</div>
+                            <div className="already-registrated">Пользователь с такой почтой уже зарегистрирован</div>
                         </div>
                         ):(
                         <div className="row">

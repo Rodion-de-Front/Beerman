@@ -5,6 +5,7 @@
 }
 
 .save-btn {
+    border: none;
     width: 135px;
     height: 64px;
     display: flex;
@@ -151,7 +152,7 @@
     }
 
     #profile-street {
-        width: 232px;
+        width: auto;
         height: 60px;
     }
 
