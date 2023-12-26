@@ -242,6 +242,7 @@ function Beer( {items, handleClickLink, currentItem, showSortBlock, onShowSorts,
             console.log(url)
             let suburl = '&country_ids=' + sortId;
             if (url.replace(new RegExp(suburl, 'g'), '') === "https://biermann-api.onixx.ru/api/items/all?" && showRecoloredButton === 1) {
+                setUrl("https://biermann-api.onixx.ru/api/items/all?")
                 const fetchData = async () => {
                     try {
                       // Первый запрос
@@ -386,6 +387,7 @@ function Beer( {items, handleClickLink, currentItem, showSortBlock, onShowSorts,
             console.log(url)
             let suburl = '&brewing_type_ids=' + sortId;
             if (url.replace(new RegExp(suburl, 'g'), '') === "https://biermann-api.onixx.ru/api/items/all?" && showRecoloredButton === 1) {
+                setUrl("https://biermann-api.onixx.ru/api/items/all?")
                 const fetchData = async () => {
                     try {
                       // Первый запрос
@@ -435,7 +437,7 @@ function Beer( {items, handleClickLink, currentItem, showSortBlock, onShowSorts,
                     console.log(suburl);
                     console.log(urlWithCategoryBottle.replace(suburl, ""))
                     setUrlWithCategoryBottle(urlWithCategoryBottle.replace(new RegExp(suburl, 'g'), ''))
-                    fetch(urlWithCategoryBottle.replace(suburl, ""), {
+                    fetch(urlWithCategoryBottle.replace(new RegExp(suburl, 'g'), ''), {
                         method: "GET",
                         })
                         .then((response) => response.json())
@@ -452,7 +454,7 @@ function Beer( {items, handleClickLink, currentItem, showSortBlock, onShowSorts,
                 let suburl = '&brewing_type_ids=' + sortId;
                 console.log(suburl);
                 setUrlWithCategoryDraft(urlWithCategoryDraft.replace(new RegExp(suburl, 'g'), ''))
-                fetch(urlWithCategoryDraft.replace(suburl, ""), {
+                fetch(urlWithCategoryBottle.replace(new RegExp(suburl, 'g'), ''), {
                     method: "GET",
                     })
                     .then((response) => response.json())
@@ -596,7 +598,7 @@ function Beer( {items, handleClickLink, currentItem, showSortBlock, onShowSorts,
                                             <div key={index} className="filter-snacks-block">
                                                 {Array.from({ length: SnacksFilters.length }).map((_, fieldIndex) => (
                                                 <div key={fieldIndex} className="filter-type">
-                                                    <input id={`checkbox${index}-${fieldIndex}`} type="checkbox" />
+                                                    <input id={`checkbox${index}-${fieldIndex}`} type="checkbox" onClick={() => onClickSnackButton(SnacksFilters[fieldIndex].id)} />
                                                     <div className="filter-name">{SnacksFilters[fieldIndex].name}</div>
                                                 </div>
                                                 ))}
