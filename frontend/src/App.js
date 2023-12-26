@@ -7,8 +7,6 @@ import SignUp from "./components/SignUp/SignUp";
 import Profile from "./components/Profile/Profile";
 import Cart from "./components/Cart/Cart";
 import AdressForm from "./components/AdressForm/AdressForm";
-import  { HashRouter, Routes, Route } from "react-router-dom";
-import { useState, useEffect } from 'react';
 import image from './img/Frame4.png';
 
 function App() {
