@@ -241,32 +241,6 @@ function Beer( {items, handleClickLink, currentItem, showSortBlock, onShowSorts,
 
             console.log(url)
             let suburl = '&country_ids=' + sortId;
-            if (url.replace(new RegExp(suburl, 'g'), '') === "https://biermann-api.onixx.ru/api/items/all?" && showRecoloredButton === 1) {
-                const fetchData = async () => {
-                    try {
-                      // Первый запрос
-                      const response1 = await fetch('https://biermann-api.onixx.ru/api/items/all?category_ids=15');
-                      const data1 = await response1.json();
-
-                      // Второй запрос
-                      const response2 = await fetch('https://biermann-api.onixx.ru/api/items/all?category_ids=16');
-                      const data2 = await response2.json();
-
-                      // Третий запрос
-                      const response3 = await fetch('https://biermann-api.onixx.ru/api/items/all?category_ids=17');
-                      const data3 = await response3.json();
-
-                      // Объединение результатов
-                      const combinedData = [...data1.items, ...data2.items, ...data3.items];
-
-                      // Установка объединенных данных в состояние
-                      setBeer(combinedData);
-                    } catch (error) {
-                        console.error('Ошибка при запросе данных:', error);
-                    }
-                }
-                fetchData();
-            }
             if (url.replace(new RegExp(suburl, 'g'), '') !== "https://biermann-api.onixx.ru/api/items/all?") {
                 let suburl = '&country_ids=' + sortId;
                 console.log(suburl);
@@ -316,6 +290,32 @@ function Beer( {items, handleClickLink, currentItem, showSortBlock, onShowSorts,
                     .catch((error) => {
                         console.log(error);
                 });
+            }
+            if (url.replace(new RegExp(suburl, 'g'), '') === "https://biermann-api.onixx.ru/api/items/all?" && showRecoloredButton === 1) {
+                const fetchData = async () => {
+                    try {
+                      // Первый запрос
+                      const response1 = await fetch('https://biermann-api.onixx.ru/api/items/all?category_ids=15');
+                      const data1 = await response1.json();
+
+                      // Второй запрос
+                      const response2 = await fetch('https://biermann-api.onixx.ru/api/items/all?category_ids=16');
+                      const data2 = await response2.json();
+
+                      // Третий запрос
+                      const response3 = await fetch('https://biermann-api.onixx.ru/api/items/all?category_ids=17');
+                      const data3 = await response3.json();
+
+                      // Объединение результатов
+                      const combinedData = [...data1.items, ...data2.items, ...data3.items];
+
+                      // Установка объединенных данных в состояние
+                      setBeer(combinedData);
+                    } catch (error) {
+                        console.error('Ошибка при запросе данных:', error);
+                    }
+                }
+                fetchData();
             }
         }
 
@@ -385,32 +385,6 @@ function Beer( {items, handleClickLink, currentItem, showSortBlock, onShowSorts,
 
             console.log(url)
             let suburl = '&brewing_type_ids=' + sortId;
-            if (url.replace(new RegExp(suburl, 'g'), '') === "https://biermann-api.onixx.ru/api/items/all?" && showRecoloredButton === 1) {
-                const fetchData = async () => {
-                    try {
-                      // Первый запрос
-                      const response1 = await fetch('https://biermann-api.onixx.ru/api/items/all?category_ids=15');
-                      const data1 = await response1.json();
-
-                      // Второй запрос
-                      const response2 = await fetch('https://biermann-api.onixx.ru/api/items/all?category_ids=16');
-                      const data2 = await response2.json();
-
-                      // Третий запрос
-                      const response3 = await fetch('https://biermann-api.onixx.ru/api/items/all?category_ids=17');
-                      const data3 = await response3.json();
-
-                      // Объединение результатов
-                      const combinedData = [...data1.items, ...data2.items, ...data3.items];
-
-                      // Установка объединенных данных в состояние
-                      setBeer(combinedData);
-                    } catch (error) {
-                        console.error('Ошибка при запросе данных:', error);
-                    }
-                }
-                fetchData();
-            }
             if (url.replace(new RegExp(suburl, 'g'), '') !== "https://biermann-api.onixx.ru/api/items/all?") {
                 let suburl = '&brewing_type_ids=' + sortId;
                 console.log(suburl);
@@ -463,6 +437,33 @@ function Beer( {items, handleClickLink, currentItem, showSortBlock, onShowSorts,
                     .catch((error) => {
                         console.log(error);
                 });
+            }
+
+            if (url.replace(new RegExp(suburl, 'g'), '') === "https://biermann-api.onixx.ru/api/items/all?" && showRecoloredButton === 1) {
+                const fetchData = async () => {
+                    try {
+                      // Первый запрос
+                      const response1 = await fetch('https://biermann-api.onixx.ru/api/items/all?category_ids=15');
+                      const data1 = await response1.json();
+
+                      // Второй запрос
+                      const response2 = await fetch('https://biermann-api.onixx.ru/api/items/all?category_ids=16');
+                      const data2 = await response2.json();
+
+                      // Третий запрос
+                      const response3 = await fetch('https://biermann-api.onixx.ru/api/items/all?category_ids=17');
+                      const data3 = await response3.json();
+
+                      // Объединение результатов
+                      const combinedData = [...data1.items, ...data2.items, ...data3.items];
+
+                      // Установка объединенных данных в состояние
+                      setBeer(combinedData);
+                    } catch (error) {
+                        console.error('Ошибка при запросе данных:', error);
+                    }
+                }
+                fetchData();
             }
         }
 
