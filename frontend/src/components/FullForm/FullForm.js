@@ -1,8 +1,17 @@
+import { useEffect } from 'react';
+import IMask from 'imask';
 import './FullForm.css';
 
 function FullForm( { misMatch, data } ) {
 
-    console.log(data)
+    useEffect(()=>{
+        const element = document.getElementById('number');
+        const maskOptions = {
+            mask: '+{7}(000)000-00-00'
+        };
+
+        IMask(element, maskOptions);
+    }, []);
 
     return (
         <div>
@@ -60,7 +69,7 @@ function FullForm( { misMatch, data } ) {
                 <div className="mis-match">Пароли не совпадают</div>
             }
             <div className="input-name">Номер телефона</div>
-            <input className="input" id="number" type="text" placeholder="+7 (111) 222-33-44"/>
+            <input className="input" id="number" type="text"/>
         </div>
         )}
         </div>
