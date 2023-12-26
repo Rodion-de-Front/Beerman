@@ -7,6 +7,7 @@ import Cart from "./components/Cart/Cart";
 import AdressForm from "./components/AdressForm/AdressForm";
 import  { HashRouter, Routes, Route } from "react-router-dom";
 import { useState, useEffect } from 'react';
+import image from './img/Frame4.png';
 
 function App() {
 
@@ -62,9 +63,7 @@ function App() {
 
 
     const images = [
-        'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSyg4ujypj5_WBONKq-M64Y8hfFEqh2YCenBQ&usqp=CAU',
-        'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSyg4ujypj5_WBONKq-M64Y8hfFEqh2YCenBQ&usqp=CAU',
-        'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSyg4ujypj5_WBONKq-M64Y8hfFEqh2YCenBQ&usqp=CAU',
+        image,
         // Добавьте ссылки на свои изображения
     ];
 
@@ -159,6 +158,8 @@ function App() {
             document.getElementById("addressPage").click()
             setMisMatch(false);
             console.log(username, email, password, repeated_password, phone)
+            // localStorage.setItem("login", email)
+            // localStorage.setItem("pas", password)
 
         }
     }
