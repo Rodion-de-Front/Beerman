@@ -41,7 +41,8 @@ def create_app() -> FastAPI:
     "https://biermann.onixx.ru",
     "http://localhost",
     "http://localhost:8080",
-    "https://biermann-api.onixx.ru"
+    "https://biermann-api.onixx.ru",
+    "http://localhost:3000"
     ]
     _app.add_middleware(
         CORSMiddleware,
