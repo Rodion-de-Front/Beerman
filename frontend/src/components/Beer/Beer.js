@@ -11,7 +11,7 @@ import expand_more from './img/expand_more.png';
 import expand_more_2 from './img/expand_more_2.png';
 import filter_icon from './img/Group_11.png';
 import filter_active_icon from './img/active_fiter.png';
-import Cart from '../Cart/Cart';
+
 function Beer( {items, handleClickLink, currentItem, showSortBlock, onShowSorts, onShowCountry, showCountryBlock,  onShowProduct, onLink, onShowMenuBlock, showMenuBlock, images, profileName, showProductBlock}  ) {
 
     const[activeBeerFilter, setActiveBeerFilter] = useState(false)
@@ -598,7 +598,12 @@ function Beer( {items, handleClickLink, currentItem, showSortBlock, onShowSorts,
                                             <div key={index} className="filter-snacks-block">
                                                 {Array.from({ length: SnacksFilters.length }).map((_, fieldIndex) => (
                                                 <div key={fieldIndex} className="filter-type">
-                                                    <input id={`checkbox${index}-${fieldIndex}`} type="checkbox" onClick={() => onClickSnackButton(SnacksFilters[fieldIndex].id)} />
+                                                    <input
+                                                        id={`checkbox${index}-${fieldIndex}`}
+                                                        type="checkbox"
+                                                        onClick={() => onClickSnackButton(SnacksFilters[fieldIndex].id)}
+                                                        checked={selectedSnackButton === SnacksFilters[fieldIndex].id}
+                                                    />
                                                     <div className="filter-name">{SnacksFilters[fieldIndex].name}</div>
                                                 </div>
                                                 ))}
