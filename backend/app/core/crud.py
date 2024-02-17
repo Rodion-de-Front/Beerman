@@ -233,7 +233,10 @@ def get_all_items(db: Session, category_ids: List[int] = [], type_ids: List[int]
             ).filter(
                 db_models.ProductBrewTypes.brew_type_id.in_(brewing_type_ids),
             )
-
+        # show only available items
+        query = query.filter(
+            db_models.Products.available is True,
+        )
         products = query.order_by(db_models.Products.name).all()
 
         return response_schemas.AllItems(
